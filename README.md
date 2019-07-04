@@ -1,0 +1,2 @@
+# flowi
+Budgeting made easy.
