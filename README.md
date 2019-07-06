@@ -14,7 +14,7 @@
 
 ---
 
-<p align="center"> Flowi is a budgeting app that handles the flow of budgeting. With flowi, the user only has to answer relevant questions the app provides to keep your budget up to date.
+<p align="center"> Flowi is a budgeting app that handles the flow of budgeting. With flowi, the user only has to answer relevant questions the app provides to keep your budget up to date. Flowi uses open banking sandbox APIs starting with Nordea's, which means no live data can be used yet.
     <br> 
 </p>
 
@@ -27,6 +27,8 @@
 - [Timesheet](documentation/timesheet.md)
 
 ## 🧐 About <a name = "about"></a>
+<b>DISCLAIMER! -- A readme driven development is used, so most of the stuff described in this readme are not yet implemented</b>
+
 Budgeting apps are great in concept but more often than not they are a hassle to keep up to date. For something to work easily for everyone, it needs to be simple and require minimal effort. This is where flowi comes in. The goal with flowi is that the app handles the flow of budgeting, which in practice means guiding the user to the right questions. For example, when a transaction is made with a linked bank account, flowi might ask what budgeting category this belongs to and give you an option to create a new one if one does not already exist.
 
 In addition, a decision was made not to give the user full control. Flowi doesn't allow for users to budget money they don't have. For example, if a transaction is made and the target budget category doesn't have enough budgeted then the user must move money from another category. This design decision should help people to live within their means.
@@ -40,7 +42,7 @@ The app is containerized so the only things needed to get it up and running are:
 * [Docker Compose](https://docs.docker.com/compose/install/)  
 
 ### Installing
-Getting a docker app running is very straight forward. Start by cloning the repository to your local machine. <i>(Alternatively you can download the zip from github)<i/>
+Getting a docker app running is very straight forward. Start by cloning the repository to your local machine. <i>(Alternatively you can download the zip from github)</i>
 
 ```
 git clone https://github.com/Darake/flowi
@@ -63,34 +65,59 @@ The first time running it might take some time, since it has to download everyth
 To start the unit tests, run the following command:
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.unit.yml up
+docker-compose -f docker-compose.unit.yml up
 ```
 ### End to end tests
 An acceptance test driven development is used in this project, which entails that end to end tests represent the acceptance criteria for a user story. [Cypress](https://www.cypress.io/) is being used as the library for e2e testing. End to end tests can be run like this.
 ```
-docker-compose -f docker-compose.yml -f docker-compose.e2e.yml up
+docker-compose -f docker-compose.e2e.yml up
 ```
 
 ### Coding style tests
 Coding style errors are checked with airbnb's eslint configuration. You can check for lint errors by running this command:
 
 ```
-docker-compose -f docker-compose.yml -f docker-compose.lint.yml up
+docker-compose -f docker-compose.lint.yml up
 ```
 
 ## 🎈 Usage <a name="usage"></a>
 ### Developement  
-To install new dependencies for a client enter the following:
+
+#### Dependencies
+
+To install new dependencies check the id of the running container you want to install it to.
 ```
-docker-compose run --rm client npm install <dependency>
+docker ps
 ```
-Where <dependency> is what you need to install. Replace client with server for installing new dependencies to server. 
+After that execute an interactive bash shell on the cotainer.
+
+```
+docker exec -it <first few character of the id here> bash
+```
+
+You only need the first few character of the containers id for docker to handle the rest. Then just install what you need normally in the docker's bash.
+
+```
+npm install <dependency> --save
+```
+
+#### Nordea API
+
+For Nordea's API usage, a well written documentation can be found [here](https://developer.nordeaopenbanking.com/app/docs). Specific documenatation for creating & deleting accounts and creating transactions can be found [here](https://developer.nordeaopenbanking.com/app/documentation?api=Dynamic%20AIS%20API&version=4.0#dynamic_ais_specific_documentation).
+
+### Product
+
+The live version can be tested [here](http://flowi.herokuapp.com/). To use the app's features, an account must be made. After logging in the first time, a prompt appears to link a Nordea bank account to the application. An authorization process is required next. When the linking process is done, the app asks to budget each euro in the bank account by choosing an amount and creating a budget for it.
+
+After the initial setup, flowi checks for new transactions that have happened between now and last login. If any are found, each transaction must be handled. For inflow, each new euro must be budgeted. For outflow, each transaction must have a category assigned to it. If a category doesn't have enough money left then some has to be moved from another category. If a suitable category doesn't exist then one can be created and funds added to it.
+
+This is the basics of it. There are some additional smaller features: Organizing categories to groups, to keep the view more organized; Having a view of the account's current balance.
+
 ## 🚀 Deployment <a name = "deployment"></a>
-Add additional notes about how to deploy this on a live system.
+Deployment is handled automatically when a new feature is pulled into the master branch in github. When a change happens, Heroku recognises it and builds a new docker container for production and deploys it. A production Dockerfile and heroku.yml are used for configuring the deployment.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 - [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
 - [NodeJs](https://nodejs.org/en/) - Server Environment
-
+- [Express](https://expressjs.com/) - Server Framework
+- [React](https://reactjs.org/) - UI Library
