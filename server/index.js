@@ -1,17 +1,9 @@
-const express = require('express')
+const app = require('./app')
+const http = require('http')
+const config = require('./utils/config')
 
-const app = express()
+const server = http.createServer(app)
 
-app.use(express.static('build'))
-
-app.get('/api', (req, res) => {
-    res.send('<h1>Hello World!</h1>')
+server.listen(config.PORT, () => {
+    console.log(`Server running on port ${config.PORT}`)
 })
-
-app.get('*', function(req, res) {
-    res.sendFile('/build/index.html');
-});
-
-const port = process.env.PORT || 3001
-app.listen(port)
-console.log(`Server running on port ${port}`)
