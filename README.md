@@ -14,7 +14,7 @@
 
 ---
 
-<p align="center"> Flowi is a budgeting app that handles the flow of budgeting. With flowi, the user only has to answer relevant questions the app provides to keep your budget up to date. Flowi uses open banking sandbox APIs starting with Nordea's, which means no live data can be used yet.
+<p align="center"> Flowi is a budgeting app that handles the flow of budgeting. With flowi, the user only has to answer relevant questions the app provides to keep your budget up to date. Flowi uses open banking sandbox APIs starting with Nordea's, which means no live data can be used yet unless added manually.
     <br> 
 </p>
 
@@ -107,9 +107,9 @@ For Nordea's API usage, a well written documentation can be found [here](https:/
 
 ### Product
 
-The live version can be tested [here](http://flowi.herokuapp.com/). To use the app's features, an account must be made. After logging in the first time, a prompt appears to link a Nordea bank account to the application. An authorization process is required next. When the linking process is done, the app asks to budget each euro in the bank account by choosing an amount and creating a budget for it.
+The live version can be tested [here](http://flowi.herokuapp.com/). To use the app's features, an account must be made. After logging in the first time, a prompt appears to link a Nordea bank account or to add a manually managed account. An authorization process is required next if a bank account is chosen. When the linking process is done, the app asks to budget each euro in the account by choosing an amount and creating a budget for it.
 
-After the initial setup, flowi checks for new transactions that have happened between now and last login. If any are found, each transaction must be handled. For inflow, each new euro must be budgeted. For outflow, each transaction must have a category assigned to it. If a category doesn't have enough money left then some has to be moved from another category. If a suitable category doesn't exist then one can be created and funds added to it.
+After the initial setup, flowi checks for new transactions that have happened between now and last login. If any are found, each transaction must be handled. For inflow, each new euro must be budgeted. For outflow, each transaction must have a category assigned to it. If a category doesn't have enough money left then some has to be moved from another category. If a suitable category doesn't exist then one can be created and funds added to it. In case of manual accounts, each transaction has to be added manually. Other aspects work the same way.
 
 This is the basics of it. There are some additional smaller features: Organizing categories to groups, to keep the view more organized; Having a view of the account's current balance.
 
