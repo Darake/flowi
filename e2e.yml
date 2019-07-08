@@ -1,0 +1,57 @@
+version: "3.5"
+
+services:
+  test-server:
+    build: ./server
+    image: flowi-server
+    expose:
+      - "3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=test
+      - MONGODB_URI=mongodb://test-db:27017/flowi-test
+    command: node index.js
+    volumes:
+      - ./server/:/home/node/app
+    depends_on:
+      - test-db
+    networks:
+      - flowi_test
+
+  test-client:
+    build: ./client
+    image: flowi-client
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=test
+      - DANGEROUSLY_DISABLE_HOST_CHECK=true
+    command: npm start
+    volumes:
+      - ./client/:/home/node/app
+    depends_on:
+      - test-server
+    networks:
+      - flowi_test
+
+  test-db:
+    image: mongo:4.0.10-xenial
+    networks:
+      - flowi_test
+
+  cypress:
+    image: "cypress/included:3.2.0"
+    volumes:
+      - ./e2e:/e2e
+    environment:
+      - CYPRESS_baseUrl=http://test-client:3000
+      - NO_COLOR=1
+    working_dir: /e2e
+    depends_on:
+      - test-client
+    networks:
+      - flowi_test
+
+networks:
+  flowi_test:
+    name: flowi_test

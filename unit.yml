@@ -1,0 +1,31 @@
+version: "3.5"
+
+services:
+  unit-server:
+    build: ./server
+    image: flowi-server
+    environment:
+      - PORT=3001
+      - NODE_ENV=test
+      - MONGODB_URI=mongodb://test-db:27017/flowi-test
+    command: npm run test
+    volumes:
+      - ./server/:/home/node/app
+    networks:
+      - flowi_test
+
+  unit-client:
+    build: ./client
+    image: flowi-client
+    environment:
+      - NODE_ENV=test
+      - CI=TRUE
+    command: npm test
+    volumes:
+      - ./client/:/home/node/app
+    networks:
+      - flowi_test
+
+networks:
+  flowi_test:
+    name: flowi_test

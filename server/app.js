@@ -12,7 +12,9 @@ mongoose
     logger.info('connected to MongoDB');
   })
   .catch(error => {
-    logger.error('error connection to MongoDb:', error.message);
+    if (process.env.NODE_ENV !== 'test') {
+      logger.error('error connection to MongoDb:', error.message);
+    }
   });
 
 app.use(express.static('build'));

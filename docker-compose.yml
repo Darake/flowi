@@ -2,7 +2,8 @@ version: "3.5"
 
 services:
   server:
-    build: ./server/
+    build: ./server
+    image: flowi-server
     expose:
       - "3001"
     command: node_modules/.bin/nodemon index.js
@@ -18,7 +19,8 @@ services:
       - db
 
   client:
-    build: ./client/
+    build: ./client
+    image: flowi-client
     expose:
       - "3000"
     command: npm start

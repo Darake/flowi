@@ -1,0 +1,30 @@
+version: "3.5"
+
+services:
+  lint-server:
+    build: ./server
+    image: flowi-server
+    environment:
+      - PORT=3001
+      - NODE_ENV=test
+      - MONGODB_URI=mongodb://test-db:27017/flowi-test
+    command: npm run lint
+    volumes:
+      - ./server/:/home/node/app
+    networks:
+      - flowi_test
+
+  lint-client:
+    build: ./client
+    image: flowi-client
+    environment:
+      - NODE_ENV=test
+    command: npm run lint
+    volumes:
+      - ./client/:/home/node/app
+    networks:
+      - flowi_test
+
+networks:
+  flowi_test:
+    name: flowi_test
