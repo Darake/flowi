@@ -9,4 +9,6 @@
 | 2019-07-07 | 1     | Setting up database and linking it to server         |
 | 2019-07-08 | 4     | Setting up dockerized e2e testing                    |
 | 2019-07-08 | 1     | Setting up dockerized server and client unit testing |
+| 2019-07-08 | 1     | Setting up prettier, eslint, airbnb config combo     |
+| TOTAL      | 15    |                                                      |
 

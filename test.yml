@@ -1,7 +1,6 @@
-version: '3.5'
+version: "3.5"
 
 services:
-
   test-server:
     command: node index.js
     build: ./server/
@@ -80,6 +79,32 @@ services:
       - CI=true
     depends_on:
       - test-server
+    networks:
+      - flowi_test
+
+  lint-server:
+    command: npm run lint
+    build: ./server/
+    expose:
+      - "3001"
+    volumes:
+      - ./server/:/home/node/app
+    environment:
+      - PORT=3001
+      - NODE_ENV=test
+      - MONGODB_URI=mongodb://test-db:27017/flowi-test
+    networks:
+      - flowi_test
+
+  lint-client:
+    build: ./client/
+    expose:
+      - "3000"
+    command: npm run lint
+    volumes:
+      - ./client/:/home/node/app
+    environment:
+      - NODE_ENV=test
     networks:
       - flowi_test
 
