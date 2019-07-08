@@ -18,7 +18,7 @@ app.get('/api', (req, res) => {
   res.send('<h1>Hello World!</h1>')
 })
 
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.sendFile('/build/index.html');
 });
 
