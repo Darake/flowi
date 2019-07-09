@@ -20,4 +20,4 @@ RUN npm install
 
 COPY server/ .
 
-COPY --from=build-stage /home/node/app/build/ /home/node/app/build
+COPY --from=build-stage /home/node/app/build/ ./build
