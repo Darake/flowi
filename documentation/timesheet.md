@@ -12,5 +12,6 @@
 | 2019-07-08 | 1     | Setting up prettier, eslint, airbnb config combo     |
 | 2019-07-09 | 1     | Refactoring docker-compose tests                     |
 | 2019-07-09 | 1     | Debugging eslint                                     |
-| TOTAL      | 17    |                                                      |
+| 2019-07-09 | 3     | Setting up production deployment                     |
+| TOTAL      | 20    |                                                      |
 
