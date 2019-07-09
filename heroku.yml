@@ -1,10 +1,10 @@
 setup:
   addons:
     - plan: mongolab:sandbox
-  build:
-    docker:
-      web: Dockerfile
-    config:
-      NODE_ENV: production
-  run:
-    web: node index.js
+build:
+  docker:
+    web: Dockerfile
+  config:
+    NODE_ENV: production
+run:
+  web: node index.js
