@@ -40,7 +40,8 @@ services:
       - flowi_test
 
   cypress:
-    image: "cypress/included:3.2.0"
+    image: "cypress/base:10"
+    command: bash -c "npm install -D cypress && node_modules/.bin/cypress run"
     volumes:
       - ./e2e:/e2e
     environment:

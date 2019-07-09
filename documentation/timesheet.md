@@ -10,5 +10,7 @@
 | 2019-07-08 | 4     | Setting up dockerized e2e testing                    |
 | 2019-07-08 | 1     | Setting up dockerized server and client unit testing |
 | 2019-07-08 | 1     | Setting up prettier, eslint, airbnb config combo     |
-| TOTAL      | 15    |                                                      |
+| 2019-07-09 | 1     | Refactoring docker-compose tests                     |
+| 2019-07-09 | 1     | Debugging eslint                                     |
+| TOTAL      | 17    |                                                      |
 
