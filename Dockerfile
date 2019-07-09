@@ -8,9 +8,11 @@ RUN npm install
 
 COPY client/ .
 
-RUN npm build
+RUN npm run build
 
 FROM node:10.16.0-alpine
+
+COPY --from=build-stage /home/node/app/build /home/node/app/build
 
 WORKDIR /home/node/app
 
@@ -19,5 +21,3 @@ COPY server/package*.json ./
 RUN npm install
 
 COPY server/ .
-
-COPY --from=build-stage /home/node/app/build/ ./build
