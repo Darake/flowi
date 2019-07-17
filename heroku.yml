@@ -1,7 +1,6 @@
 setup:
   addons:
     - plan: mongolab
-      as: DATABAS
 build:
   docker:
     web: Dockerfile

@@ -13,5 +13,6 @@
 | 2019-07-09 | 1     | Refactoring docker-compose tests                     |
 | 2019-07-09 | 1     | Debugging eslint                                     |
 | 2019-07-09 | 3     | Setting up production deployment                     |
-| TOTAL      | 20    |                                                      |
+| 2019-07-17 | 3     | Starting register and login functionality            |
+| TOTAL      | 23    |                                                      |
 
