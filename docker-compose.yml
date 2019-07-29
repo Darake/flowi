@@ -13,6 +13,7 @@ services:
       - NODE_ENV=development
       - PORT=3001
       - MONGODB_URI=mongodb://db:27017/flowi
+      - SECRET="0riwOMsuoSj9F6iIk9ycN0cl3pg5WnoUW1EwxzpBuzEfNUkTRMNPQ6j4FUjE2wq"
     ports:
       - 3001:3001
     depends_on:
@@ -37,3 +38,5 @@ services:
     image: mongo:4.0.10-xenial
     volumes:
       - ./data:/data/db
+    logging:
+      driver: "none"

@@ -6,23 +6,23 @@ const { usersInDb } = require('./test_helper');
 
 const api = supertest(app);
 
+let usersAtStart;
+
 beforeEach(async () => {
   await User.deleteMany({});
   const user = new User({
-    username: 'admin',
-    password: 'admin',
-    email: 'admin@example.com'
+    email: 'admin@example.com',
+    password: 'admin'
   });
   await user.save();
+  usersAtStart = await usersInDb();
 });
 
 describe('account', () => {
-  test('can be created with fresh username', async () => {
-    const usersAtStart = usersInDb();
+  test('can be created with fresh email', async () => {
     const newUser = {
-      username: 'user',
-      password: 'password',
-      email: 'user@example.com'
+      email: 'user@example.com',
+      password: 'password'
     };
 
     await api
@@ -31,12 +31,30 @@ describe('account', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    const usersAtEnd = usersInDb();
+    const usersAtEnd = await usersInDb();
 
     expect(usersAtEnd.length).toBe(usersAtStart.length + 1);
 
-    const usernames = usersAtEnd.map(u => u.username);
-    expect(usernames).toContain(newUser.username);
+    const emails = usersAtEnd.map(u => u.email);
+    expect(emails).toContain(newUser.email);
+  });
+
+  test('cant be created with taken email', async () => {
+    const newUser = {
+      email: 'admin@example.com',
+      password: 'password'
+    };
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/);
+
+    expect(result.body.error).toContain('`email` to be unique');
+
+    const usersAtEnd = await usersInDb();
+    expect(usersAtEnd.length).toBe(usersAtStart.length);
   });
 });
 

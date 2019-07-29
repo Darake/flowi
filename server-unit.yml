@@ -8,21 +8,19 @@ services:
       - PORT=3001
       - NODE_ENV=test
       - MONGODB_URI=mongodb://test-db:27017/flowi-test
+      - SECRET="0riwOMsuoSj9F6iIk9ycN0cl3pg5WnoUW1EwxzpBuzEfNUkTRMNPQ6j4FUjE2wq"
     command: npm run test
     volumes:
       - ./server/:/home/node/app
+    depends_on:
+      - test-db
     networks:
       - flowi_test
 
-  unit-client:
-    build: ./client
-    image: flowi-client
-    environment:
-      - NODE_ENV=test
-      - CI=TRUE
-    command: npm test
-    volumes:
-      - ./client/:/home/node/app
+  test-db:
+    image: mongo:4.0.10-xenial
+    logging:
+      driver: "none"
     networks:
       - flowi_test
 

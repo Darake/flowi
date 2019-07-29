@@ -12,9 +12,13 @@ dev:  ## Run a development environment on port 3000
 	@docker-compose build
 	@docker-compose up
 
-unit: ## Run unit tests
-	@docker-compose -f unit.yml build
-	@docker-compose -f unit.yml -p test up
+server-unit: ## Run server unit tests
+	@docker-compose -f server-unit.yml build
+	@docker-compose -f server-unit.yml -p test up --abort-on-container-exit
+
+client-unit: ## Run server unit tests
+	@docker-compose -f client-unit.yml build
+	@docker-compose -f client-unit.yml -p test up
 
 end: ## Run end to end tests
 	@docker-compose -f e2e.yml build

@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  test-server:
+  server:
     build: ./server
     image: flowi-server
     expose:
@@ -15,6 +15,7 @@ services:
       - ./server/:/home/node/app
     depends_on:
       - test-db
+    restart: on-failure
     networks:
       - flowi_test
 
@@ -30,12 +31,14 @@ services:
     volumes:
       - ./client/:/home/node/app
     depends_on:
-      - test-server
+      - server
     networks:
       - flowi_test
 
   test-db:
     image: mongo:4.0.10-xenial
+    logging:
+      driver: "none"
     networks:
       - flowi_test
 
