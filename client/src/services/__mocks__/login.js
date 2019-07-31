@@ -10,7 +10,7 @@ const login = credentials => {
   if (user && user.password === credentials.password) {
     return 'token';
   }
-  return null;
+  throw new Error('Request failed with status code 401');
 };
 
 export default { login };

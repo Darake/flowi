@@ -20,5 +20,6 @@
 | 2019-07-30 | 1     | Starting authentication unit tests on frontend           |
 | 2019-07-30 | 1     | Adding more authentication validation on backend         |
 | 2019-07-30 | 4     | Working on authentication on frontend                    |
-| TOTAL      | 36    |                                                          |
+| 2019-07-31 | 1     | Working on login on frontend                             |
+| TOTAL      | 37    |                                                          |
 

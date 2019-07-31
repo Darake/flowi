@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint no-console: 0 */
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/react/cleanup-after-each';
 
