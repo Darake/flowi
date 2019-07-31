@@ -41,17 +41,85 @@ describe('account', () => {
 
   test('cant be created with taken email', async () => {
     const newUser = {
-      email: 'admin@example.com',
+      email: 'Admin@example.com',
       password: 'password'
     };
 
-    const result = await api
+    await api
       .post('/api/users')
       .send(newUser)
       .expect(400)
-      .expect('Content-Type', /application\/json/);
+      .expect('Content-Type', /application\/json/)
+      .expect(res => {
+        expect(res.body.error).toContain('`email` to be unique');
+      });
 
-    expect(result.body.error).toContain('`email` to be unique');
+    const usersAtEnd = await usersInDb();
+    expect(usersAtEnd.length).toBe(usersAtStart.length);
+  });
+
+  test('cant be created with invalid email format', async () => {
+    const newUser = {
+      email: 'notanemail',
+      password: 'password'
+    };
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+      .expect(res => {
+        expect(res.body.error).toContain('Please fill a valid email address');
+      });
+
+    const usersAtEnd = await usersInDb();
+    expect(usersAtEnd.length).toBe(usersAtStart.length);
+  });
+
+  test('cant be created without an email', async () => {
+    const newUser = { password: 'password ' };
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+      .expect(res => {
+        expect(res.body.error).toContain('Email required');
+      });
+
+    const usersAtEnd = await usersInDb();
+    expect(usersAtEnd.length).toBe(usersAtStart.length);
+  });
+
+  test('cant be created without a password', async () => {
+    const newUser = { email: 'user@example.com' };
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+      .expect(res => {
+        expect(res.body.error).toContain('Invalid password');
+      });
+
+    const usersAtEnd = await usersInDb();
+    expect(usersAtEnd.length).toBe(usersAtStart.length);
+  });
+
+  test('cant be created with a password shorther than 6', async () => {
+    const newUser = { email: 'user@example.com', password: 'five1' };
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+      .expect(res => {
+        expect(res.body.error).toContain('Invalid password');
+      });
 
     const usersAtEnd = await usersInDb();
     expect(usersAtEnd.length).toBe(usersAtStart.length);
