@@ -16,6 +16,9 @@
 | 2019-07-17 | 3     | Starting register and login functionality                |
 | 2019-07-27 | 2     | Research styling and animation options                   |
 | 2019-07-29 | 1     | Fixing e2e testing docker-compose file and eslint config |
-| 2019-07-29 | 3     | Working on authentication on backend                     |
-| TOTAL      | 29    |                                                          |
+| 2019-07-29 | 4     | Working on authentication on backend                     |
+| 2019-07-30 | 1     | Starting authentication unit tests on frontend           |
+| 2019-07-30 | 1     | Adding more authentication validation on backend         |
+| 2019-07-30 | 4     | Working on authentication on frontend                    |
+| TOTAL      | 36    |                                                          |
 
