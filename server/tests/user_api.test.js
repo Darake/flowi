@@ -12,7 +12,8 @@ beforeEach(async () => {
   await User.deleteMany({});
   const user = new User({
     email: 'admin@example.com',
-    password: 'admin'
+    password: 'admin',
+    currency: 'EUR'
   });
   await user.save();
   usersAtStart = await usersInDb();
@@ -22,7 +23,8 @@ describe('account', () => {
   test('can be created with fresh email', async () => {
     const newUser = {
       email: 'user@example.com',
-      password: 'password'
+      password: 'password',
+      currency: 'EUR'
     };
 
     await api
@@ -42,7 +44,8 @@ describe('account', () => {
   test('cant be created with taken email', async () => {
     const newUser = {
       email: 'Admin@example.com',
-      password: 'password'
+      password: 'password',
+      currency: 'EUR'
     };
 
     await api
@@ -61,7 +64,8 @@ describe('account', () => {
   test('cant be created with invalid email format', async () => {
     const newUser = {
       email: 'notanemail',
-      password: 'password'
+      password: 'password',
+      currency: 'EUR'
     };
 
     await api
@@ -78,7 +82,7 @@ describe('account', () => {
   });
 
   test('cant be created without an email', async () => {
-    const newUser = { password: 'password ' };
+    const newUser = { password: 'password', currency: 'EUR' };
 
     await api
       .post('/api/users')
@@ -94,7 +98,7 @@ describe('account', () => {
   });
 
   test('cant be created without a password', async () => {
-    const newUser = { email: 'user@example.com' };
+    const newUser = { email: 'user@example.com', currency: 'EUR' };
 
     await api
       .post('/api/users')
@@ -110,7 +114,11 @@ describe('account', () => {
   });
 
   test('cant be created with a password shorther than 6', async () => {
-    const newUser = { email: 'user@example.com', password: 'five1' };
+    const newUser = {
+      email: 'user@example.com',
+      password: 'five1',
+      currency: 'EUR'
+    };
 
     await api
       .post('/api/users')
@@ -119,6 +127,25 @@ describe('account', () => {
       .expect('Content-Type', /application\/json/)
       .expect(res => {
         expect(res.body.error).toContain('Invalid password');
+      });
+
+    const usersAtEnd = await usersInDb();
+    expect(usersAtEnd.length).toBe(usersAtStart.length);
+  });
+
+  test('cant be created without currency', async () => {
+    const newUser = {
+      email: 'user@example.com',
+      password: 'password'
+    };
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+      .expect(res => {
+        expect(res.body.error).toContain('Currency required');
       });
 
     const usersAtEnd = await usersInDb();

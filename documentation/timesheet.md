@@ -21,5 +21,7 @@
 | 2019-07-30 | 1     | Adding more authentication validation on backend         |
 | 2019-07-30 | 4     | Working on authentication on frontend                    |
 | 2019-07-31 | 1     | Working on login on frontend                             |
-| TOTAL      | 37    |                                                          |
+| 2019-07-31 | 1     | Changing user model in backend                           |
+| 2019-07-31 | 3     | Working on registering on frontend                       |
+| TOTAL      | 41    |                                                          |
 

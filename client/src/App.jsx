@@ -3,6 +3,7 @@ import Welcome from './components/Welcome';
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [newUser, setNewUser] = useState(false);
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('loggedFlowiUser');
@@ -14,7 +15,10 @@ const App = () => {
     setUser(null);
   };
 
-  if (!user) return <Welcome setUser={setUser} />;
+  if (!user)
+    return (
+      <Welcome setUser={setUser} newUser={newUser} setNewUser={setNewUser} />
+    );
 
   return (
     <button type="button" onClick={handleLogout}>

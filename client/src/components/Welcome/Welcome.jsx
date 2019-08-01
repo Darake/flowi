@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useField } from '../../hooks';
 import loginService from '../../services/login';
 
-const Welcome = ({ setUser }) => {
+const Welcome = ({ setUser, newUser, setNewUser }) => {
   const [email, resetEmail] = useField('email');
   const [password, resetPassword] = useField('password');
   const [loginError, setLoginError] = useState(null);
@@ -30,26 +30,53 @@ const Welcome = ({ setUser }) => {
     <main>
       <h1>flowi</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="loginEmail">
+        <label htmlFor="email">
           Email
-          <input id="loginEmail" {...email} />
+          <input id="email" {...email} required />
         </label>
 
         <span>{loginError}</span>
 
-        <label htmlFor="loginPassword">
+        <label htmlFor="password">
           Password
-          <input id="loginPassword" {...password} />
+          <input id="password" {...password} />
         </label>
 
-        <button type="submit">LOG IN</button>
+        {newUser ? (
+          <div>
+            <label htmlFor="currency">
+              Currency
+              <select id="currency">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+                <option value="GPB">GBP</option>
+              </select>
+            </label>
+
+            <button type="button" onClick={() => setNewUser(false)} key="1">
+              Already an user?
+            </button>
+
+            <button type="submit">CONFIRM</button>
+          </div>
+        ) : (
+          <div>
+            <button type="button" onClick={() => setNewUser(true)}>
+              SIGN UP
+            </button>
+
+            <button type="submit">LOG IN</button>
+          </div>
+        )}
       </form>
     </main>
   );
 };
 
 Welcome.propTypes = {
-  setUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired,
+  newUser: PropTypes.bool.isRequired,
+  setNewUser: PropTypes.func.isRequired
 };
 
 export default Welcome;

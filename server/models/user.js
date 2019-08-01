@@ -12,7 +12,11 @@ const userSchema = mongoose.Schema({
       'Please fill a valid email address'
     ]
   },
-  passwordHash: String
+  passwordHash: String,
+  currency: {
+    type: String,
+    required: [true, 'Currency required']
+  }
 });
 
 userSchema.plugin(uniqueValidator);

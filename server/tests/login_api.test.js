@@ -13,7 +13,7 @@ const password = 'admin';
 beforeEach(async () => {
   await User.deleteMany({});
   const passwordHash = await bcrypt.hash(password, 10);
-  const user = new User({ email, passwordHash });
+  const user = new User({ email, passwordHash, currency: 'EUR' });
   await user.save();
 });
 

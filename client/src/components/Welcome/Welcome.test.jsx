@@ -4,7 +4,12 @@ import Welcome from './Welcome';
 
 test('logging in with wrong credentials returns an error', async () => {
   const setUser = jest.fn();
-  const { getByText, getByLabelText } = render(<Welcome setUser={setUser} />);
+  const setNewUser = jest.fn();
+  const newUser = false;
+
+  const { getByText, getByLabelText } = render(
+    <Welcome setUser={setUser} setNewUser={setNewUser} newUser={newUser} />
+  );
 
   const email = getByLabelText('Email');
   const password = getByLabelText('Password');

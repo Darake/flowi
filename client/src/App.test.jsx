@@ -6,6 +6,7 @@ let component;
 
 describe('when not logged in', () => {
   beforeEach(() => {
+    window.localStorage.clear();
     component = render(<App />);
   });
 
@@ -24,6 +25,37 @@ describe('when not logged in', () => {
     fireEvent.click(getByText('LOG IN'));
 
     await waitForElement(() => getByText('LOG OUT'));
+  });
+
+  test('clicking sign up brings up register form', async () => {
+    const { getByText } = component;
+
+    fireEvent.click(getByText('SIGN UP'));
+
+    await waitForElement(() => getByText('CONFIRM'));
+  });
+
+  describe('after clicking sign up', () => {
+    beforeEach(async () => {
+      const { getByText } = component;
+      fireEvent.click(getByText('SIGN UP'));
+      await waitForElement(() => getByText('CONFIRM'));
+    });
+
+    test('clicking `already an user?` brings log in page back up', async () => {
+      fireEvent.click(component.getByText('Already an user?'));
+      await waitForElement(() => component.getByText('LOG IN'));
+    });
+
+    test('signing up with without email returns an alert', async () => {
+      const password = component.getByLabelText('Password');
+      fireEvent.change(password, { target: { value: 'admin' } });
+      fireEvent.click(component.getByText('CONFIRM'));
+      await waitForElement(() => component.container.querySelector('.email'));
+      const errorMessage = component.container.querySelector('.email');
+      console.log(errorMessage);
+      expect(component.getByText('Please fill out')).toBeDefined();
+    });
   });
 });
 
