@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Global, css } from '@emotion/core';
 import Welcome from './components/Welcome';
 
 const App = () => {
@@ -17,7 +18,17 @@ const App = () => {
 
   if (!user)
     return (
-      <Welcome setUser={setUser} newUser={newUser} setNewUser={setNewUser} />
+      <div>
+        <Global
+          styles={css`
+            * {
+              background-color: #f0f4f8;
+              text-align: center;
+            }
+          `}
+        />
+        <Welcome setUser={setUser} newUser={newUser} setNewUser={setNewUser} />
+      </div>
     );
 
   return (

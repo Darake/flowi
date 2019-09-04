@@ -26,5 +26,7 @@
 | 2019-09-03 | 1     | Learning Formik                                          |
 | 2019-03-03 | 2     | Form validation                                          |
 | 2019-03-03 | 3     | Working on frontend registration                         |
-| TOTAL      | 46    |                                                          |
+| 2019-03-04 | 1     | Creating UI systems for project                          |
+| 2019-03-04 | 3     | Learning css and styling login page                      |
+| TOTAL      | 50    |                                                          |
 
