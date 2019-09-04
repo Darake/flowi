@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useField } from '../../hooks';
-import loginService from '../../services/login';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import authService from '../../services/auth';
 
 const Welcome = ({ setUser, newUser, setNewUser }) => {
-  const [email, resetEmail] = useField('email');
-  const [password, resetPassword] = useField('password');
   const [loginError, setLoginError] = useState(null);
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const authSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email format')
+      .required('Email address required'),
+    password: Yup.string()
+      .required('Password required')
+      .min(6, 'Password has to be atleast 6 long')
+  });
 
+  const login = async (email, password) => {
     try {
-      const user = await loginService.login({
-        email: email.value,
-        password: password.value
-      });
-      resetEmail();
-      resetPassword();
-
+      const user = await authService.login({ email, password });
       window.localStorage.setItem('loggedFlowiUser', JSON.stringify(user));
       setUser(user);
     } catch (exception) {
@@ -26,49 +26,99 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
     }
   };
 
+  const register = async values => {
+    try {
+      const user = {
+        email: values.email,
+        password: values.password,
+        currency: values.currency
+      };
+      await authService.register(user);
+    } catch (exception) {
+      setLoginError('There was an error signing up');
+    }
+  };
+
+  const handleSubmit = async (values, actions) => {
+    if (newUser) {
+      register(values);
+    }
+
+    login(values.email, values.password);
+    actions.setSubmitting(false);
+  };
+
   return (
     <main>
       <h1>flowi</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          Email
-          <input id="email" {...email} required />
-        </label>
 
-        <span>{loginError}</span>
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+          currency: 'EUR'
+        }}
+        validationSchema={authSchema}
+        onSubmit={handleSubmit}
+        render={formProps => {
+          return (
+            <Form>
+              <Field type="text" name="email" placeholder="Email" />
+              <ErrorMessage name="email" />
 
-        <label htmlFor="password">
-          Password
-          <input id="password" {...password} />
-        </label>
+              <Field type="password" name="password" placeholder="Password" />
+              <ErrorMessage name="password" />
 
-        {newUser ? (
-          <div>
-            <label htmlFor="currency">
-              Currency
-              <select id="currency">
-                <option value="EUR">EUR</option>
-                <option value="USD">USD</option>
-                <option value="GPB">GBP</option>
-              </select>
-            </label>
+              {newUser ? (
+                <div>
+                  <label>
+                    Choose currency
+                    <Field
+                      name="currency"
+                      component="select"
+                      placeholder="Your Currency"
+                    >
+                      <option value="EUR">EUR</option>
+                      <option value="USD">USD</option>
+                      <option value="GPB">GBP</option>
+                    </Field>
+                  </label>
+                  <ErrorMessage name="currency" />
 
-            <button type="button" onClick={() => setNewUser(false)} key="1">
-              Already an user?
-            </button>
+                  <button
+                    type="button"
+                    onClick={() => setNewUser(false)}
+                    key="1"
+                    disabled={formProps.isSubmitting}
+                  >
+                    Already an user?
+                  </button>
 
-            <button type="submit">CONFIRM</button>
-          </div>
-        ) : (
-          <div>
-            <button type="button" onClick={() => setNewUser(true)}>
-              SIGN UP
-            </button>
+                  <button type="submit" disabled={formProps.isSubmitting}>
+                    CONFIRM
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setNewUser(true)}
+                    disabled={formProps.isSubmitting}
+                  >
+                    SIGN UP
+                  </button>
 
-            <button type="submit">LOG IN</button>
-          </div>
-        )}
-      </form>
+                  <button type="submit" disabled={formProps.isSubmitting}>
+                    LOG IN
+                  </button>
+                </div>
+              )}
+            </Form>
+          );
+        }}
+      />
+
+      {loginError}
     </main>
   );
 };

@@ -23,5 +23,8 @@
 | 2019-07-31 | 1     | Working on login on frontend                             |
 | 2019-07-31 | 1     | Changing user model in backend                           |
 | 2019-07-31 | 3     | Working on registering on frontend                       |
-| TOTAL      | 41    |                                                          |
+| 2019-09-03 | 1     | Learning Formik                                          |
+| 2019-03-03 | 2     | Form validation                                          |
+| 2019-03-03 | 3     | Working on frontend registration                         |
+| TOTAL      | 46    |                                                          |
 

@@ -3,7 +3,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/react/cleanup-after-each';
 
-jest.mock('./services/login');
+jest.mock('./services/auth');
 
 let savedItems = {};
 

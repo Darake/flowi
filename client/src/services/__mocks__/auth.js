@@ -1,7 +1,7 @@
-const users = [
+let users = [
   {
     email: 'admin@example.com',
-    password: 'admin'
+    password: 'admin1'
   }
 ];
 
@@ -13,4 +13,13 @@ const login = credentials => {
   throw new Error('Request failed with status code 401');
 };
 
-export default { login };
+const register = credentials => {
+  const newUser = {
+    email: credentials.email,
+    password: credentials.password,
+    currency: credentials.currency
+  };
+  users = users.concat(newUser);
+};
+
+export default { login, register };
