@@ -27,6 +27,19 @@ describe('when not logged in', () => {
     await waitForElement(() => getByText('LOG OUT'));
   });
 
+  test('logging in with wrong credentials returns an error', async () => {
+    const email = component.getByPlaceholderText('Email');
+    const password = component.getByPlaceholderText('Password');
+
+    fireEvent.change(email, { target: { value: 'wrong@example.com' } });
+    fireEvent.change(password, { target: { value: 'admin1' } });
+    fireEvent.click(component.getByText('LOG IN'));
+
+    await waitForElement(() =>
+      component.getByText('Incorrect email or password')
+    );
+  });
+
   test('clicking sign up brings up register form', async () => {
     const { getByText } = component;
 

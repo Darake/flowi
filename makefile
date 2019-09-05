@@ -16,7 +16,7 @@ server-unit: ## Run server unit tests
 	@docker-compose -f server-unit.yml build
 	@docker-compose -f server-unit.yml -p test up --abort-on-container-exit
 
-client-unit: ## Run server unit tests
+client-unit: ## Run client unit tests
 	@docker-compose -f client-unit.yml build
 	@docker-compose -f client-unit.yml -p test up
 

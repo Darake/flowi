@@ -29,5 +29,7 @@
 | 2019-03-04 | 1     | Creating UI systems for project                          |
 | 2019-03-04 | 3     | Learning css and styling login page                      |
 | 2019-03-05 | 3     | Learning css and styling login page                      |
-| TOTAL      | 54    |                                                          |
+| 2019-03-05 | 1     | Animating login page                                     |
+| 2019-03-05 | 1     | Refactoring and updating README                          |
+| TOTAL      | 55    |                                                          |
 

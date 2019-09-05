@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { useSpring, animated } from 'react-spring';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -50,7 +51,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
     actions.setSubmitting(false);
   };
 
-  const inputTextCss = css`
+  const inputCss = css`
     padding: 12px;
     box-sizing: border-box;
     margin: 8px 0;
@@ -84,8 +85,14 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
     margin: 4px 0;
   `;
 
+  const fadeAnimation = useSpring({
+    opacity: 1,
+    from: { opacity: 0 },
+    config: { mass: 100 }
+  });
+
   return (
-    <div
+    <animated.div
       css={css`
         width: 100vw;
         height: 80vh;
@@ -93,6 +100,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
         justify-content: center;
         align-items: center;
       `}
+      style={fadeAnimation}
     >
       <div
         css={css`
@@ -109,7 +117,6 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
         >
           flowi
         </h1>
-
         <Formik
           initialValues={{
             email: '',
@@ -134,18 +141,28 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                     type="text"
                     name="email"
                     placeholder="Email"
-                    css={inputTextCss}
+                    css={inputCss}
                   />
-                  <ErrorMessage name="email" css={errorMessageCss} />
+                  <ErrorMessage
+                    name="email"
+                    component="span"
+                    css={errorMessageCss}
+                  />
                 </div>
 
                 <Field
                   type="password"
                   name="password"
                   placeholder="Password"
-                  css={inputTextCss}
+                  css={inputCss}
                 />
-                <ErrorMessage name="password" css={errorMessageCss} />
+                <ErrorMessage
+                  name="password"
+                  component="span"
+                  css={errorMessageCss}
+                />
+
+                <span css={errorMessageCss}>{loginError}</span>
 
                 {newUser ? (
                   <div
@@ -172,7 +189,6 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                         component="select"
                         placeholder="Your Currency"
                         css={css`
-                          padding: 12px;
                           border-radius: 8px;
                           background-color: #d9e2ec;
                           grid-column: 3;
@@ -232,10 +248,8 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
             );
           }}
         />
-
-        <span css={errorMessageCss}>{loginError}</span>
       </div>
-    </div>
+    </animated.div>
   );
 };
 
