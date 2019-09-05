@@ -43,12 +43,46 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
 
   const handleSubmit = async (values, actions) => {
     if (newUser) {
-      register(values);
+      await register(values);
     }
 
     login(values.email, values.password);
     actions.setSubmitting(false);
   };
+
+  const inputTextCss = css`
+    padding: 12px;
+    box-sizing: border-box;
+    margin: 8px 0;
+    background-color: #d9e2ec;
+    border-radius: 8px;
+    border: 2px solid #bcccdc;
+  `;
+
+  const primaryButtonCss = css`
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #38bec9;
+    border: 2px solid #2cb1bc;
+    color: white;
+    margin: 4px 0;
+  `;
+
+  const tertiaryButtonCss = css`
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: left;
+    margin-top: 24px;
+  `;
+
+  const errorMessageCss = css`
+    color: red;
+    margin: 4px 0;
+  `;
 
   return (
     <div
@@ -69,6 +103,8 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
         <h1
           css={css`
             font-family: 'Courgette', cursive;
+            color: #38bec9;
+            text-align: center;
           `}
         >
           flowi
@@ -94,12 +130,22 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                     display: grid;
                   `}
                 >
-                  <Field type="text" name="email" placeholder="Email" />
-                  <ErrorMessage name="email" />
+                  <Field
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    css={inputTextCss}
+                  />
+                  <ErrorMessage name="email" css={errorMessageCss} />
                 </div>
 
-                <Field type="password" name="password" placeholder="Password" />
-                <ErrorMessage name="password" />
+                <Field
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  css={inputTextCss}
+                />
+                <ErrorMessage name="password" css={errorMessageCss} />
 
                 {newUser ? (
                   <div
@@ -107,12 +153,31 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                       display: grid;
                     `}
                   >
-                    <label>
-                      Choose a currency
+                    <label
+                      css={css`
+                        display: grid;
+                        margin: 8px 0;
+                      `}
+                    >
+                      <span
+                        css={css`
+                          grid-column: 1 / 3;
+                          text-align: left;
+                        `}
+                      >
+                        Choose a currency
+                      </span>
                       <Field
                         name="currency"
                         component="select"
                         placeholder="Your Currency"
+                        css={css`
+                          padding: 12px;
+                          border-radius: 8px;
+                          background-color: #d9e2ec;
+                          grid-column: 3;
+                          border: 2px solid #bcccdc;
+                        `}
                       >
                         <option value="EUR">EUR</option>
                         <option value="USD">USD</option>
@@ -121,7 +186,11 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                     </label>
                     <ErrorMessage name="currency" />
 
-                    <button type="submit" disabled={formProps.isSubmitting}>
+                    <button
+                      type="submit"
+                      disabled={formProps.isSubmitting}
+                      css={primaryButtonCss}
+                    >
                       CONFIRM
                     </button>
 
@@ -130,6 +199,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                       onClick={() => setNewUser(false)}
                       key="1"
                       disabled={formProps.isSubmitting}
+                      css={tertiaryButtonCss}
                     >
                       Already an user?
                     </button>
@@ -140,7 +210,11 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                       display: grid;
                     `}
                   >
-                    <button type="submit" disabled={formProps.isSubmitting}>
+                    <button
+                      type="submit"
+                      disabled={formProps.isSubmitting}
+                      css={primaryButtonCss}
+                    >
                       LOG IN
                     </button>
 
@@ -148,6 +222,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
                       type="button"
                       onClick={() => setNewUser(true)}
                       disabled={formProps.isSubmitting}
+                      css={tertiaryButtonCss}
                     >
                       SIGN UP
                     </button>
@@ -158,7 +233,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
           }}
         />
 
-        {loginError}
+        <span css={errorMessageCss}>{loginError}</span>
       </div>
     </div>
   );

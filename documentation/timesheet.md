@@ -28,5 +28,6 @@
 | 2019-03-03 | 3     | Working on frontend registration                         |
 | 2019-03-04 | 1     | Creating UI systems for project                          |
 | 2019-03-04 | 3     | Learning css and styling login page                      |
-| TOTAL      | 50    |                                                          |
+| 2019-03-05 | 3     | Learning css and styling login page                      |
+| TOTAL      | 54    |                                                          |
 

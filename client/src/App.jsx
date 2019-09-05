@@ -23,7 +23,8 @@ const App = () => {
           styles={css`
             * {
               background-color: #f0f4f8;
-              text-align: center;
+              font-family: Roboto;
+              color: #102a43;
             }
           `}
         />
