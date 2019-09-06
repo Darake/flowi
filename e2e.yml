@@ -10,6 +10,7 @@ services:
       - PORT=3001
       - NODE_ENV=test
       - MONGODB_URI=mongodb://test-db:27017/flowi-test
+      - SECRET="0riwOMsuoSj9F6iIk9ycN0cl3pg5WnoUW1EwxzpBuzEfNUkTRMNPQ6j4FUjE2wq"
     command: node index.js
     volumes:
       - ./server/:/home/node/app

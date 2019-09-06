@@ -31,5 +31,6 @@
 | 2019-03-05 | 3     | Learning css and styling login page                      |
 | 2019-03-05 | 1     | Animating login page                                     |
 | 2019-03-05 | 1     | Refactoring and updating README                          |
-| TOTAL      | 55    |                                                          |
+| 2019-03-05 | 1     | Fixing e2e test                                          |
+| TOTAL      | 56    |                                                          |
 

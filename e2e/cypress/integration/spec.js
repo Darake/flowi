@@ -1,25 +1,27 @@
 describe("flowi ", function() {
   beforeEach(() => {
-    cy.request("POST", "/api/testing/reset");
+    cy.request("POST", "/api/reset");
     cy.visit("/");
   });
 
   it("front page can be opened", function() {
-    cy.contains("Hello");
+    cy.contains("flowi");
   });
 
   it("authentication works", function() {
     cy.contains("SIGN UP").click();
-    cy.contains("email").type("tester@example.com");
-    cy.contains("password").type("password");
+    cy.get('[placeholder="Email"]').type("tester@example.com");
+    cy.get('[placeholder="Password"]').type("password");
 
-    cy.contains("Log out").click();
+    cy.wait(400);
+    cy.contains("CONFIRM").click();
 
-    cy.contains("LOG IN").click();
-    cy.contains("email").type("tester@example.com");
-    cy.contains("password").type("password");
-    cy.contains("LOG IN").click();
+    cy.contains("LOG OUT").click();
 
-    cy.contains("Log out");
+    cy.get('[placeholder="Email"]').type("tester@example.com");
+    cy.get('[placeholder="Password"]').type("password");
+    cy.contains("CONFIRM").click();
+
+    cy.contains("LOG OUT");
   });
 });

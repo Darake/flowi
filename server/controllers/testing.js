@@ -1,7 +1,9 @@
-const router = require('express').Router();
+const testingRouter = require('express').Router();
 const User = require('../models/user');
 
-router.post('/reset', async (req, res) => {
+testingRouter.post('/', async (req, res) => {
   await User.deleteMany({});
   res.status(204).end();
 });
+
+module.exports = testingRouter;

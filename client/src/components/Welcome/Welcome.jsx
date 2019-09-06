@@ -88,7 +88,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
   const fadeAnimation = useSpring({
     opacity: 1,
     from: { opacity: 0 },
-    config: { mass: 100 }
+    config: { friction: 200 }
   });
 
   return (
