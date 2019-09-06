@@ -16,7 +16,13 @@ const userSchema = mongoose.Schema({
   currency: {
     type: String,
     required: [true, 'Currency required']
-  }
+  },
+  accounts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Account'
+    }
+  ]
 });
 
 userSchema.plugin(uniqueValidator, { message: '{PATH} must be unique' });

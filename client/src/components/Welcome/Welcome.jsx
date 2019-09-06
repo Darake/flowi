@@ -24,6 +24,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
       const user = await authService.login({ email, password });
       window.localStorage.setItem('loggedFlowiUser', JSON.stringify(user));
       setUser(user);
+      setNewUser(false);
     } catch (exception) {
       setLoginError('Incorrect email or password');
     }

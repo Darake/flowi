@@ -19,7 +19,7 @@ beforeEach(async () => {
   usersAtStart = await usersInDb();
 });
 
-describe('account', () => {
+describe('user account', () => {
   test('can be created with fresh email', async () => {
     const newUser = {
       email: 'user@example.com',
@@ -54,7 +54,7 @@ describe('account', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
       .expect(res => {
-        expect(res.body.error).toContain('`email` to be unique');
+        expect(res.body.error).toContain('email must be unique');
       });
 
     const usersAtEnd = await usersInDb();

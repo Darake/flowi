@@ -43,8 +43,15 @@
 | 2019-03-06 | 1     | Final tweaks for login functionality                     |
 | TOTAL      | 38    |                                                          |
 
+## Account (Monetary) functionality
+
+| **Date**   | Hours | Target                                 |
+| ---------- | ----- | -------------------------------------- |
+| 2019-03-06 | 1     | Account model                          |
+| 2019-03-06 | 1     | Account functionality on backend       |
+| 2019-03-06 | 2     | Creating and troubleshooting e2e tests |
+| TOTAL      | 4     |                                        |
 
 
 
-
-### Total hours: 58h
+### Total hours: 62h
