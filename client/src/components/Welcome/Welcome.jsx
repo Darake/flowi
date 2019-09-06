@@ -37,17 +37,26 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
         currency: values.currency
       };
       await authService.register(user);
+      login(values.email, values.password);
     } catch (exception) {
-      setLoginError('There was an error signing up');
+      setLoginError(
+        'There was an error signing up. The email address might already be taken.'
+      );
     }
   };
 
-  const handleSubmit = async (values, actions) => {
+  const handleSignUp = () => {
+    setNewUser(true);
+    setLoginError(null);
+  };
+
+  const handleSubmit = (values, actions) => {
     if (newUser) {
-      await register(values);
+      register(values);
+    } else {
+      login(values.email, values.password);
     }
 
-    login(values.email, values.password);
     actions.setSubmitting(false);
   };
 
@@ -236,7 +245,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
 
                     <button
                       type="button"
-                      onClick={() => setNewUser(true)}
+                      onClick={handleSignUp}
                       disabled={formProps.isSubmitting}
                       css={tertiaryButtonCss}
                     >

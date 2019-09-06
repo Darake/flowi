@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
   }
 });
 
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator, { message: '{PATH} must be unique' });
 userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
