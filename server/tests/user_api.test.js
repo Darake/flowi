@@ -1,21 +1,14 @@
 const supertest = require('supertest');
 const mongoose = require('mongoose');
 const app = require('../app');
-const User = require('../models/user');
-const { usersInDb } = require('./test_helper');
+const { usersInDb, createUser } = require('./test_helper');
 
 const api = supertest(app);
 
 let usersAtStart;
 
 beforeEach(async () => {
-  await User.deleteMany({});
-  const user = new User({
-    email: 'admin@example.com',
-    password: 'admin',
-    currency: 'EUR'
-  });
-  await user.save();
+  await createUser();
   usersAtStart = await usersInDb();
 });
 
@@ -52,7 +45,6 @@ describe('user account', () => {
       .post('/api/users')
       .send(newUser)
       .expect(400)
-      .expect('Content-Type', /application\/json/)
       .expect(res => {
         expect(res.body.error).toContain('email must be unique');
       });
@@ -72,7 +64,6 @@ describe('user account', () => {
       .post('/api/users')
       .send(newUser)
       .expect(400)
-      .expect('Content-Type', /application\/json/)
       .expect(res => {
         expect(res.body.error).toContain('Please fill a valid email address');
       });
@@ -88,7 +79,6 @@ describe('user account', () => {
       .post('/api/users')
       .send(newUser)
       .expect(400)
-      .expect('Content-Type', /application\/json/)
       .expect(res => {
         expect(res.body.error).toContain('Email required');
       });
@@ -104,7 +94,6 @@ describe('user account', () => {
       .post('/api/users')
       .send(newUser)
       .expect(400)
-      .expect('Content-Type', /application\/json/)
       .expect(res => {
         expect(res.body.error).toContain('Invalid password');
       });
@@ -124,7 +113,6 @@ describe('user account', () => {
       .post('/api/users')
       .send(newUser)
       .expect(400)
-      .expect('Content-Type', /application\/json/)
       .expect(res => {
         expect(res.body.error).toContain('Invalid password');
       });
@@ -143,7 +131,6 @@ describe('user account', () => {
       .post('/api/users')
       .send(newUser)
       .expect(400)
-      .expect('Content-Type', /application\/json/)
       .expect(res => {
         expect(res.body.error).toContain('Currency required');
       });

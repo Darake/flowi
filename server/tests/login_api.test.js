@@ -1,30 +1,26 @@
 const supertest = require('supertest');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const app = require('../app');
 const User = require('../models/user');
+const { userToken } = require('./test_helper');
 
 const api = supertest(app);
 
 const email = 'admin@example.com';
 const password = 'admin';
+let token;
 
 beforeEach(async () => {
   await User.deleteMany({});
   const passwordHash = await bcrypt.hash(password, 10);
   const user = new User({ email, passwordHash, currency: 'EUR' });
   await user.save();
+  token = await userToken(email);
 });
 
 describe('user', () => {
   test('can login with right credentials', async () => {
-    const { _id: id } = await User.findOne({ email }).select('id');
-
-    const userForToken = { email, id };
-
-    const token = jwt.sign(userForToken, process.env.SECRET);
-
     await api
       .post('/api/login')
       .send({ email, password })
@@ -36,8 +32,7 @@ describe('user', () => {
     const response = await api
       .post('/api/login')
       .send({ email, password: 'notadmin' })
-      .expect(401)
-      .expect('Content-Type', /application\/json/);
+      .expect(401);
 
     expect(response.body.error).toContain('invalid email or password');
   });
