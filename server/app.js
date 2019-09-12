@@ -9,6 +9,8 @@ const loginRouter = require('./controllers/login');
 const accountRouter = require('./controllers/accounts');
 const testingRouter = require('./controllers/testing');
 
+mongoose.set('useFindAndModify', false);
+
 const app = express();
 
 logger.info('connecting to', config.MONGODB_URI);
@@ -27,6 +29,7 @@ mongoose
 app.use(express.static('build'));
 app.use(bodyParser.json());
 app.use(middleware.requestLogger);
+app.use(middleware.userIdExtractor);
 
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);

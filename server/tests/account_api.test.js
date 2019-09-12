@@ -22,19 +22,35 @@ beforeEach(async () => {
   user = await createUser();
   token = await userToken(user.email);
 
-  const account = new Account({
+  const accountWithoutUser = new Account({
+    name: 'OP',
+    balance: 71
+  });
+  await accountWithoutUser.save();
+
+  const accountWithUser = new Account({
     name: 'Danske',
     balance: 9001
   });
-  const savedAccount = await account.save();
+  const savedAccount = await accountWithUser.save();
   accountId = savedAccount._id;
-  user.accounts.concat(accountId);
+  user.accounts.push(accountId);
   await user.save();
 
   accountsAtStart = await accountsInDb();
 });
 
 describe('account', () => {
+  test('created by the user are shown to the user as JSON', async () => {
+    const result = await api
+      .get('/api/accounts')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    expect(result.body.length).toBe(user.accounts.length);
+  });
+
   test('can be created', async () => {
     await api
       .post('/api/accounts')
@@ -51,16 +67,6 @@ describe('account', () => {
     expect(accountNames).toContain(validAccount.name);
   });
 
-  test('cant be created without a signed user', async () => {
-    await api
-      .post('/api/accounts')
-      .send(validAccount)
-      .expect(401, '{"error":"invalid token"}');
-
-    const accountsAtEnd = await accountsInDb();
-    expect(accountsAtEnd.length).toBe(accountsAtStart.length);
-  });
-
   test('id gets saved to user', async () => {
     await api
       .post('/api/accounts')
@@ -71,6 +77,16 @@ describe('account', () => {
     const userAtEnd = await User.findOne({ email: 'admin@example.com' });
     const accountIds = userAtEnd.accounts.map(a => a.toString());
     expect(accountIds).toContain(savedAccount._id.toString());
+  });
+
+  test('cant be created without a signed user', async () => {
+    await api
+      .post('/api/accounts')
+      .send(validAccount)
+      .expect(401, '{"error":"invalid token"}');
+
+    const accountsAtEnd = await accountsInDb();
+    expect(accountsAtEnd.length).toBe(accountsAtStart.length);
   });
 
   test('cant be created without a name', async () => {
@@ -93,6 +109,30 @@ describe('account', () => {
 
     const accountsAtEnd = await accountsInDb();
     expect(accountsAtEnd.length).toBe(accountsAtStart.length);
+  });
+
+  test('name can be changed by owner', async () => {
+    await api
+      .put(`/api/accounts/${accountId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'DanskeNew', balance: 9001 })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+
+    const editedAccount = await Account.findById(accountId);
+    expect(editedAccount.name).toBe('DanskeNew');
+    expect(editedAccount.balance).toBe(9001);
+  });
+
+  test('name cant be changed if not owner', async () => {
+    await api
+      .put(`/api/accounts/${accountId}`)
+      .send({ name: 'DanskeNew', balance: 9001 })
+      .expect(401, '{"error":"invalid token"}');
+
+    const account = await Account.findById(accountId);
+    expect(account.name).toBe('Danske');
+    expect(account.balance).toBe(9001);
   });
 
   test('owner can delete the account', async () => {

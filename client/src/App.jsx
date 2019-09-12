@@ -8,7 +8,9 @@ const App = () => {
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('loggedFlowiUser');
-    if (loggedUser) setUser(JSON.parse(loggedUser));
+    if (loggedUser) {
+      setUser(JSON.parse(loggedUser));
+    }
   }, []);
 
   const handleLogout = () => {

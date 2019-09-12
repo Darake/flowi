@@ -8,7 +8,7 @@ describe("flowi ", function() {
     cy.contains("flowi");
   });
 
-  describe("when account created", function() {
+  describe("when signed up", function() {
     beforeEach(function() {
       cy.contains("SIGN UP").click();
       cy.get('[placeholder="Email"]').type("tester2@example.com");
@@ -44,6 +44,13 @@ describe("flowi ", function() {
 
           expect("Danske").to.not.exist();
         });
+
+        it("account name can be changed", function() {
+          cy.contains("Nordea").click();
+          cy.contains("Account name").type("Nordea Gold");
+          cy.contains("Save").click();
+          cy.contains("Nordea Gold");
+        })
       });
     });
   });

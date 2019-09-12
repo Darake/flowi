@@ -51,8 +51,10 @@
 | 2019-03-06 | 1     | Account functionality on backend       |
 | 2019-03-06 | 2     | Creating and troubleshooting e2e tests |
 | 2019-03-07 | 3     | Account functionality on backend       |
-| TOTAL      | 7     |                                        |
+| 2019-03-10 | 1     | Account functionality on backend       |
+| 2019-03-12 | 2     | Account functionality on backend       |
+| TOTAL      | 10    |                                        |
 
 
 
-### Total hours: 65h
+### Total hours: 68h

@@ -1,29 +1,35 @@
 const accountRouter = require('express').Router();
-const jwt = require('jsonwebtoken');
 const Account = require('../models/account');
 const User = require('../models/user');
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization');
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7);
+accountRouter.get('/', async (req, res, next) => {
+  try {
+    const { userId } = req;
+    if (!userId) {
+      res.status(401).json({ error: 'invalid token' });
+    } else {
+      const user = await User.findById(userId).populate('accounts');
+      res.json(user.accounts);
+    }
+  } catch (exception) {
+    next(exception);
   }
-  return null;
-};
+});
 
 accountRouter.post('/', async (req, res, next) => {
-  const token = getTokenFrom(req);
-  const { name, balance } = req.body;
+  const {
+    body: { name, balance },
+    userId
+  } = req;
 
   try {
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-    if (!token || !decodedToken.id) {
-      res.status(401).json({ error: 'token missing or invalid' });
+    if (!userId) {
+      res.status(401).json({ error: 'invalid token' });
     } else {
       const account = new Account({ name, balance });
       const savedAccount = await account.save();
 
-      const user = await User.findById(decodedToken.id);
+      const user = await User.findById(userId);
       user.accounts = user.accounts.concat(savedAccount._id);
       await user.save();
 
@@ -34,15 +40,50 @@ accountRouter.post('/', async (req, res, next) => {
   }
 });
 
-accountRouter.delete('/:id', async (req, res, next) => {
-  const token = getTokenFrom(req);
-
+accountRouter.put('/:id', async (req, res, next) => {
   try {
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-    const user = User.findById(decodedToken.id);
+    const {
+      body: { name, balance },
+      params: { id: accountId },
+      userId
+    } = req;
 
-    await Account.findByIdAndRemove(req.params.id);
-    res.status(204).end();
+    const user = await User.findById(userId);
+
+    if (!req.userId || !user.accounts.includes(accountId)) {
+      res.status(401).json({ error: 'invalid token' });
+    } else {
+      const account = { name, balance };
+      const updatedAccount = await Account.findByIdAndUpdate(
+        accountId,
+        account
+      );
+      res.json(updatedAccount);
+    }
+  } catch (exception) {
+    next(exception);
+  }
+});
+
+accountRouter.delete('/:id', async (req, res, next) => {
+  try {
+    const {
+      params: { id: accountId },
+      userId
+    } = req;
+
+    if (!userId) {
+      res.status(401).json({ error: 'invalid token' });
+    }
+
+    const user = await User.findById(userId);
+
+    if (user.accounts.includes(accountId)) {
+      await Account.findByIdAndRemove(accountId);
+      res.status(204).end();
+    } else {
+      res.status(401).json({ error: 'invalid token' });
+    }
   } catch (exception) {
     next(exception);
   }

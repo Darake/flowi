@@ -3,24 +3,32 @@ const bcrypt = require('bcryptjs');
 const loginRouter = require('express').Router();
 const User = require('../models/user');
 
-loginRouter.post('/', async ({ body: { email, password } }, res) => {
-  const user = await User.findOne({ email });
-  const passwordCorrect =
-    user === null ? false : await bcrypt.compare(password, user.passwordHash);
+loginRouter.post('/', async (req, res, next) => {
+  try {
+    const {
+      body: { email, password }
+    } = req;
 
-  if (user && passwordCorrect) {
-    const userForToken = {
-      email,
-      id: user._id
-    };
+    const user = await User.findOne({ email });
+    const passwordCorrect =
+      user === null ? false : await bcrypt.compare(password, user.passwordHash);
 
-    const token = jwt.sign(userForToken, process.env.SECRET);
+    if (user && passwordCorrect) {
+      const userForToken = {
+        email,
+        id: user._id
+      };
 
-    res.status(200).send({ token, email });
-  } else {
-    res.status(401).json({
-      error: 'invalid email or password'
-    });
+      const token = jwt.sign(userForToken, process.env.SECRET);
+
+      res.status(200).send({ token, email });
+    } else {
+      res.status(401).json({
+        error: 'invalid email or password'
+      });
+    }
+  } catch (exception) {
+    next(exception);
   }
 });
 

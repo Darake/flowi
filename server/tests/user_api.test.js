@@ -12,7 +12,7 @@ beforeEach(async () => {
   usersAtStart = await usersInDb();
 });
 
-describe('user account', () => {
+describe('user', () => {
   test('can be created with fresh email', async () => {
     const newUser = {
       email: 'user@example.com',
