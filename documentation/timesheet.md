@@ -53,8 +53,9 @@
 | 2019-03-07 | 3     | Account functionality on backend       |
 | 2019-03-10 | 1     | Account functionality on backend       |
 | 2019-03-12 | 2     | Account functionality on backend       |
-| TOTAL      | 10    |                                        |
+| 2019-03-16 | 5     | Account functionality on frontend      |
+| TOTAL      | 15    |                                        |
 
 
 
-### Total hours: 68h
+### Total hours: 73h

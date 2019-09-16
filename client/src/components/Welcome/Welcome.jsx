@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import authService from '../../services/auth';
+import accountService from '../../services/accounts';
 
 const Welcome = ({ setUser, newUser, setNewUser }) => {
   const [loginError, setLoginError] = useState(null);
@@ -22,6 +23,7 @@ const Welcome = ({ setUser, newUser, setNewUser }) => {
   const login = async (email, password) => {
     try {
       const user = await authService.login({ email, password });
+      accountService.setToken(user.token);
       window.localStorage.setItem('loggedFlowiUser', JSON.stringify(user));
       setUser(user);
       setNewUser(false);

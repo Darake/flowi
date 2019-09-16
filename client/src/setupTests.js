@@ -4,6 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/react/cleanup-after-each';
 
 jest.mock('./services/auth');
+jest.mock('./services/accounts');
 
 let savedItems = {};
 

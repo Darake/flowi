@@ -133,4 +133,8 @@ describe('when logged in', () => {
     fireEvent.click(getByText('LOG OUT'));
     await waitForElement(() => getByText('LOG IN'));
   });
+
+  test('an account creation page pops up if no accounts created', async () => {
+    await waitForElement(() => component.getByText('Account creation'));
+  });
 });
