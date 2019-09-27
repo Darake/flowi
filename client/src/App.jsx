@@ -1,64 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Global, css } from '@emotion/core';
-import Welcome from './components/Welcome';
+import Authentication from './components/Welcome';
 import AccountCreation from './components/AccountCreation';
-import accountService from './services/accounts';
+import AccountView from './components/AccountView';
+import * as userActions from './reducers/userReducer';
+import * as accountActions from './reducers/accountReducer';
 
-const App = () => {
-  const [user, setUser] = useState(null);
-  const [newUser, setNewUser] = useState(false);
-  const [accounts, setAccounts] = useState([]);
+const App = ({ user, checkUser, logout, accounts, initializeAccounts }) => {
+  console.log(user);
+  useEffect(() => {
+    const abortController = new AbortController();
+    checkUser();
+    return () => abortController.abort();
+  }, [checkUser]);
 
   useEffect(() => {
-    const loggedUser = window.localStorage.getItem('loggedFlowiUser');
-    if (loggedUser) {
-      setUser(JSON.parse(loggedUser));
-    }
-  }, []);
-
-  useEffect(() => {
+    const abortController = new AbortController();
     if (user) {
-      accountService.setToken(user.token);
-      setAccounts(accountService.getAll());
+      initializeAccounts();
     }
-  }, [user]);
+    return () => abortController.abort();
+  }, [user, initializeAccounts]);
 
-  const handleLogout = () => {
-    window.localStorage.clear();
-    accountService.setToken(null);
-    setUser(null);
-  };
-
-  if (!user) {
-    return (
-      <div>
-        <Global
-          styles={css`
-            * {
-              background-color: #f0f4f8;
-              font-family: Roboto;
-              color: #102a43;
-            }
-          `}
-        />
-        <Welcome setUser={setUser} newUser={newUser} setNewUser={setNewUser} />
-      </div>
-    );
-  }
+  const globalStyle = css`
+    * {
+      background-color: #f0f4f8;
+      font-family: Roboto;
+      color: #102a43;
+    }
+  `;
 
   return (
     <div>
-      {accounts.length === 0 ? (
-        <AccountCreation accounts={accounts} setAccounts={setAccounts} />
+      <Global styles={globalStyle} />
+      {user ? (
+        <div>
+          {accounts.length !== 0 ? <AccountView /> : <AccountCreation />}
+          <button type="button" onClick={() => logout()}>
+            LOG OUT
+          </button>
+        </div>
       ) : (
-        <p>Welcome to flowi</p>
+        <Authentication />
       )}
-
-      <button type="button" onClick={handleLogout}>
-        LOG OUT
-      </button>
     </div>
   );
 };
 
-export default App;
+App.propTypes = {
+  user: PropTypes.objectOf(PropTypes.string),
+  checkUser: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  initializeAccounts: PropTypes.func.isRequired
+};
+
+App.defaultProps = {
+  user: null
+};
+
+const mapStateToProps = state => ({
+  user: state.user,
+  accounts: state.accounts
+});
+
+const mapDispatchToProps = {
+  ...userActions,
+  ...accountActions
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

@@ -32,30 +32,35 @@
 | 2019-07-31 | 1     | Changing user model in backend                           |
 | 2019-07-31 | 3     | Working on registering on frontend                       |
 | 2019-09-03 | 1     | Learning Formik                                          |
-| 2019-03-03 | 2     | Form validation                                          |
-| 2019-03-03 | 3     | Working on frontend registration                         |
-| 2019-03-04 | 1     | Creating UI systems for project                          |
-| 2019-03-04 | 3     | Learning css and styling login page                      |
-| 2019-03-05 | 3     | Learning css and styling login page                      |
-| 2019-03-05 | 1     | Animating login page                                     |
-| 2019-03-05 | 1     | Refactoring and updating README                          |
-| 2019-03-05 | 1     | Fixing e2e test                                          |
-| 2019-03-06 | 1     | Final tweaks for login functionality                     |
+| 2019-09-03 | 2     | Form validation                                          |
+| 2019-09-03 | 3     | Working on frontend registration                         |
+| 2019-09-04 | 1     | Creating UI systems for project                          |
+| 2019-09-04 | 3     | Learning css and styling login page                      |
+| 2019-09-05 | 3     | Learning css and styling login page                      |
+| 2019-09-05 | 1     | Animating login page                                     |
+| 2019-09-05 | 1     | Refactoring and updating README                          |
+| 2019-09-05 | 1     | Fixing e2e test                                          |
+| 2019-09-06 | 1     | Final tweaks for login functionality                     |
 | TOTAL      | 38    |                                                          |
 
 ## Account (Monetary) functionality
 
 | **Date**   | Hours | Target                                 |
 | ---------- | ----- | -------------------------------------- |
-| 2019-03-06 | 1     | Account model                          |
-| 2019-03-06 | 1     | Account functionality on backend       |
-| 2019-03-06 | 2     | Creating and troubleshooting e2e tests |
-| 2019-03-07 | 3     | Account functionality on backend       |
-| 2019-03-10 | 1     | Account functionality on backend       |
-| 2019-03-12 | 2     | Account functionality on backend       |
-| 2019-03-16 | 5     | Account functionality on frontend      |
-| TOTAL      | 15    |                                        |
+| 2019-09-06 | 1     | Account model                          |
+| 2019-09-06 | 1     | Account functionality on backend       |
+| 2019-09-06 | 2     | Creating and troubleshooting e2e tests |
+| 2019-09-07 | 3     | Account functionality on backend       |
+| 2019-09-10 | 1     | Account functionality on backend       |
+| 2019-09-12 | 2     | Account functionality on backend       |
+| 2019-09-16 | 5     | Account functionality on frontend      |
+| 2019-09-24 | 1     | AccountView on frontend                |
+| 2019-09-24 | 3     | Account functionality on frontend      |
+| 2019-09-25 | 1     | Account functionality on frontend      |
+| 2019-09-27 | 3     | Refactoring to use redux               |
+| 2019-09-27 | 4     | Refactoring code                       |
+| TOTAL      | 27    |                                        |
 
 
 
-### Total hours: 73h
+### Total hours: 85h

@@ -1,17 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import accountService from '../../services/accounts';
+import * as accountActions from '../../reducers/accountReducer';
 
-const AccountCreation = ({ accounts, setAccounts }) => {
+const AccountCreation = ({ createAccount, closeModal }) => {
   const handleSubmit = async ({ accountName, startingBalance }) => {
-    const savedAccount = await accountService.create({
-      name: accountName,
-      balance: startingBalance
-    });
-
-    setAccounts(accounts.concat(savedAccount));
+    createAccount(accountName, startingBalance);
+    if (closeModal) closeModal();
   };
 
   const accountSchema = Yup.object().shape({
@@ -52,8 +49,17 @@ const AccountCreation = ({ accounts, setAccounts }) => {
 };
 
 AccountCreation.propTypes = {
-  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setAccounts: PropTypes.func.isRequired
+  createAccount: PropTypes.func.isRequired,
+  closeModal: PropTypes.func
 };
 
-export default AccountCreation;
+AccountCreation.defaultProps = {
+  closeModal: undefined
+};
+
+const mapDispatchToProps = { ...accountActions };
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AccountCreation);

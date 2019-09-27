@@ -7,4 +7,8 @@ const create = newAccount => {
   return newAccount;
 };
 
-export default { setToken, create };
+const getAll = () => {
+  return Promise.resolve(accounts);
+};
+
+export default { setToken, create, getAll };
