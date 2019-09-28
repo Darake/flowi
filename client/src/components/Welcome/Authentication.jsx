@@ -10,8 +10,8 @@ import * as userActions from '../../reducers/userReducer';
 const Authentication = ({ login, register }) => {
   const [registration, setRegistration] = useState(false);
   const [authError, setAuthError] = useState(null);
-  const [fadingIn, setFadingIn] = useState(true);
 
+  const [fadingIn, setFadingIn] = useState(true);
   const fadeProps = useSpring({
     opacity: 1,
     from: { opacity: 0 },
@@ -20,22 +20,23 @@ const Authentication = ({ login, register }) => {
   });
 
   const handleLogin = async (email, password) => {
-    try {
-      login(email, password);
-      setRegistration(false);
-    } catch (exception) {
+    const error = login(email, password);
+    setRegistration(false);
+
+    if (error) {
       setAuthError('Incorrect email or password');
     }
   };
 
   const handleRegister = async (email, password, currency) => {
-    try {
-      register(email, password, currency);
-      login(email, password);
-    } catch (exception) {
+    const error = register(email, password, currency);
+
+    if (error) {
       setAuthError(
         'There was an error signing up. The email address might already be taken.'
       );
+    } else {
+      login(email, password);
     }
   };
 
@@ -209,7 +210,7 @@ const Authentication = ({ login, register }) => {
                     <TertiaryButton
                       type="button"
                       onClick={handleFormChange}
-                      disabled={fadingIn}
+                      disabled={isSubmitting}
                     >
                       SIGN UP
                     </TertiaryButton>

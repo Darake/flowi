@@ -1,22 +1,56 @@
 import React from 'react';
-import { render, fireEvent, waitForElement } from '@testing-library/react';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import {
+  render,
+  fireEvent,
+  waitForElement,
+  wait
+} from '@testing-library/react';
 import App from './App';
+import userReducer from './reducers/userReducer';
+import accountReducer from './reducers/accountReducer';
 
-let component;
+let container;
+let getByText;
+let getByPlaceholderText;
+
+const initialState = { user: null, accounts: [] };
+const reducer = combineReducers({
+  user: userReducer,
+  accounts: accountReducer
+});
+const renderWithRedux = (
+  ui,
+  { initialState, store = createStore(reducer, initialState) } = {}
+) => {
+  return { ...render(<Provider store={store}>{ui}</Provider>), store };
+};
 
 describe('when not logged in', () => {
   beforeEach(() => {
     window.localStorage.clear();
-    component = render(<App />);
+
+    //const initialState = { user: null, accounts: [] };
+    //const reducer = combineReducers({
+    //  user: userReducer,
+    //  accounts: accountReducer
+    //});
+    //const store = createStore(reducer, initialState, applyMiddleware(thunk));
+
+    ({ container, getByText, getByPlaceholderText } = renderWithRedux(
+      //<Provider store={store}>
+      <App />
+      //</Provider>
+    ));
   });
 
-  test('renders welcome screen', () => {
-    expect(component.getByText('LOG IN')).toBeDefined();
+  test('renders auhtentication screen', () => {
+    expect(getByText('LOG IN')).toBeDefined();
   });
 
   test('logs user in with right credentials', async () => {
-    const { getByPlaceholderText, getByText } = component;
-
     const email = getByPlaceholderText('Email');
     const password = getByPlaceholderText('Password');
 
@@ -24,94 +58,94 @@ describe('when not logged in', () => {
     fireEvent.change(password, { target: { value: 'admin1' } });
     fireEvent.click(getByText('LOG IN'));
 
-    await waitForElement(() => getByText('LOG OUT'));
+    await wait(() => {
+      expect(getByText('LOG OUT')).toBeDefined();
+    });
   });
 
   test('logging in with wrong credentials returns an error', async () => {
-    const email = component.getByPlaceholderText('Email');
-    const password = component.getByPlaceholderText('Password');
+    const email = getByPlaceholderText('Email');
+    const password = getByPlaceholderText('Password');
 
     fireEvent.change(email, { target: { value: 'wrong@example.com' } });
     fireEvent.change(password, { target: { value: 'admin1' } });
-    fireEvent.click(component.getByText('LOG IN'));
+    fireEvent.click(getByText('LOG IN'));
 
-    await waitForElement(() =>
-      component.getByText('Incorrect email or password')
+    await wait(() =>
+      expect(container).toHaveTextContent('Incorrect email or password')
     );
   });
 
   test('clicking sign up brings up register form', async () => {
-    const { getByText } = component;
-
     fireEvent.click(getByText('SIGN UP'));
 
-    await waitForElement(() => getByText('CONFIRM'));
+    await wait(() => expect(container).toHaveTextContent('CONFIRM'));
   });
 
   describe('after clicking sign up', () => {
     beforeEach(async () => {
-      const { getByText } = component;
       fireEvent.click(getByText('SIGN UP'));
       await waitForElement(() => getByText('CONFIRM'));
     });
 
     test('clicking `already an user?` brings log in page back up', async () => {
-      fireEvent.click(component.getByText('Already an user?'));
-      await waitForElement(() => component.getByText('LOG IN'));
+      fireEvent.click(getByText('Already an user?'));
+
+      await waitForElement(() => expect(container).toHaveTextContent('LOG IN'));
     });
 
     test('signing up with without email returns an error', async () => {
-      const password = component.getByPlaceholderText('Password');
+      const password = getByPlaceholderText('Password');
       fireEvent.change(password, { target: { value: 'admin1' } });
-      fireEvent.click(component.getByText('CONFIRM'));
-      expect(component.findByText('Email address required')).toBeDefined();
+      fireEvent.click(getByText('CONFIRM'));
+
+      expect(container).toHaveTextContent('Email address required');
     });
 
     test('signing up with invalid email format returns an error', async () => {
-      const email = component.getByPlaceholderText('Email');
-      const password = component.getByPlaceholderText('Password');
+      const email = getByPlaceholderText('Email');
+      const password = getByPlaceholderText('Password');
 
       fireEvent.change(password, { target: { value: 'admin1' } });
       fireEvent.change(email, { target: { value: 'invalidEmail' } });
+      fireEvent.click(getByText('CONFIRM'));
 
-      fireEvent.click(component.getByText('CONFIRM'));
-
-      await waitForElement(() => component.getByText('Invalid email format'));
+      expect(container).toHaveTextContent('Invalid email format');
     });
 
     test('signing up without password returns an error', async () => {
-      const email = component.getByPlaceholderText('Email');
+      const email = getByPlaceholderText('Email');
 
       fireEvent.change(email, { target: { value: 'admin@example.com' } });
+      fireEvent.click(getByText('CONFIRM'));
 
-      fireEvent.click(component.getByText('CONFIRM'));
-      await waitForElement(() => component.getByText('Password required'));
+      expect(container).toHaveTextContent('Password required');
     });
 
     test('signing up with a too short password returns an error', async () => {
-      const email = component.getByPlaceholderText('Email');
-      const password = component.getByPlaceholderText('Password');
+      const email = getByPlaceholderText('Email');
+      const password = getByPlaceholderText('Password');
 
       fireEvent.change(password, { target: { value: 'admin' } });
       fireEvent.change(email, { target: { value: 'test@test.com' } });
 
-      fireEvent.click(component.getByText('CONFIRM'));
+      fireEvent.click(getByText('CONFIRM'));
 
-      await waitForElement(() =>
-        component.getByText('Password has to be atleast 6 long')
-      );
+      expect(container).toHaveTextContent('Password has to be atleast 6 long');
     });
 
     test('signing up with valid info creates an user', async () => {
-      const email = component.getByPlaceholderText('Email');
-      const password = component.getByPlaceholderText('Password');
+      const email = getByPlaceholderText('Email');
+      const password = getByPlaceholderText('Password');
 
       fireEvent.change(email, { target: { value: 'new@example.com' } });
       fireEvent.change(password, { target: { value: 'password' } });
 
-      fireEvent.click(component.getByText('CONFIRM'));
+      fireEvent.click(getByText('CONFIRM'));
 
-      await waitForElement(() => component.getByText('LOG OUT'));
+      await waitForElement(() =>
+        expect(container).toHaveTextContent('LOG OUT')
+      );
     });
   });
 });
@@ -119,22 +153,21 @@ describe('when not logged in', () => {
 describe('when logged in', () => {
   beforeEach(async () => {
     window.localStorage.setItem('loggedFlowiUser', JSON.stringify('token'));
-    component = render(<App />);
-  });
 
-  test('user stays logged in', async () => {
-    await waitForElement(() => component.getByText('LOG OUT'));
+    ({ container, getByText } = renderWithRedux(
+      //<Provider store={store}>
+      <App />
+      //</Provider>
+    ));
   });
 
   test('log out logs user out', async () => {
-    const { getByText } = component;
+    await waitForElement(() => fireEvent.click(getByText('LOG OUT')));
 
-    await waitForElement(() => getByText('LOG OUT'));
-    fireEvent.click(getByText('LOG OUT'));
-    await waitForElement(() => getByText('LOG IN'));
+    await waitForElement(() => expect(container).toHaveTextContent('LOG IN'));
   });
 
   test('an account creation page pops up if no accounts created', async () => {
-    await waitForElement(() => component.getByText('Account creation'));
+    expect(container).toHaveTextContent('LOG IN');
   });
 });

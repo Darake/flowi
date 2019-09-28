@@ -1,7 +1,7 @@
 import authService from '../services/auth';
 import accountService from '../services/accounts';
 
-const initialState = null;
+export const initialState = null;
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -38,19 +38,29 @@ export const logout = () => {
 
 export const login = (email, password) => {
   return async dispatch => {
-    const user = await authService.login({ email, password });
-    accountService.setToken(user.token);
-    window.localStorage.setItem('loggedFlowiUser', JSON.stringify(user));
-    dispatch({
-      type: 'SET_USER',
-      payload: user
-    });
+    try {
+      const user = await authService.login({ email, password });
+      accountService.setToken(user.token);
+      window.localStorage.setItem('loggedFlowiUser', JSON.stringify(user));
+      dispatch({
+        type: 'SET_USER',
+        payload: user
+      });
+      return null;
+    } catch (exception) {
+      return exception;
+    }
   };
 };
 
 export const register = (email, password, currency) => {
   return async () => {
-    const user = { email, password, currency };
-    await authService.register(user);
+    try {
+      const user = { email, password, currency };
+      await authService.register(user);
+      return null;
+    } catch (exception) {
+      return exception;
+    }
   };
 };

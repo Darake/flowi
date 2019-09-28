@@ -9,19 +9,14 @@ import * as userActions from './reducers/userReducer';
 import * as accountActions from './reducers/accountReducer';
 
 const App = ({ user, checkUser, logout, accounts, initializeAccounts }) => {
-  console.log(user);
   useEffect(() => {
-    const abortController = new AbortController();
     checkUser();
-    return () => abortController.abort();
   }, [checkUser]);
 
   useEffect(() => {
-    const abortController = new AbortController();
     if (user) {
       initializeAccounts();
     }
-    return () => abortController.abort();
   }, [user, initializeAccounts]);
 
   const globalStyle = css`

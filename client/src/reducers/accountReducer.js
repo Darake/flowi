@@ -1,6 +1,6 @@
 import accountService from '../services/accounts';
 
-const initialState = [];
+export const initialState = [];
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
