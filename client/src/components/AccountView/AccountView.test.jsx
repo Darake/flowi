@@ -1,20 +1,7 @@
 import React from 'react';
-import { render, fireEvent, wait } from '@testing-library/react';
+import { fireEvent, wait } from '@testing-library/react';
+import { renderWithRedux } from '../../testHelper';
 import AccountView from './AccountView';
-
-const mockAccounts = [
-  {
-    name: 'Nordea',
-    balance: 1337,
-    id: 1
-  },
-  {
-    name: 'Danske',
-    balance: 9001,
-    id: 2
-  }
-];
-const mockSetAccount = jest.fn();
 
 let container;
 let getByText;
@@ -22,8 +9,25 @@ let getByLabelText;
 
 describe('<AccountView />', () => {
   beforeEach(() => {
-    ({ container, getByText, getByLabelText } = render(
-      <AccountView accounts={mockAccounts} setAccounts={mockSetAccount} />
+    const initialState = {
+      user: null,
+      accounts: [
+        {
+          name: 'Nordea',
+          balance: '1337',
+          id: 1
+        },
+        {
+          name: 'Danske',
+          balance: '9001',
+          id: 2
+        }
+      ]
+    };
+
+    ({ container, getByText, getByLabelText } = renderWithRedux(
+      initialState,
+      <AccountView />
     ));
   });
 
@@ -40,22 +44,12 @@ describe('<AccountView />', () => {
     expect(container).not.toHaveTextContent('DELETE');
   });
 
-  test('shows AccountCreation modal when Add Account is clicked', () => {
-    fireEvent.click(getByText('Add Account'));
-
-    expect(container).toHaveTextContent('Account creation');
-    expect(container).toHaveTextContent('Account name:');
-    expect(container).toHaveTextContent('Starting balance:');
-    expect(container).toHaveTextContent('CONFIRM');
-    expect(container).toHaveTextContent('CANCEL');
-  });
-
   describe('when Add Account is clicked', () => {
     beforeEach(() => {
       fireEvent.click(getByText('Add Account'));
     });
 
-    test('shows AccountCreation modal', () => {
+    test('shows AccountCreation', () => {
       expect(container).toHaveTextContent('Account creation');
       expect(container).toHaveTextContent('Account name:');
       expect(container).toHaveTextContent('Starting balance:');
@@ -74,7 +68,7 @@ describe('<AccountView />', () => {
       const balance = getByLabelText('Starting balance:');
 
       fireEvent.change(name, { target: { value: 'OP' } });
-      fireEvent.change(balance, { target: { value: 0 } });
+      fireEvent.change(balance, { target: { value: 12 } });
       fireEvent.click(getByText('CONFIRM'));
 
       await wait(() => {

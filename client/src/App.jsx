@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Global, css } from '@emotion/core';
-import Authentication from './components/Welcome';
+import Authentication from './components/Authentication';
 import AccountCreation from './components/AccountCreation';
 import AccountView from './components/AccountView';
 import * as userActions from './reducers/userReducer';

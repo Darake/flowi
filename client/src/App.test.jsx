@@ -1,49 +1,25 @@
 import React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import {
-  render,
-  fireEvent,
-  waitForElement,
-  wait
-} from '@testing-library/react';
+import { fireEvent, waitForElement, wait } from '@testing-library/react';
 import App from './App';
-import userReducer from './reducers/userReducer';
-import accountReducer from './reducers/accountReducer';
+import { renderWithRedux } from './testHelper';
 
 let container;
 let getByText;
 let getByPlaceholderText;
+let debug;
 
-const initialState = { user: null, accounts: [] };
-const reducer = combineReducers({
-  user: userReducer,
-  accounts: accountReducer
+beforeEach(() => {
+  const initialState = { user: null, accounts: [] };
+
+  ({ container, getByText, getByPlaceholderText, debug } = renderWithRedux(
+    initialState,
+    <App />
+  ));
 });
-const renderWithRedux = (
-  ui,
-  { initialState, store = createStore(reducer, initialState) } = {}
-) => {
-  return { ...render(<Provider store={store}>{ui}</Provider>), store };
-};
 
 describe('when not logged in', () => {
   beforeEach(() => {
     window.localStorage.clear();
-
-    //const initialState = { user: null, accounts: [] };
-    //const reducer = combineReducers({
-    //  user: userReducer,
-    //  accounts: accountReducer
-    //});
-    //const store = createStore(reducer, initialState, applyMiddleware(thunk));
-
-    ({ container, getByText, getByPlaceholderText } = renderWithRedux(
-      //<Provider store={store}>
-      <App />
-      //</Provider>
-    ));
   });
 
   test('renders auhtentication screen', () => {
@@ -85,13 +61,12 @@ describe('when not logged in', () => {
   describe('after clicking sign up', () => {
     beforeEach(async () => {
       fireEvent.click(getByText('SIGN UP'));
-      await waitForElement(() => getByText('CONFIRM'));
+      await wait(() => getByText('CONFIRM'));
     });
 
     test('clicking `already an user?` brings log in page back up', async () => {
       fireEvent.click(getByText('Already an user?'));
-
-      await waitForElement(() => expect(container).toHaveTextContent('LOG IN'));
+      await wait(() => expect(container).toHaveTextContent('LOG IN'));
     });
 
     test('signing up with without email returns an error', async () => {
@@ -99,7 +74,9 @@ describe('when not logged in', () => {
       fireEvent.change(password, { target: { value: 'admin1' } });
       fireEvent.click(getByText('CONFIRM'));
 
-      expect(container).toHaveTextContent('Email address required');
+      await wait(() =>
+        expect(container).toHaveTextContent('Email address required')
+      );
     });
 
     test('signing up with invalid email format returns an error', async () => {
@@ -110,7 +87,9 @@ describe('when not logged in', () => {
       fireEvent.change(email, { target: { value: 'invalidEmail' } });
       fireEvent.click(getByText('CONFIRM'));
 
-      expect(container).toHaveTextContent('Invalid email format');
+      await wait(() =>
+        expect(container).toHaveTextContent('Invalid email format')
+      );
     });
 
     test('signing up without password returns an error', async () => {
@@ -119,7 +98,9 @@ describe('when not logged in', () => {
       fireEvent.change(email, { target: { value: 'admin@example.com' } });
       fireEvent.click(getByText('CONFIRM'));
 
-      expect(container).toHaveTextContent('Password required');
+      await wait(() =>
+        expect(container).toHaveTextContent('Password required')
+      );
     });
 
     test('signing up with a too short password returns an error', async () => {
@@ -131,7 +112,9 @@ describe('when not logged in', () => {
 
       fireEvent.click(getByText('CONFIRM'));
 
-      expect(container).toHaveTextContent('Password has to be atleast 6 long');
+      await wait(() =>
+        expect(container).toHaveTextContent('Password has to be atleast 6 long')
+      );
     });
 
     test('signing up with valid info creates an user', async () => {
@@ -143,28 +126,25 @@ describe('when not logged in', () => {
 
       fireEvent.click(getByText('CONFIRM'));
 
-      await waitForElement(() =>
-        expect(container).toHaveTextContent('LOG OUT')
-      );
+      await wait(() => expect(container).toHaveTextContent('LOG OUT'));
     });
   });
 });
 
 describe('when logged in', () => {
   beforeEach(async () => {
-    window.localStorage.setItem('loggedFlowiUser', JSON.stringify('token'));
+    const email = getByPlaceholderText('Email');
+    const password = getByPlaceholderText('Password');
 
-    ({ container, getByText } = renderWithRedux(
-      //<Provider store={store}>
-      <App />
-      //</Provider>
-    ));
+    fireEvent.change(email, { target: { value: 'admin@example.com' } });
+    fireEvent.change(password, { target: { value: 'admin1' } });
+    fireEvent.click(getByText('LOG IN'));
   });
 
   test('log out logs user out', async () => {
-    await waitForElement(() => fireEvent.click(getByText('LOG OUT')));
+    await wait(() => fireEvent.click(getByText('LOG OUT')));
 
-    await waitForElement(() => expect(container).toHaveTextContent('LOG IN'));
+    await wait(() => expect(container).toHaveTextContent('LOG IN'));
   });
 
   test('an account creation page pops up if no accounts created', async () => {

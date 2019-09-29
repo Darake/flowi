@@ -29,7 +29,7 @@ const Authentication = ({ login, register }) => {
   };
 
   const handleRegister = async (email, password, currency) => {
-    const error = register(email, password, currency);
+    const error = await register(email, password, currency);
 
     if (error) {
       setAuthError(

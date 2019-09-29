@@ -8,7 +8,7 @@ let users = [
 const login = credentials => {
   const user = users.find(u => u.email === credentials.email);
   if (user && user.password === credentials.password) {
-    return 'token';
+    return { token: 'token', email: credentials.email };
   }
   throw new Error('Request failed with status code 401');
 };
@@ -20,6 +20,7 @@ const register = credentials => {
     currency: credentials.currency
   };
   users = users.concat(newUser);
+  return Promise.resolve(null);
 };
 
 export default { login, register };

@@ -3,8 +3,9 @@ let accounts = [];
 const setToken = () => {};
 
 const create = newAccount => {
-  accounts = accounts.concat(newAccount);
-  return newAccount;
+  const account = { id: 3, ...newAccount };
+  accounts = accounts.concat(account);
+  return account;
 };
 
 const getAll = () => {

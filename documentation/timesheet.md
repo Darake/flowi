@@ -61,8 +61,9 @@
 | 2019-09-27 | 4     | Refactoring code                                   |
 | 2019-09-28 | 1     | Refactoring code & Fixing tests to work with redux |
 | 2019-09-28 | 1     | Refactoring & fixing tests to work with redux      |
-| TOTAL      | 29    |                                                    |
+| 2019-09-29 | 2     | Refactoring & fixing tests to work with redux      |
+| TOTAL      | 31    |                                                    |
 
 
 
-### Total hours: 87h
+### Total hours: 89h

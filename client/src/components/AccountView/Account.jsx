@@ -10,7 +10,7 @@ const Account = ({ name, balance }) => (
 
 Account.propTypes = {
   name: PropTypes.string.isRequired,
-  balance: PropTypes.number.isRequired
+  balance: PropTypes.string.isRequired
 };
 
 export default Account;

@@ -1,9 +1,7 @@
 import React from 'react';
-import { render, fireEvent, wait } from '@testing-library/react';
+import { fireEvent, wait } from '@testing-library/react';
+import { renderWithRedux, initialState } from '../../testHelper';
 import AccountCreation from './AccountCreation';
-
-const mockAccounts = [];
-const mockSetAccounts = jest.fn();
 
 let getByLabelText;
 let getByText;
@@ -11,8 +9,9 @@ let container;
 
 describe('<AccountCreation />', () => {
   beforeEach(() => {
-    ({ getByLabelText, getByText, container } = render(
-      <AccountCreation accounts={mockAccounts} setAccounts={mockSetAccounts} />
+    ({ getByLabelText, getByText, container } = renderWithRedux(
+      initialState,
+      <AccountCreation />
     ));
   });
 

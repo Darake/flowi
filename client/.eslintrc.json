@@ -13,6 +13,10 @@
         "controlComponents": ["Field"]
       }
     ],
-    "jsx-a11y/label-has-for": "off"
+    "jsx-a11y/label-has-for": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.test.js**", "**/*.spec.js", "**/test**"] }
+    ]
   }
 }
