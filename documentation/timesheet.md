@@ -65,8 +65,10 @@
 | 2019-09-29 | 2     | Detailed Account component                            |
 | 2019-09-30 | 1     | Detailed Account component & implementing router      |
 | 2019-09-30 | 1     | Detailed Account component, implementing router & nav |
-| TOTAL      | 35    |                                                       |
+| 2019-09-30 | 4     | Styling account creation page                         |
+| 2019-10-01 | 1     | Styling account creation page                         |
+| TOTAL      | 40    |                                                       |
 
 
 
-### Total hours: 93h
+### Total hours: 98h

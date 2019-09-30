@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import styled from '@emotion/styled';
 import * as accountActions from '../../reducers/accountReducer';
 
 const AccountCreation = ({ createAccount, closeModal }) => {
@@ -12,15 +13,67 @@ const AccountCreation = ({ createAccount, closeModal }) => {
   };
 
   const accountSchema = Yup.object().shape({
-    accountName: Yup.string().required('Account name required'),
+    accountName: Yup.string().required('Account name required.'),
     startingBalance: Yup.number()
-      .typeError('Starting balance needs to be a number')
-      .required('Starting balance required')
+      .typeError('Starting balance needs to be a number.')
+      .required('Starting balance required.')
   });
 
+  const Container = styled.div`
+    background-color: white;
+    border-radius: 8px;
+    border: 2px solid #d9e2ec;
+    border-top: 8px solid #62b0e8;
+    width: 85%;
+    max-width: 512px;
+    padding: 32px 12px;
+  `;
+
+  const Header = styled.h2`
+    font-size: 20px;
+    margin: 0 0 32px 4px;
+  `;
+
+  const Label = styled.label`
+    display: block;
+    margin: 16px 0 8px 4px;
+    color: #486581;
+    font-size: 16px;
+  `;
+
+  const TextInput = styled(Field)`
+    display: block;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #f0f4f8;
+    border: 2px solid #d9e2ec;
+    width: 100%;
+  `;
+
+  const PrimaryButton = styled.button`
+    border-radius: 8px;
+    padding: 8px;
+    margin: 16px 0;
+    background-color: #4098d7;
+    border: 2px solid #62b0e8;
+    color: white;
+    width: 100%;
+  `;
+
+  const Error = styled(ErrorMessage)`
+    color: #d64545;
+    border: 1px solid #ba2525;
+    padding: 8px;
+    border-radius: 4px;
+    margin: 4px 0;
+    width: 100%;
+    box-sizing: border-box;
+  `;
+
   return (
-    <div>
-      Account creation
+    <Container>
+      <Header>Account creation</Header>
       <Formik
         initialValues={{
           accountName: '',
@@ -31,20 +84,25 @@ const AccountCreation = ({ createAccount, closeModal }) => {
         render={() => {
           return (
             <Form>
-              <label htmlFor="accountName">Account name:</label>
-              <Field type="text" name="accountName" id="accountName" />
-              <ErrorMessage name="accountName" />
+              <Label htmlFor="accountName">Account name</Label>
+              <TextInput type="text" name="accountName" id="accountName" />
 
-              <label htmlFor="startingBalance">Starting balance:</label>
-              <Field type="text" name="startingBalance" id="startingBalance" />
-              <ErrorMessage name="startingBalance" />
+              <Label htmlFor="startingBalance">Starting balance</Label>
+              <TextInput
+                type="text"
+                name="startingBalance"
+                id="startingBalance"
+              />
 
-              <button type="submit">CONFIRM</button>
+              <PrimaryButton type="submit">CONFIRM</PrimaryButton>
+
+              <Error name="accountName" component="li" />
+              <Error name="startingBalance" component="li" />
             </Form>
           );
         }}
       />
-    </div>
+    </Container>
   );
 };
 
