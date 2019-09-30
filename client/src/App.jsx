@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Global, css } from '@emotion/core';
 import Authentication from './components/Authentication';
 import AccountCreation from './components/AccountCreation';
 import AccountView from './components/AccountView';
+import Account from './components/Account';
 import * as userActions from './reducers/userReducer';
 import * as accountActions from './reducers/accountReducer';
 
@@ -19,6 +21,8 @@ const App = ({ user, checkUser, logout, accounts, initializeAccounts }) => {
     }
   }, [user, initializeAccounts]);
 
+  const accountById = id => accounts.find(account => account.id === id);
+
   const globalStyle = css`
     * {
       background-color: #f0f4f8;
@@ -31,12 +35,28 @@ const App = ({ user, checkUser, logout, accounts, initializeAccounts }) => {
     <div>
       <Global styles={globalStyle} />
       {user ? (
-        <div>
-          {accounts.length !== 0 ? <AccountView /> : <AccountCreation />}
-          <button type="button" onClick={() => logout()}>
-            LOG OUT
-          </button>
-        </div>
+        <Router>
+          {accounts.length !== 0 ? (
+            <div>
+              <Route exact path="/" render={() => <AccountView />} />
+              <Route
+                exact
+                path="/accounts/:id"
+                render={({ match }) => (
+                  <Account account={accountById(match.params.id)} />
+                )}
+              />
+            </div>
+          ) : (
+            <AccountCreation />
+          )}
+          <nav>
+            <Link to="/">Accounts</Link>
+            <button type="button" onClick={() => logout()}>
+              LOG OUT
+            </button>
+          </nav>
+        </Router>
       ) : (
         <Authentication />
       )}

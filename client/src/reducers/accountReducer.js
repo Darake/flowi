@@ -12,6 +12,8 @@ export default (state = initialState, { type, payload }) => {
       return state.map(account =>
         account.id === payload.id ? payload : account
       );
+    case 'DELETE_ACCOUNT':
+      return state.filter(account => account.id !== payload.id);
 
     default:
       return state;
@@ -44,6 +46,16 @@ export const updateAccount = account => {
     dispatch({
       type: 'UPDATE_ACCOUNT',
       payload: updatedAccount
+    });
+  };
+};
+
+export const deleteAccount = account => {
+  return async dispatch => {
+    await accountService.remove(account.id);
+    dispatch({
+      type: 'DELETE_ACCOUNT',
+      payload: account
     });
   };
 };

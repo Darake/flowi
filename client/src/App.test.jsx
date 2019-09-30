@@ -1,27 +1,23 @@
 import React from 'react';
-import { fireEvent, waitForElement, wait } from '@testing-library/react';
+import { fireEvent, wait } from '@testing-library/react';
 import App from './App';
 import { renderWithRedux } from './testHelper';
 
 let container;
 let getByText;
 let getByPlaceholderText;
-let debug;
 
 beforeEach(() => {
+  window.localStorage.clear();
   const initialState = { user: null, accounts: [] };
 
-  ({ container, getByText, getByPlaceholderText, debug } = renderWithRedux(
+  ({ container, getByText, getByPlaceholderText } = renderWithRedux(
     initialState,
     <App />
   ));
 });
 
 describe('when not logged in', () => {
-  beforeEach(() => {
-    window.localStorage.clear();
-  });
-
   test('renders auhtentication screen', () => {
     expect(getByText('LOG IN')).toBeDefined();
   });

@@ -1,5 +1,7 @@
 import React from 'react';
 import { fireEvent, wait } from '@testing-library/react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import { renderWithRedux } from '../../testHelper';
 import Account from './Account';
 
@@ -18,9 +20,13 @@ beforeEach(() => {
     user: null,
     accounts: [account]
   };
+  const history = createMemoryHistory();
+
   ({ container, getByText, getByDisplayValue } = renderWithRedux(
     initialState,
-    <Account account={account} />
+    <Router history={history}>
+      <Account account={account} />
+    </Router>
   ));
 });
 
@@ -74,6 +80,34 @@ describe('<Account />', () => {
       fireEvent.click(getByText('SAVE'));
 
       expect(container).toHaveTextContent('Nordea');
+    });
+  });
+
+  describe('clicking Delete', () => {
+    beforeEach(() => {
+      fireEvent.click(getByText('Delete'));
+    });
+
+    test('opens a confirmation window', () => {
+      expect(container).toHaveTextContent(`Delete ${account.name}?`);
+      expect(container).toHaveTextContent('CANCEL');
+      expect(container).toHaveTextContent('DELETE');
+    });
+
+    describe('and CANCEL', () => {
+      beforeEach(() => {
+        fireEvent.click(getByText('CANCEL'));
+      });
+
+      test('doesnt delete the account', () => {
+        expect(container).toHaveTextContent(account.name);
+      });
+
+      test('closes the confirmation window', async () => {
+        expect(container).not.toHaveTextContent(`Delete ${account.name}?`);
+        expect(container).not.toHaveTextContent('CANCEL');
+        expect(container).not.toHaveTextContent('DELETE');
+      });
     });
   });
 });

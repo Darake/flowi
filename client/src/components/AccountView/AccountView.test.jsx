@@ -1,5 +1,7 @@
 import React from 'react';
 import { fireEvent, wait } from '@testing-library/react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import { renderWithRedux } from '../../testHelper';
 import AccountView from './AccountView';
 
@@ -24,10 +26,13 @@ describe('<AccountView />', () => {
         }
       ]
     };
+    const history = createMemoryHistory();
 
     ({ container, getByText, getByLabelText } = renderWithRedux(
       initialState,
-      <AccountView />
+      <Router history={history}>
+        <AccountView />
+      </Router>
     ));
   });
 

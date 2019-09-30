@@ -45,26 +45,28 @@
 
 ## Account (Monetary) functionality
 
-| **Date**   | Hours | Target                                             |
-| ---------- | ----- | -------------------------------------------------- |
-| 2019-09-06 | 1     | Account model                                      |
-| 2019-09-06 | 1     | Account functionality on backend                   |
-| 2019-09-06 | 2     | Creating and troubleshooting e2e tests             |
-| 2019-09-07 | 3     | Account functionality on backend                   |
-| 2019-09-10 | 1     | Account functionality on backend                   |
-| 2019-09-12 | 2     | Account functionality on backend                   |
-| 2019-09-16 | 5     | Account functionality on frontend                  |
-| 2019-09-24 | 1     | AccountView on frontend                            |
-| 2019-09-24 | 3     | Account functionality on frontend                  |
-| 2019-09-25 | 1     | Account functionality on frontend                  |
-| 2019-09-27 | 3     | Refactoring to use redux                           |
-| 2019-09-27 | 4     | Refactoring code                                   |
-| 2019-09-28 | 1     | Refactoring code & Fixing tests to work with redux |
-| 2019-09-28 | 1     | Refactoring & fixing tests to work with redux      |
-| 2019-09-29 | 2     | Refactoring & fixing tests to work with redux      |
-| 2019-09-29 | 2     | Detailed Account component                         |
-| TOTAL      | 33    |                                                    |
+| **Date**   | Hours | Target                                                |
+| ---------- | ----- | ----------------------------------------------------- |
+| 2019-09-06 | 1     | Account model                                         |
+| 2019-09-06 | 1     | Account functionality on backend                      |
+| 2019-09-06 | 2     | Creating and troubleshooting e2e tests                |
+| 2019-09-07 | 3     | Account functionality on backend                      |
+| 2019-09-10 | 1     | Account functionality on backend                      |
+| 2019-09-12 | 2     | Account functionality on backend                      |
+| 2019-09-16 | 5     | Account functionality on frontend                     |
+| 2019-09-24 | 1     | AccountView on frontend                               |
+| 2019-09-24 | 3     | Account functionality on frontend                     |
+| 2019-09-25 | 1     | Account functionality on frontend                     |
+| 2019-09-27 | 3     | Refactoring to use redux                              |
+| 2019-09-27 | 4     | Refactoring code                                      |
+| 2019-09-28 | 1     | Refactoring code & Fixing tests to work with redux    |
+| 2019-09-28 | 1     | Refactoring & fixing tests to work with redux         |
+| 2019-09-29 | 2     | Refactoring & fixing tests to work with redux         |
+| 2019-09-29 | 2     | Detailed Account component                            |
+| 2019-09-30 | 1     | Detailed Account component & implementing router      |
+| 2019-09-30 | 1     | Detailed Account component, implementing router & nav |
+| TOTAL      | 35    |                                                       |
 
 
 
-### Total hours: 91h
+### Total hours: 93h

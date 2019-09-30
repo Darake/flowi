@@ -15,7 +15,7 @@ export default (state = initialState, { type, payload }) => {
 
 export const checkUser = () => {
   return async dispatch => {
-    const loggedUser = window.localStorage.getItem('loggedUser');
+    const loggedUser = window.localStorage.getItem('loggedFlowiUser');
     if (loggedUser) {
       const user = JSON.parse(loggedUser);
       accountService.setToken(user.token);

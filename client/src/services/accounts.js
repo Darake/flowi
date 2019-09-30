@@ -31,4 +31,9 @@ const update = async updatedAccount => {
   return response.data;
 };
 
-export default { setToken, getAll, create, update };
+const remove = async id => {
+  const response = await axios.delete(`${baseUrl}/${id}`, getConfig());
+  return response.data;
+};
+
+export default { setToken, getAll, create, update, remove };

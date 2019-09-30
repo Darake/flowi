@@ -1,31 +1,38 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import * as accountActions from '../../reducers/accountReducer';
 
-const Account = ({ account, updateAccount }) => {
+const Account = ({ account, updateAccount, deleteAccount, history }) => {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(account.name);
+  const [newName, setNewName] = useState(name);
 
   const handleSave = () => {
-    if (name) {
-      const updatedAccount = { name, ...account };
+    if (newName) {
+      setName(newName);
+      const updatedAccount = { ...account, name };
       updateAccount(updatedAccount);
-    } else {
-      setName(account.name);
     }
     setEditing(false);
   };
 
+  const handleDelete = () => {
+    deleteAccount(account);
+    history.push('/');
+  };
+
   const onChange = event => {
-    setName(event.target.value);
+    setNewName(event.target.value);
   };
 
   return (
     <div>
       {editing ? (
         <div>
-          <input type="text" value={name} onChange={onChange} />
+          <input type="text" value={newName} onChange={onChange} />
           <button type="button" onClick={handleSave}>
             SAVE
           </button>
@@ -34,10 +41,30 @@ const Account = ({ account, updateAccount }) => {
         <h1>{name}</h1>
       )}
       {account.balance}
-      <button type="button" onClick={() => setEditing(true)}>
-        Edit name
-      </button>
-      {editing ? null : <button type="button">Delete</button>}
+      {editing ? null : (
+        <div>
+          <button type="button" onClick={() => setEditing(true)}>
+            Edit name
+          </button>
+          <Popup
+            trigger={<button type="button">Delete</button>}
+            modal
+            closeOnDocumentClick
+          >
+            {close => (
+              <div>
+                <span>{`Delete ${name}?`}</span>
+                <button type="button" onClick={() => close()}>
+                  CANCEL
+                </button>
+                <button type="button" onClick={handleDelete}>
+                  DELETE
+                </button>
+              </div>
+            )}
+          </Popup>
+        </div>
+      )}
     </div>
   );
 };
@@ -48,10 +75,14 @@ Account.propTypes = {
     balance: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired
   }).isRequired,
-  updateAccount: PropTypes.func.isRequired
+  updateAccount: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default connect(
-  null,
-  { ...accountActions }
-)(Account);
+export default withRouter(
+  connect(
+    null,
+    { ...accountActions }
+  )(Account)
+);
