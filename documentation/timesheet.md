@@ -62,8 +62,9 @@
 | 2019-09-28 | 1     | Refactoring code & Fixing tests to work with redux |
 | 2019-09-28 | 1     | Refactoring & fixing tests to work with redux      |
 | 2019-09-29 | 2     | Refactoring & fixing tests to work with redux      |
-| TOTAL      | 31    |                                                    |
+| 2019-09-29 | 2     | Detailed Account component                         |
+| TOTAL      | 33    |                                                    |
 
 
 
-### Total hours: 89h
+### Total hours: 91h

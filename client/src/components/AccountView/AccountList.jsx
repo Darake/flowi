@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Account from './Account';
 
 const AccountList = ({ accounts }) => (
   <table>
     <tbody>
       {accounts.map(a => (
-        <Account key={a.id} name={a.name} balance={a.balance} />
+        <tr key={a.id}>
+          <th>{a.name}</th>
+          <th>{a.balance}</th>
+        </tr>
       ))}
     </tbody>
   </table>

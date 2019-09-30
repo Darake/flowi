@@ -76,14 +76,4 @@ describe('<AccountView />', () => {
       });
     });
   });
-
-  describe('when an account is clicked', () => {
-    beforeEach(() => {
-      fireEvent.click(getByText('Danske'));
-    });
-
-    test('shows detailed account modal', () => {
-      expect(container).toHaveTextContent('DELETE');
-    });
-  });
 });

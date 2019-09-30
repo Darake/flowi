@@ -11,12 +11,10 @@ const Authentication = ({ login, register }) => {
   const [registration, setRegistration] = useState(false);
   const [authError, setAuthError] = useState(null);
 
-  const [fadingIn, setFadingIn] = useState(true);
   const fadeProps = useSpring({
     opacity: 1,
     from: { opacity: 0 },
-    config: { friction: 10 },
-    onRest: () => setFadingIn(false)
+    config: { friction: 10 }
   });
 
   const handleLogin = async (email, password) => {

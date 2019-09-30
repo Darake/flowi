@@ -8,6 +8,10 @@ export default (state = initialState, { type, payload }) => {
       return payload;
     case 'NEW_ACCOUNT':
       return [...state, payload];
+    case 'UPDATE_ACCOUNT':
+      return state.map(account =>
+        account.id === payload.id ? payload : account
+      );
 
     default:
       return state;
@@ -30,6 +34,16 @@ export const createAccount = (name, balance) => {
     dispatch({
       type: 'NEW_ACCOUNT',
       payload: savedAccount
+    });
+  };
+};
+
+export const updateAccount = account => {
+  return async dispatch => {
+    const updatedAccount = await accountService.update(account);
+    dispatch({
+      type: 'UPDATE_ACCOUNT',
+      payload: updatedAccount
     });
   };
 };
