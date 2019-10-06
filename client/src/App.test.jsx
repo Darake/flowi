@@ -6,15 +6,18 @@ import { renderWithRedux } from './testHelper';
 let container;
 let getByText;
 let getByPlaceholderText;
+let getByAltText;
 
 beforeEach(() => {
   window.localStorage.clear();
   const initialState = { user: null, accounts: [] };
 
-  ({ container, getByText, getByPlaceholderText } = renderWithRedux(
-    initialState,
-    <App />
-  ));
+  ({
+    container,
+    getByText,
+    getByPlaceholderText,
+    getByAltText
+  } = renderWithRedux(initialState, <App />));
 });
 
 describe('when not logged in', () => {
@@ -31,7 +34,7 @@ describe('when not logged in', () => {
     fireEvent.click(getByText('LOG IN'));
 
     await wait(() => {
-      expect(getByText('LOG OUT')).toBeDefined();
+      expect(getByText('Account creation')).toBeDefined();
     });
   });
 
@@ -122,7 +125,7 @@ describe('when not logged in', () => {
 
       fireEvent.click(getByText('CONFIRM'));
 
-      await wait(() => expect(container).toHaveTextContent('LOG OUT'));
+      await wait(() => expect(container).toHaveTextContent('Account creation'));
     });
   });
 });
@@ -135,12 +138,14 @@ describe('when logged in', () => {
     fireEvent.change(email, { target: { value: 'admin@example.com' } });
     fireEvent.change(password, { target: { value: 'admin1' } });
     fireEvent.click(getByText('LOG IN'));
-  });
+    const initialState = { user: null, accounts: [] };
 
-  test('log out logs user out', async () => {
-    await wait(() => fireEvent.click(getByText('LOG OUT')));
-
-    await wait(() => expect(container).toHaveTextContent('LOG IN'));
+    ({
+      container,
+      getByText,
+      getByPlaceholderText,
+      getByAltText
+    } = renderWithRedux(initialState, <App />));
   });
 
   test('an account creation page pops up if no accounts created', async () => {

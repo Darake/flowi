@@ -16,14 +16,14 @@ describe('<AccountCreation />', () => {
   });
 
   test('renders everything', () => {
-    expect(container).toHaveTextContent('Account name:');
-    expect(container).toHaveTextContent('Starting balance:');
+    expect(container).toHaveTextContent('Account name');
+    expect(container).toHaveTextContent('Starting balance');
     expect(container).toHaveTextContent('Account creation');
     expect(container).toHaveTextContent('CONFIRM');
   });
 
   test('account creation without name shows an error', async () => {
-    const balance = getByLabelText('Starting balance:');
+    const balance = getByLabelText('Starting balance');
 
     fireEvent.change(balance, { target: { value: '9001' } });
 
@@ -35,8 +35,8 @@ describe('<AccountCreation />', () => {
   });
 
   test('account creation with a non-string balance returns an error', async () => {
-    const name = getByLabelText('Account name:');
-    const balance = getByLabelText('Starting balance:');
+    const name = getByLabelText('Account name');
+    const balance = getByLabelText('Starting balance');
 
     fireEvent.change(name, { target: { value: 'Nordea' } });
     fireEvent.change(balance, { target: { value: 'notANumber' } });
@@ -51,7 +51,7 @@ describe('<AccountCreation />', () => {
   });
 
   test('account creation without a starting balance shows and error', async () => {
-    const name = getByLabelText('Account name:');
+    const name = getByLabelText('Account name');
 
     fireEvent.change(name, { target: { value: 'Nordea' } });
 

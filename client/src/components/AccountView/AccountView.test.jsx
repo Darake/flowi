@@ -56,8 +56,8 @@ describe('<AccountView />', () => {
 
     test('shows AccountCreation', () => {
       expect(container).toHaveTextContent('Account creation');
-      expect(container).toHaveTextContent('Account name:');
-      expect(container).toHaveTextContent('Starting balance:');
+      expect(container).toHaveTextContent('Account name');
+      expect(container).toHaveTextContent('Starting balance');
       expect(container).toHaveTextContent('CONFIRM');
       expect(container).toHaveTextContent('CANCEL');
     });
@@ -69,8 +69,8 @@ describe('<AccountView />', () => {
     });
 
     test('closes modal when successfully adding an account', async () => {
-      const name = getByLabelText('Account name:');
-      const balance = getByLabelText('Starting balance:');
+      const name = getByLabelText('Account name');
+      const balance = getByLabelText('Starting balance');
 
       fireEvent.change(name, { target: { value: 'OP' } });
       fireEvent.change(balance, { target: { value: 12 } });

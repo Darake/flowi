@@ -2,23 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 const AccountList = ({ accounts, history }) => {
   const onClick = id => {
     history.push(`/accounts/${id}`);
   };
 
+  const Table = styled.table`
+    width: 100%;
+  `;
+
+  const BalanceColumn = styled.td`
+    text-align: right;
+  `;
+
   return (
-    <table>
+    <Table>
       <tbody>
         {accounts.map(a => (
           <tr key={a.id} onClick={() => onClick(a.id)}>
-            <th>{a.name}</th>
-            <th>{a.balance}</th>
+            <td>{a.name}</td>
+            <BalanceColumn>{a.balance}</BalanceColumn>
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 
