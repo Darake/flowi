@@ -73,9 +73,10 @@
 | 2019-10-06 | 1     | Styling and refactoring mobile nav & fixing unit tests |
 | 2019-10-06 | 1     | Fixing unit tests & starting on desktop sidebar        |
 | 2019-10-06 | 1     | Desktop sidebar                                        |
-| 2019-10-07 | 2     | Desktop sidebar                                        |
-| TOTAL      | 48    |                                                        |
+| 2019-10-07 | 3     | Desktop sidebar                                        |
+| 2019-10-07 | 1     | Desktop sidebar & trying to fix a render bug           |
+| TOTAL      | 50    |                                                        |
 
 
 
-### Total hours: 106h
+### Total hours: 108h

@@ -24,8 +24,6 @@ const App = ({ user, checkUser, accounts, initializeAccounts }) => {
     }
   }, [user, initializeAccounts]);
 
-  const accountById = id => accounts.find(account => account.id === id);
-
   const globalStyle = css`
     * {
       font-family: Roboto;
@@ -76,9 +74,7 @@ const App = ({ user, checkUser, accounts, initializeAccounts }) => {
                 <Route
                   exact
                   path="/accounts/:id"
-                  render={({ match }) => (
-                    <Account account={accountById(match.params.id)} />
-                  )}
+                  render={({ match }) => <Account id={match.params.id} />}
                 />
               </Main>
               <MobileNav />

@@ -6,8 +6,12 @@ import AccountCreation from '../AccountCreation';
 
 const StyledAccountView = styled.div`
   margin-bottom: auto;
-  padding: 12px;
   color: white;
+`;
+
+const Header = styled.h2`
+  padding-left: 12px;
+  margin-bottom: 8px;
 `;
 
 const Button = styled.button`
@@ -18,11 +22,12 @@ const Button = styled.button`
   padding: 4px 12px;
   font-size: 12px;
   margin-top: 12px;
+  margin-left: 12px;
 `;
 
 const AccountView = () => (
   <StyledAccountView>
-    <h2>Accounts</h2>
+    <Header>Accounts</Header>
     <AccountList />
     <Popup
       trigger={<Button type="button">Add Account</Button>}
