@@ -5,18 +5,22 @@ import { withRouter } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import * as accountActions from '../../reducers/accountReducer';
 
-const Account = ({ account, updateAccount, deleteAccount, history }) => {
-  const [editing, setEditing] = useState(false);
-  const [name, setName] = useState(account.name);
-  const [newName, setNewName] = useState(name);
+const Account = ({ id, accounts, updateAccount, deleteAccount, history }) => {
+  const account = accounts.find(a => a.id === id);
 
-  const handleSave = () => {
+  const [editing, setEditing] = useState(false);
+  const [newName, setNewName] = useState(account.name);
+
+  const handleSave = async () => {
     if (newName) {
-      setName(newName);
-      const updatedAccount = { ...account, name };
-      updateAccount(updatedAccount);
+      const updatedAccount = { ...account, name: newName };
+      await updateAccount(updatedAccount);
     }
     setEditing(false);
+  };
+
+  const handleEdit = () => {
+    setEditing(true);
   };
 
   const handleDelete = () => {
@@ -38,12 +42,12 @@ const Account = ({ account, updateAccount, deleteAccount, history }) => {
           </button>
         </div>
       ) : (
-        <h1>{name}</h1>
+        <h1>{account.name}</h1>
       )}
       {account.balance}
       {editing ? null : (
         <div>
-          <button type="button" onClick={() => setEditing(true)}>
+          <button type="button" onClick={() => handleEdit()}>
             Edit name
           </button>
           <Popup
@@ -53,7 +57,7 @@ const Account = ({ account, updateAccount, deleteAccount, history }) => {
           >
             {close => (
               <div>
-                <span>{`Delete ${name}?`}</span>
+                <span>{`Delete ${account.name}?`}</span>
                 <button type="button" onClick={() => close()}>
                   CANCEL
                 </button>
@@ -70,19 +74,24 @@ const Account = ({ account, updateAccount, deleteAccount, history }) => {
 };
 
 Account.propTypes = {
-  account: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    balance: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired
-  }).isRequired,
+  id: PropTypes.string.isRequired,
+  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateAccount: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
+const mapStateToProps = state => ({
+  accounts: state.accounts
+});
+
+const mapDispatchToProps = {
+  ...accountActions
+};
+
 export default withRouter(
   connect(
-    null,
-    { ...accountActions }
+    mapStateToProps,
+    mapDispatchToProps
   )(Account)
 );
