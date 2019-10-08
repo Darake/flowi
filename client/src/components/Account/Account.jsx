@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import { updateAccount, deleteAccount } from '../../reducers/accountReducer';
 
-const Account = ({ id, history }) => {
+const Account = ({ id }) => {
+  const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
   const account = accounts.find(a => a.id === id);
 
-  const dispatch = useDispatch();
+  const history = useHistory();
 
   const [editing, setEditing] = useState(false);
   const [newName, setNewName] = useState(account.name);
@@ -77,8 +78,7 @@ const Account = ({ id, history }) => {
 };
 
 Account.propTypes = {
-  id: PropTypes.string.isRequired,
-  history: PropTypes.objectOf(PropTypes.any).isRequired
+  id: PropTypes.string.isRequired
 };
 
-export default withRouter(Account);
+export default Account;

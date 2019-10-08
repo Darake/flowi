@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 
-const AccountList = ({ history, location }) => {
+const AccountList = () => {
   const accounts = useSelector(state => state.accounts);
+
+  const history = useHistory();
 
   const onClick = id => {
     history.push(`/accounts/${id}`);
@@ -25,7 +27,6 @@ const AccountList = ({ history, location }) => {
             name={a.name}
             balance={a.balance}
             onClick={onClick}
-            pathname={location.pathname}
           />
         ))}
       </tbody>
@@ -33,7 +34,9 @@ const AccountList = ({ history, location }) => {
   );
 };
 
-const ListItem = ({ id, name, balance, onClick, pathname }) => {
+const ListItem = ({ id, name, balance, onClick }) => {
+  const location = useLocation();
+
   const accountPathname = `/accounts/${id}`;
 
   const Row = styled.tr`
@@ -41,7 +44,9 @@ const ListItem = ({ id, name, balance, onClick, pathname }) => {
       background-color: #0a558c;
       cursor: pointer;
     }
-    background-color: ${accountPathname === pathname ? '#003E6B' : '#0f609b'};
+    background-color: ${accountPathname === location.pathname
+      ? '#003E6B'
+      : '#0f609b'};
   `;
 
   const NameCell = styled.td`
@@ -65,13 +70,7 @@ ListItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   balance: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
-  pathname: PropTypes.string.isRequired
+  onClick: PropTypes.func.isRequired
 };
 
-AccountList.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any).isRequired,
-  location: PropTypes.objectOf(PropTypes.array).isRequired
-};
-
-export default withRouter(AccountList);
+export default AccountList;

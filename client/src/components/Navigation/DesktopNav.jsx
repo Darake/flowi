@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import AccountView from '../AccountView';
 import { logout } from '../../reducers/userReducer';
 
-const DesktopNav = ({ location }) => {
+const DesktopNav = () => {
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const Nav = styled.nav`
     display: flex;
@@ -62,8 +63,4 @@ const DesktopNav = ({ location }) => {
   );
 };
 
-DesktopNav.propTypes = {
-  location: PropTypes.objectOf(PropTypes.array).isRequired
-};
-
-export default withRouter(DesktopNav);
+export default DesktopNav;
