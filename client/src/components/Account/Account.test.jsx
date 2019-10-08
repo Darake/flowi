@@ -25,7 +25,7 @@ beforeEach(() => {
   ({ container, getByText, getByDisplayValue } = renderWithRedux(
     initialState,
     <Router history={history}>
-      <Account account={account} />
+      <Account id="1" />
     </Router>
   ));
 });

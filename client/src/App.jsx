@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
@@ -10,19 +9,23 @@ import AccountView from './components/AccountView';
 import Account from './components/Account';
 import MobileNav from './components/Navigation/MobileNav';
 import DesktopNav from './components/Navigation/DesktopNav';
-import * as userActions from './reducers/userReducer';
-import * as accountActions from './reducers/accountReducer';
+import { checkUser } from './reducers/userReducer';
+import { initializeAccounts } from './reducers/accountReducer';
 
-const App = ({ user, checkUser, accounts, initializeAccounts }) => {
+const App = () => {
+  const user = useSelector(state => state.user);
+  const accounts = useSelector(state => state.accounts);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    checkUser();
-  }, [checkUser]);
+    dispatch(checkUser());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
-      initializeAccounts();
+      dispatch(initializeAccounts());
     }
-  }, [user, initializeAccounts]);
+  }, [user, dispatch]);
 
   const globalStyle = css`
     * {
@@ -90,28 +93,4 @@ const App = ({ user, checkUser, accounts, initializeAccounts }) => {
   );
 };
 
-App.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string),
-  checkUser: PropTypes.func.isRequired,
-  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  initializeAccounts: PropTypes.func.isRequired
-};
-
-App.defaultProps = {
-  user: null
-};
-
-const mapStateToProps = state => ({
-  user: state.user,
-  accounts: state.accounts
-});
-
-const mapDispatchToProps = {
-  ...userActions,
-  ...accountActions
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

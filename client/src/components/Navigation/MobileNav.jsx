@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as userActions from '../../reducers/userReducer';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../reducers/userReducer';
 
-const MobileNav = ({ logout }) => {
+const MobileNav = () => {
+  const dispatch = useDispatch();
+
   const Nav = styled.nav`
     height: 10vh;
     background-color: #0f609b;
@@ -47,7 +48,7 @@ const MobileNav = ({ logout }) => {
         </picture>
       </IconLink>
       <IconLink to="/">
-        <IconButton type="button" onClick={() => logout()}>
+        <IconButton type="button" onClick={() => dispatch(logout())}>
           <picture>
             <source srcSet="/logoutwhitebig.png" media="(min-width: 760px)" />
             <img src="/logoutwhite.png" alt="logout" />
@@ -58,11 +59,4 @@ const MobileNav = ({ logout }) => {
   );
 };
 
-MobileNav.propTypes = {
-  logout: PropTypes.func.isRequired
-};
-
-export default connect(
-  null,
-  { ...userActions }
-)(MobileNav);
+export default MobileNav;

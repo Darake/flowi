@@ -1,14 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled';
-import * as accountActions from '../../reducers/accountReducer';
+import { createAccount } from '../../reducers/accountReducer';
 
-const AccountCreation = ({ createAccount, closeModal }) => {
+const AccountCreation = ({ closeModal }) => {
+  const dispatch = useDispatch();
+
   const handleSubmit = async ({ accountName, startingBalance }) => {
-    createAccount(accountName, startingBalance);
+    dispatch(createAccount(accountName, startingBalance));
     if (closeModal) closeModal();
   };
 
@@ -107,7 +109,6 @@ const AccountCreation = ({ createAccount, closeModal }) => {
 };
 
 AccountCreation.propTypes = {
-  createAccount: PropTypes.func.isRequired,
   closeModal: PropTypes.func
 };
 
@@ -115,9 +116,4 @@ AccountCreation.defaultProps = {
   closeModal: undefined
 };
 
-const mapDispatchToProps = { ...accountActions };
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(AccountCreation);
+export default AccountCreation;

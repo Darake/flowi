@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { useSpring, animated } from 'react-spring';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import * as userActions from '../../reducers/userReducer';
+import { login, register } from '../../reducers/userReducer';
 
-const Authentication = ({ login, register }) => {
+const Authentication = () => {
+  const dispatch = useDispatch();
   const [registration, setRegistration] = useState(false);
   const [authError, setAuthError] = useState(null);
 
@@ -18,7 +18,7 @@ const Authentication = ({ login, register }) => {
   });
 
   const handleLogin = async (email, password) => {
-    const error = login(email, password);
+    const error = dispatch(login(email, password));
     setRegistration(false);
 
     if (error) {
@@ -27,14 +27,14 @@ const Authentication = ({ login, register }) => {
   };
 
   const handleRegister = async (email, password, currency) => {
-    const error = await register(email, password, currency);
+    const error = await dispatch(register(email, password, currency));
 
     if (error) {
       setAuthError(
         'There was an error signing up. The email address might already be taken.'
       );
     } else {
-      login(email, password);
+      dispatch(login(email, password));
     }
   };
 
@@ -223,16 +223,4 @@ const Authentication = ({ login, register }) => {
   );
 };
 
-Authentication.propTypes = {
-  login: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
-};
-
-const mapDispatchToProps = {
-  ...userActions
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Authentication);
+export default Authentication;

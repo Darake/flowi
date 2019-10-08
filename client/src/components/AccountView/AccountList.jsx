@@ -1,10 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 
-const AccountList = ({ accounts, history, location }) => {
+const AccountList = ({ history, location }) => {
+  const accounts = useSelector(state => state.accounts);
+
   const onClick = id => {
     history.push(`/accounts/${id}`);
   };
@@ -68,13 +70,8 @@ ListItem.propTypes = {
 };
 
 AccountList.propTypes = {
-  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   location: PropTypes.objectOf(PropTypes.array).isRequired
 };
 
-const mapStateToProps = state => ({
-  accounts: state.accounts
-});
-
-export default withRouter(connect(mapStateToProps)(AccountList));
+export default withRouter(AccountList);

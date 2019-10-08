@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 import AccountView from '../AccountView';
-import * as userActions from '../../reducers/userReducer';
+import { logout } from '../../reducers/userReducer';
 
-const DesktopNav = ({ logout, location }) => {
+const DesktopNav = ({ location }) => {
+  const dispatch = useDispatch();
+
   const Nav = styled.nav`
     display: flex;
     flex-direction: column;
@@ -52,7 +54,7 @@ const DesktopNav = ({ logout, location }) => {
         <LinkText>Budget</LinkText>
       </NavLink>
       <AccountView />
-      <Logout type="button" onClick={() => logout()}>
+      <Logout type="button" onClick={() => dispatch(logout())}>
         <img src="/logoutwhitesmall.png" alt="budget" />
         <LinkText>Log out</LinkText>
       </Logout>
@@ -61,13 +63,7 @@ const DesktopNav = ({ logout, location }) => {
 };
 
 DesktopNav.propTypes = {
-  logout: PropTypes.func.isRequired,
   location: PropTypes.objectOf(PropTypes.array).isRequired
 };
 
-export default withRouter(
-  connect(
-    null,
-    { ...userActions }
-  )(DesktopNav)
-);
+export default withRouter(DesktopNav);

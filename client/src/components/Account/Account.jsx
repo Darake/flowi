@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Popup from 'reactjs-popup';
-import * as accountActions from '../../reducers/accountReducer';
+import { updateAccount, deleteAccount } from '../../reducers/accountReducer';
 
-const Account = ({ id, accounts, updateAccount, deleteAccount, history }) => {
+const Account = ({ id, history }) => {
+  const accounts = useSelector(state => state.accounts);
   const account = accounts.find(a => a.id === id);
+
+  const dispatch = useDispatch();
 
   const [editing, setEditing] = useState(false);
   const [newName, setNewName] = useState(account.name);
 
-  const handleSave = async () => {
+  const handleSave = () => {
     if (newName) {
       const updatedAccount = { ...account, name: newName };
-      await updateAccount(updatedAccount);
+      dispatch(updateAccount(updatedAccount));
     }
     setEditing(false);
   };
@@ -24,7 +27,7 @@ const Account = ({ id, accounts, updateAccount, deleteAccount, history }) => {
   };
 
   const handleDelete = () => {
-    deleteAccount(account);
+    dispatch(deleteAccount(account));
     history.push('/');
   };
 
@@ -75,23 +78,7 @@ const Account = ({ id, accounts, updateAccount, deleteAccount, history }) => {
 
 Account.propTypes = {
   id: PropTypes.string.isRequired,
-  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  updateAccount: PropTypes.func.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-const mapStateToProps = state => ({
-  accounts: state.accounts
-});
-
-const mapDispatchToProps = {
-  ...accountActions
-};
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Account)
-);
+export default withRouter(Account);
