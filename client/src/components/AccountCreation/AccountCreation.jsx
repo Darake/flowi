@@ -10,7 +10,7 @@ const AccountCreation = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = async ({ accountName, startingBalance }) => {
-    dispatch(createAccount(accountName, startingBalance));
+    dispatch(createAccount(accountName, Number(startingBalance)));
     if (closeModal) closeModal();
   };
 

@@ -16,13 +16,13 @@ describe('<AccountView />', () => {
       accounts: [
         {
           name: 'Nordea',
-          balance: '1337',
-          id: 1
+          balance: 1337,
+          id: '1'
         },
         {
           name: 'Danske',
-          balance: '9001',
-          id: 2
+          balance: 9001,
+          id: '2'
         }
       ]
     };

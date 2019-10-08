@@ -23,6 +23,7 @@ const AccountList = () => {
       <tbody>
         {accounts.map(a => (
           <ListItem
+            key={a.id}
             id={a.id}
             name={a.name}
             balance={a.balance}
@@ -59,7 +60,7 @@ const ListItem = ({ id, name, balance, onClick }) => {
   `;
 
   return (
-    <Row key={id} onClick={() => onClick(id)}>
+    <Row onClick={() => onClick(id)}>
       <NameCell>{name}</NameCell>
       <BalanceCell>{balance}</BalanceCell>
     </Row>

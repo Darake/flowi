@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useSpring, animated } from 'react-spring';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -10,12 +9,6 @@ const Authentication = () => {
   const dispatch = useDispatch();
   const [registration, setRegistration] = useState(false);
   const [authError, setAuthError] = useState(null);
-
-  const fadeProps = useSpring({
-    opacity: 1,
-    from: { opacity: 0 },
-    config: { friction: 10 }
-  });
 
   const handleLogin = async (email, password) => {
     const error = dispatch(login(email, password));
@@ -63,7 +56,7 @@ const Authentication = () => {
       .min(6, 'Password has to be atleast 6 long')
   });
 
-  const AnimatedView = styled(animated.div)`
+  const View = styled.div`
     width: 100vw;
     height: 80vh;
     display: flex;
@@ -115,7 +108,7 @@ const Authentication = () => {
     ${errorCss}
   `;
 
-  const GridContainer = styled(animated.div)`
+  const GridContainer = styled.div`
     display: grid;
     grid-row-gap: 8px;
   `;
@@ -147,7 +140,7 @@ const Authentication = () => {
   `;
 
   return (
-    <AnimatedView style={fadeProps}>
+    <View>
       <FormView>
         <Header>flowi</Header>
         <Formik
@@ -160,7 +153,7 @@ const Authentication = () => {
           onSubmit={handleSubmit}
           render={({ isSubmitting }) => {
             return (
-              <StyledForm style={fadeProps}>
+              <StyledForm>
                 <TextInput type="text" name="email" placeholder="Email" />
                 <FormikError name="email" component="span" />
 
@@ -219,7 +212,7 @@ const Authentication = () => {
           }}
         />
       </FormView>
-    </AnimatedView>
+    </View>
   );
 };
 

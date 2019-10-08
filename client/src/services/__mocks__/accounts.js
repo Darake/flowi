@@ -7,7 +7,7 @@ const getAll = () => {
 };
 
 const create = newAccount => {
-  const account = { id: 3, ...newAccount };
+  const account = { id: '3', ...newAccount };
   accounts = accounts.concat(account);
   return account;
 };
