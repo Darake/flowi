@@ -56,7 +56,8 @@ accountRouter.put('/:id', async (req, res, next) => {
       const account = { name, balance };
       const updatedAccount = await Account.findByIdAndUpdate(
         accountId,
-        account
+        account,
+        { new: true }
       );
       res.json(updatedAccount);
     }

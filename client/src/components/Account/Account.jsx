@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import { updateAccount, deleteAccount } from '../../reducers/accountReducer';
 
-const Account = ({ id }) => {
+const Account = ({ account }) => {
   const dispatch = useDispatch();
-  const accounts = useSelector(state => state.accounts);
-  const account = accounts.find(a => a.id === id);
-
   const history = useHistory();
 
   const [editing, setEditing] = useState(false);
   const [newName, setNewName] = useState(account.name);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (newName) {
       const updatedAccount = { ...account, name: newName };
-      dispatch(updateAccount(updatedAccount));
+      await dispatch(updateAccount(updatedAccount));
     }
-    setEditing(false);
   };
 
   const handleEdit = () => {
@@ -46,11 +42,8 @@ const Account = ({ id }) => {
           </button>
         </div>
       ) : (
-        <h1>{account.name}</h1>
-      )}
-      {account.balance}
-      {editing ? null : (
         <div>
+          <h1>{account.name}</h1>
           <button type="button" onClick={() => handleEdit()}>
             Edit name
           </button>
@@ -73,12 +66,17 @@ const Account = ({ id }) => {
           </Popup>
         </div>
       )}
+      {account.balance}
     </div>
   );
 };
 
 Account.propTypes = {
-  id: PropTypes.string.isRequired
+  account: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    balance: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default Account;

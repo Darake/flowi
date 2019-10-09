@@ -1,5 +1,6 @@
 import authService from '../services/auth';
 import accountService from '../services/accounts';
+import { setNotification } from './notificationReducer';
 
 export const initialState = null;
 
@@ -46,21 +47,24 @@ export const login = (email, password) => {
         type: 'SET_USER',
         payload: user
       });
-      return null;
     } catch (exception) {
-      return exception;
+      dispatch(setNotification('Incorrect email or password'));
     }
   };
 };
 
 export const register = (email, password, currency) => {
-  return async () => {
+  return async dispatch => {
     try {
       const user = { email, password, currency };
       await authService.register(user);
-      return null;
+      await dispatch(login(email, password));
     } catch (exception) {
-      return exception;
+      dispatch(
+        setNotification(
+          'There was an error signing up. The email address might already be taken.'
+        )
+      );
     }
   };
 };

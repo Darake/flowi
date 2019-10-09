@@ -63,6 +63,8 @@ const App = () => {
     height: 90vh;
   `;
 
+  const accountById = id => accounts.find(a => a.id === id);
+
   return (
     <Root>
       <Global styles={globalStyle} />
@@ -77,7 +79,9 @@ const App = () => {
                 <Route
                   exact
                   path="/accounts/:id"
-                  render={({ match }) => <Account id={match.params.id} />}
+                  render={({ match }) => (
+                    <Account account={accountById(match.params.id)} />
+                  )}
                 />
               </Main>
               <MobileNav />

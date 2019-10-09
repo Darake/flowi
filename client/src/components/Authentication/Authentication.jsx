@@ -1,47 +1,21 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { login, register } from '../../reducers/userReducer';
 
 const Authentication = () => {
   const dispatch = useDispatch();
+  const notification = useSelector(state => state.notification);
   const [registration, setRegistration] = useState(false);
-  const [authError, setAuthError] = useState(null);
-
-  const handleLogin = async (email, password) => {
-    const error = dispatch(login(email, password));
-    setRegistration(false);
-
-    if (error) {
-      setAuthError('Incorrect email or password');
-    }
-  };
-
-  const handleRegister = async (email, password, currency) => {
-    const error = await dispatch(register(email, password, currency));
-
-    if (error) {
-      setAuthError(
-        'There was an error signing up. The email address might already be taken.'
-      );
-    } else {
-      dispatch(login(email, password));
-    }
-  };
-
-  const handleFormChange = () => {
-    setRegistration(!registration);
-    setAuthError(null);
-  };
 
   const handleSubmit = (values, actions) => {
     const { email, password, currency } = values;
     if (registration) {
-      handleRegister(email, password, currency);
+      dispatch(register(email, password, currency));
     } else {
-      handleLogin(email, password);
+      dispatch(login(email, password));
     }
 
     actions.setSubmitting(false);
@@ -163,7 +137,7 @@ const Authentication = () => {
                   placeholder="Password"
                 />
                 <FormikError name="password" component="span" />
-                <Error>{authError}</Error>
+                <Error>{notification}</Error>
                 {registration ? (
                   <GridContainer>
                     <Label htmlFor="currency">Choose a currency</Label>
@@ -185,7 +159,7 @@ const Authentication = () => {
 
                     <TertiaryButton
                       type="button"
-                      onClick={handleFormChange}
+                      onClick={() => setRegistration(false)}
                       key="1"
                       disabled={isSubmitting}
                     >
@@ -200,7 +174,7 @@ const Authentication = () => {
 
                     <TertiaryButton
                       type="button"
-                      onClick={handleFormChange}
+                      onClick={() => setRegistration(true)}
                       disabled={isSubmitting}
                     >
                       SIGN UP
