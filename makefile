@@ -35,7 +35,7 @@ shutdown: ## Stop and remove every project's container
 	@docker-compose -f lint.yml down
 
 enter-client: ## Enter the dev environment client's container
-	@docker exec -it flowi_client_1 sh
+	@docker exec -it flowi-client_1 sh
 
 enter-server: ## Enter the dev environment server's container
-	@docker exec -it flowi_server_1 sh
+	@docker exec -it flowi-server_1 sh
