@@ -1,15 +1,51 @@
-import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form} from 'formik';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Container from '@material-ui/core/Container'
+import FormHelperText from '@material-ui/core/FormHelperText';
+import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 import { login, register } from '../../reducers/userReducer';
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  error: {
+    color: 'red',
+    margin: '4px 0'
+  },
+  formControl: {
+    marginTop: theme.spacing(2),
+  }
+}));
 
 const Authentication = () => {
   const dispatch = useDispatch();
   const notification = useSelector(state => state.notification);
   const [registration, setRegistration] = useState(false);
-
+  
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = useState(0);
+  useEffect(() => {
+    if (registration) {
+      setLabelWidth(inputLabel.current.offsetWidth);
+    }
+  }, [registration]);
+  
   const handleSubmit = (values, actions) => {
     const { email, password, currency } = values;
     if (registration) {
@@ -27,166 +63,118 @@ const Authentication = () => {
       .required('Email address required'),
     password: Yup.string()
       .required('Password required')
-      .min(6, 'Password has to be atleast 6 long')
+      .min(6, 'Password has to be atleast 6 long'),
+    currency: Yup.string()
+      .required('Please choose a currency')
   });
 
-  const View = styled.div`
-    width: 100vw;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const FormView = styled.div`
-    display: grid;
-    width: 300px;
-  `;
-
-  const Header = styled.h1`
-    font-family: 'Courgette', cursive;
-    color: #38bec9;
-    text-align: center;
-  `;
-
-  const StyledForm = styled(Form)`
-    display: grid;
-  `;
-
-  const TextInput = styled(Field)`
-    padding: 12px;
-    box-sizing: border-box;
-    margin: 8px 0;
-    background-color: #d9e2ec;
-    border-radius: 8px;
-    border: 2px solid #bcccdc;
-  `;
-
-  const SelectInput = styled(Field)`
-    border-radius: 8px;
-    background-color: #d9e2ec;
-    grid-column: 3;
-    border: 2px solid #bcccdc;
-  `;
-
-  const errorCss = `
-    color: red;
-    margin: 4px 0;
-  `;
-
-  const FormikError = styled(ErrorMessage)`
-    ${errorCss}
-  `;
-
-  const Error = styled.span`
-    ${errorCss}
-  `;
-
-  const GridContainer = styled.div`
-    display: grid;
-    grid-row-gap: 8px;
-  `;
-
-  const Label = styled.label`
-    grid-column: 1 / 3;
-    text-align: left;
-  `;
-
-  const PrimaryButton = styled.button`
-    border-radius: 8px;
-    padding: 8px;
-    background-color: #38bec9;
-    border: 2px solid #2cb1bc;
-    color: white;
-    margin: 8px 0;
-    grid-column: 1/4;
-  `;
-
-  const TertiaryButton = styled.button`
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-    text-align: left;
-    margin-top: 24px;
-  `;
+  const classes = useStyles();
 
   return (
-    <View>
-      <FormView>
-        <Header>flowi</Header>
+    <Container component="main" maxWidth="xs" >
+      <div className={classes.paper}>
+        <h1 style={{
+          fontFamily: 'Courgette, cursive',
+          color: '#2196f3'
+        }}>
+          flowi
+        </h1>
         <Formik
           initialValues={{
             email: '',
             password: '',
-            currency: 'EUR'
+            currency: ''
           }}
           validationSchema={authSchema}
           onSubmit={handleSubmit}
-          render={({ isSubmitting }) => {
+          render={({ values, isSubmitting, handleChange, handleBlur, errors, touched }) => {
             return (
-              <StyledForm>
-                <TextInput type="text" name="email" placeholder="Email" />
-                <FormikError name="email" component="span" />
+              <Form>
+                {notification ? <p className={classes.error}>{notification}</p> : null }
 
-                <TextInput
-                  type="password"
-                  name="password"
-                  placeholder="Password"
+                <TextField
+                  type="text"
+                  name="email" 
+                  label="Email"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={(errors.email && touched.email) && errors.email}
+                  error={errors.email && touched.email}
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
                 />
-                <FormikError name="password" component="span" />
-                <Error>{notification}</Error>
+
+                <TextField
+                  type="password"
+                  name="password" 
+                  label="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={(errors.password && touched.password) && errors.password}
+                  error={errors.password && touched.password}
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                />
+                
                 {registration ? (
-                  <GridContainer>
-                    <Label htmlFor="currency">Choose a currency</Label>
-                    <SelectInput
-                      name="currency"
-                      id="currency"
-                      component="select"
-                      placeholder="Your Currency"
-                    >
-                      <option value="EUR">EUR</option>
-                      <option value="USD">USD</option>
-                      <option value="GPB">GBP</option>
-                    </SelectInput>
-                    <ErrorMessage name="currency" />
+                  <div>
+                    <FormControl fullWidth variant="outlined" error={errors.currency && touched.currency} className={classes.formControl}>
+                      <InputLabel id="currency-label" ref={inputLabel}>Currency</InputLabel>
+                      <Select
+                        labelId="currency-label"
+                        name="currency"
+                        value={values.currency}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        labelWidth={labelWidth}
+                      >
+                        <MenuItem value={"EUR"}>EUR</MenuItem>
+                        <MenuItem value={"USD"}>USD</MenuItem>
+                        <MenuItem value={"GPB"}>GPB</MenuItem>
+                      </Select>
+                      <FormHelperText>{(errors.currency && touched.currency) && errors.currency}</FormHelperText>
+                    </FormControl>
 
-                    <PrimaryButton type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isSubmitting} color="primary" variant="contained" fullWidth className={classes.submit}>
                       CONFIRM
-                    </PrimaryButton>
+                    </Button>
 
-                    <TertiaryButton
+                    <Link
+                      component="button"
                       type="button"
                       onClick={() => setRegistration(false)}
                       key="1"
                       disabled={isSubmitting}
                     >
                       Already an user?
-                    </TertiaryButton>
-                  </GridContainer>
+                    </Link>
+                  </div>
                 ) : (
-                  <GridContainer>
-                    <PrimaryButton type="submit" disabled={isSubmitting}>
+                  <div>
+                    <Button type="submit" disabled={isSubmitting} color="primary" variant="contained" fullWidth className={classes.submit}>
                       LOG IN
-                    </PrimaryButton>
+                    </Button>
 
-                    <TertiaryButton
+                    <Link
                       type="button"
                       onClick={() => setRegistration(true)}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting}                                            
+                      component="button"
                     >
                       SIGN UP
-                    </TertiaryButton>
-                  </GridContainer>
+                    </Link>
+                  </div>
                 )}
-              </StyledForm>
+              </Form>
             );
           }}
         />
-      </FormView>
-    </View>
+      </div>
+    </Container>
   );
 };
 

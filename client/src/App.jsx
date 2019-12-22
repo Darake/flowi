@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Authentication from './components/Authentication';
 import AccountCreation from './components/AccountCreation';
 import AccountView from './components/AccountView';
@@ -27,53 +28,17 @@ const App = () => {
     }
   }, [user, dispatch]);
 
-  const globalStyle = css`
-    * {
-      font-family: Roboto;
-      color: #102a43
-      font-weight: 400;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      max-width: 100vw;
-      background-color: #f0f4f8;
-    }
-  `;
-
-  const Root = styled.div`
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
-
-  const View = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-    @media (min-width: 1224px) {
-      flex-direction: row;
-    }
-  `;
-
-  const Main = styled.main`
-    height: 90vh;
-  `;
-
   const accountById = id => accounts.find(a => a.id === id);
 
   return (
-    <Root>
-      <Global styles={globalStyle} />
+    <div>
+      <CssBaseline />
       {user ? (
         <Router>
           {accounts.length !== 0 ? (
-            <View>
+            <div>
               <DesktopNav />
-              <Main>
+              <div>
                 <Route exact path="/" render={() => <p>Welcome</p>} />
                 <Route exact path="/accounts" render={() => <AccountView />} />
                 <Route
@@ -83,9 +48,9 @@ const App = () => {
                     <Account account={accountById(match.params.id)} />
                   )}
                 />
-              </Main>
+              </div>
               <MobileNav />
-            </View>
+            </div>
           ) : (
             <AccountCreation />
           )}
@@ -93,7 +58,7 @@ const App = () => {
       ) : (
         <Authentication />
       )}
-    </Root>
+    </div>
   );
 };
 
