@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form} from 'formik';
+import { Formik, Form } from 'formik';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import Container from '@material-ui/core/Container'
+import Container from '@material-ui/core/Container';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
@@ -19,17 +19,17 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 2)
   },
   error: {
     color: 'red',
     margin: '4px 0'
   },
   formControl: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(2)
   }
 }));
 
@@ -37,7 +37,7 @@ const Authentication = () => {
   const dispatch = useDispatch();
   const notification = useSelector(state => state.notification);
   const [registration, setRegistration] = useState(false);
-  
+
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = useState(0);
   useEffect(() => {
@@ -45,7 +45,7 @@ const Authentication = () => {
       setLabelWidth(inputLabel.current.offsetWidth);
     }
   }, [registration]);
-  
+
   const handleSubmit = (values, actions) => {
     const { email, password, currency } = values;
     if (registration) {
@@ -64,19 +64,20 @@ const Authentication = () => {
     password: Yup.string()
       .required('Password required')
       .min(6, 'Password has to be atleast 6 long'),
-    currency: Yup.string()
-      .required('Please choose a currency')
+    currency: Yup.string().required('Please choose a currency')
   });
 
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs" >
+    <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <h1 style={{
-          fontFamily: 'Courgette, cursive',
-          color: '#2196f3'
-        }}>
+        <h1
+          style={{
+            fontFamily: 'Courgette, cursive',
+            color: '#2196f3'
+          }}
+        >
           flowi
         </h1>
         <Formik
@@ -87,19 +88,28 @@ const Authentication = () => {
           }}
           validationSchema={authSchema}
           onSubmit={handleSubmit}
-          render={({ values, isSubmitting, handleChange, handleBlur, errors, touched }) => {
+          render={({
+            values,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            errors,
+            touched
+          }) => {
             return (
               <Form>
-                {notification ? <p className={classes.error}>{notification}</p> : null }
+                {notification ? (
+                  <p className={classes.error}>{notification}</p>
+                ) : null}
 
                 <TextField
                   type="text"
-                  name="email" 
+                  name="email"
                   label="Email"
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={(errors.email && touched.email) && errors.email}
+                  helperText={errors.email && touched.email && errors.email}
                   error={errors.email && touched.email}
                   margin="normal"
                   variant="outlined"
@@ -108,22 +118,31 @@ const Authentication = () => {
 
                 <TextField
                   type="password"
-                  name="password" 
+                  name="password"
                   label="Password"
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={(errors.password && touched.password) && errors.password}
+                  helperText={
+                    errors.password && touched.password && errors.password
+                  }
                   error={errors.password && touched.password}
                   margin="normal"
                   variant="outlined"
                   fullWidth
                 />
-                
+
                 {registration ? (
                   <div>
-                    <FormControl fullWidth variant="outlined" error={errors.currency && touched.currency} className={classes.formControl}>
-                      <InputLabel id="currency-label" ref={inputLabel}>Currency</InputLabel>
+                    <FormControl
+                      fullWidth
+                      variant="outlined"
+                      error={errors.currency && touched.currency}
+                      className={classes.formControl}
+                    >
+                      <InputLabel id="currency-label" ref={inputLabel}>
+                        Currency
+                      </InputLabel>
                       <Select
                         labelId="currency-label"
                         name="currency"
@@ -132,20 +151,29 @@ const Authentication = () => {
                         onBlur={handleBlur}
                         labelWidth={labelWidth}
                       >
-                        <MenuItem value={"EUR"}>EUR</MenuItem>
-                        <MenuItem value={"USD"}>USD</MenuItem>
-                        <MenuItem value={"GPB"}>GPB</MenuItem>
+                        <MenuItem value="EUR">EUR</MenuItem>
+                        <MenuItem value="USD">USD</MenuItem>
+                        <MenuItem value="GPB">GPB</MenuItem>
                       </Select>
-                      <FormHelperText>{(errors.currency && touched.currency) && errors.currency}</FormHelperText>
+                      <FormHelperText>
+                        {errors.currency && touched.currency && errors.currency}
+                      </FormHelperText>
                     </FormControl>
 
-                    <Button type="submit" disabled={isSubmitting} color="primary" variant="contained" fullWidth className={classes.submit}>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      color="primary"
+                      variant="contained"
+                      fullWidth
+                      className={classes.submit}
+                    >
                       CONFIRM
                     </Button>
 
                     <Link
-                      component="button"
                       type="button"
+                      component="button"
                       onClick={() => setRegistration(false)}
                       key="1"
                       disabled={isSubmitting}
@@ -155,14 +183,21 @@ const Authentication = () => {
                   </div>
                 ) : (
                   <div>
-                    <Button type="submit" disabled={isSubmitting} color="primary" variant="contained" fullWidth className={classes.submit}>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      color="primary"
+                      variant="contained"
+                      fullWidth
+                      className={classes.submit}
+                    >
                       LOG IN
                     </Button>
 
                     <Link
                       type="button"
                       onClick={() => setRegistration(true)}
-                      disabled={isSubmitting}                                            
+                      disabled={isSubmitting}
                       component="button"
                     >
                       SIGN UP
