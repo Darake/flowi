@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
 import Authentication from './components/Authentication';
 import AccountCreation from './components/AccountCreation';
 import AccountView from './components/AccountView';
@@ -10,6 +12,17 @@ import MobileNav from './components/Navigation/MobileNav';
 import DesktopNav from './components/Navigation/DesktopNav';
 import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
+
+const useStyles = makeStyles({
+  container: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    height: '100vh'
+  },
+  main: {
+    paddingBottom: '56px'
+  }
+});
 
 const App = () => {
   const user = useSelector(state => state.user);
@@ -28,6 +41,8 @@ const App = () => {
 
   const accountById = id => accounts.find(a => a.id === id);
 
+  const classes = useStyles();
+
   if (!user) {
     return <Authentication />;
   }
@@ -41,10 +56,10 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Container className={classes.container}>
       <Router>
         <DesktopNav />
-        <div>
+        <main className={classes.main}>
           <Route exact path="/" render={() => <p>Welcome</p>} />
           <Route exact path="/accounts" render={() => <AccountView />} />
           <Route
@@ -54,10 +69,12 @@ const App = () => {
               <Account account={accountById(match.params.id)} />
             )}
           />
-        </div>
-        <MobileNav />
+        </main>
+        <Hidden smUp>
+          <MobileNav />
+        </Hidden>
       </Router>
-    </div>
+    </Container>
   );
 };
 

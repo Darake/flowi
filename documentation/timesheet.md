@@ -87,5 +87,6 @@
 | 2019-12-21 | 1     | Change docker config                                                   |
 | 2019-12-22 | 1     | Refactor authentication page to use material-ui                        |
 | 2019-12-23 | 2     | Fix currency validation & refactor account creation to use material-ui |
+| 2019-12-23 | 1     | refactor mobile nav to use material-ui                                 |
 
-### Total hours: 115h
+### Total hours: 116h

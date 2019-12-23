@@ -1,61 +1,56 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import GridOn from '@material-ui/icons/GridOn';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { logout } from '../../reducers/userReducer';
+
+const useStyles = makeStyles({
+  stickToBottom: {
+    bottom: 0,
+    position: 'fixed',
+    width: '100%'
+  }
+});
 
 const MobileNav = () => {
   const dispatch = useDispatch();
+  const [value, setValue] = useState(0);
 
-  const Nav = styled.nav`
-    height: 10vh;
-    background-color: #0f609b;
-    text-align: center;
-    display: flex;
-    @media (min-width: 1224px) {
-      display: none;
-    }
-  `;
+  if (value === 2) dispatch(logout());
 
-  const IconLink = styled(Link)`
-    width: 33.33%;
-    width: calc(100% / 3);
-    text-align: center;
-    padding: 12px 0;
-    display flex;
-    align-items: center;
-    justify-content: center;
-  `;
-
-  const IconButton = styled.button`
-    text-align: center;
-    background-color: #0f609b;
-    border: 0;
-  `;
+  const classes = useStyles();
 
   return (
-    <Nav>
-      <IconLink to="/accounts">
-        <picture>
-          <source srcSet="/bankwhitebig.png" media="(min-width: 760px)" />
-          <img src="/bankwhite.png" alt="accounts" />
-        </picture>
-      </IconLink>
-      <IconLink to="/">
-        <picture>
-          <source srcSet="/budgetwhitebig.png" media="(min-width: 760px)" />
-          <img src="/budgetwhite.png" alt="budget" />
-        </picture>
-      </IconLink>
-      <IconLink to="/">
-        <IconButton type="button" onClick={() => dispatch(logout())}>
-          <picture>
-            <source srcSet="/logoutwhitebig.png" media="(min-width: 760px)" />
-            <img src="/logoutwhite.png" alt="logout" />
-          </picture>
-        </IconButton>
-      </IconLink>
-    </Nav>
+    <BottomNavigation
+      showLabels
+      value={value}
+      onChange={(e, newValue) => setValue(newValue)}
+      className={classes.stickToBottom}
+    >
+      <BottomNavigationAction
+        label="Budget"
+        icon={<GridOn />}
+        component={Link}
+        to="/"
+      />
+      <BottomNavigationAction
+        label="Accounts"
+        icon={<AccountBalanceIcon />}
+        component={Link}
+        to="/accounts"
+      />
+      <BottomNavigationAction
+        label="Log out"
+        icon={<ExitToAppIcon />}
+        component={Link}
+        to="/"
+      />
+    </BottomNavigation>
   );
 };
 
