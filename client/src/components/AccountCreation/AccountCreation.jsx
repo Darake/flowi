@@ -1,10 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import styled from '@emotion/styled';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import MaterialField from '../Shared/MaterialComponents';
 import { createAccount } from '../../reducers/accountReducer';
+
+const useStyles = makeStyles(theme => ({
+  submit: {
+    marginTop: theme.spacing(2)
+  }
+}));
 
 const AccountCreation = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -21,61 +31,13 @@ const AccountCreation = ({ closeModal }) => {
       .required('Starting balance required.')
   });
 
-  const Container = styled.div`
-    background-color: white;
-    border-radius: 8px;
-    border: 2px solid #d9e2ec;
-    border-top: 8px solid #62b0e8;
-    width: 85%;
-    max-width: 512px;
-    padding: 32px 12px;
-  `;
-
-  const Header = styled.h2`
-    font-size: 20px;
-    margin: 0 0 32px 4px;
-  `;
-
-  const Label = styled.label`
-    display: block;
-    margin: 16px 0 8px 4px;
-    color: #486581;
-    font-size: 16px;
-  `;
-
-  const TextInput = styled(Field)`
-    display: block;
-    padding: 8px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    background-color: #f0f4f8;
-    border: 2px solid #d9e2ec;
-    width: 100%;
-  `;
-
-  const PrimaryButton = styled.button`
-    border-radius: 8px;
-    padding: 8px;
-    margin: 16px 0;
-    background-color: #4098d7;
-    border: 2px solid #62b0e8;
-    color: white;
-    width: 100%;
-  `;
-
-  const Error = styled(ErrorMessage)`
-    color: #d64545;
-    border: 1px solid #ba2525;
-    padding: 8px;
-    border-radius: 4px;
-    margin: 4px 0;
-    width: 100%;
-    box-sizing: border-box;
-  `;
+  const classes = useStyles();
 
   return (
-    <Container>
-      <Header>Account creation</Header>
+    <Box mt={10}>
+      <Typography component="h1" variant="h6">
+        Account creation
+      </Typography>
       <Formik
         initialValues={{
           accountName: '',
@@ -83,28 +45,37 @@ const AccountCreation = ({ closeModal }) => {
         }}
         validationSchema={accountSchema}
         onSubmit={handleSubmit}
-        render={() => {
+        render={formikProps => {
           return (
             <Form>
-              <Label htmlFor="accountName">Account name</Label>
-              <TextInput type="text" name="accountName" id="accountName" />
-
-              <Label htmlFor="startingBalance">Starting balance</Label>
-              <TextInput
+              <MaterialField
                 type="text"
-                name="startingBalance"
-                id="startingBalance"
+                name="accountName"
+                label="Account name"
+                {...formikProps}
               />
 
-              <PrimaryButton type="submit">CONFIRM</PrimaryButton>
+              <MaterialField
+                type="text"
+                name="startingBalance"
+                label="Starting balance"
+                {...formikProps}
+              />
 
-              <Error name="accountName" component="li" />
-              <Error name="startingBalance" component="li" />
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                fullWidth
+                className={classes.submit}
+              >
+                CONFIRM
+              </Button>
             </Form>
           );
         }}
       />
-    </Container>
+    </Box>
   );
 };
 

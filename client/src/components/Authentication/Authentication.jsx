@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -12,6 +11,7 @@ import Container from '@material-ui/core/Container';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
+import MaterialField from '../Shared/MaterialComponents';
 import { login, register } from '../../reducers/userReducer';
 
 const useStyles = makeStyles(theme => ({
@@ -57,15 +57,20 @@ const Authentication = () => {
     actions.setSubmitting(false);
   };
 
-  const authSchema = Yup.object().shape({
+  const authShape = {
     email: Yup.string()
       .email('Invalid email format')
       .required('Email address required'),
     password: Yup.string()
       .required('Password required')
-      .min(6, 'Password has to be atleast 6 long'),
-    currency: Yup.string().required('Please choose a currency')
-  });
+      .min(6, 'Password has to be atleast 6 long')
+  };
+
+  if (registration) {
+    authShape.currency = Yup.string().required('Please choose a currency');
+  }
+
+  const authSchema = Yup.object().shape(authShape);
 
   const classes = useStyles();
 
@@ -88,48 +93,32 @@ const Authentication = () => {
           }}
           validationSchema={authSchema}
           onSubmit={handleSubmit}
-          render={({
-            values,
-            isSubmitting,
-            handleChange,
-            handleBlur,
-            errors,
-            touched
-          }) => {
+          render={formikProps => {
+            const {
+              errors,
+              values,
+              handleChange,
+              handleBlur,
+              touched
+            } = formikProps;
             return (
               <Form>
                 {notification ? (
                   <p className={classes.error}>{notification}</p>
                 ) : null}
 
-                <TextField
+                <MaterialField
                   type="text"
                   name="email"
                   label="Email"
-                  value={values.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={errors.email && touched.email && errors.email}
-                  error={errors.email && touched.email}
-                  margin="normal"
-                  variant="outlined"
-                  fullWidth
+                  {...formikProps}
                 />
 
-                <TextField
+                <MaterialField
                   type="password"
                   name="password"
                   label="Password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={
-                    errors.password && touched.password && errors.password
-                  }
-                  error={errors.password && touched.password}
-                  margin="normal"
-                  variant="outlined"
-                  fullWidth
+                  {...formikProps}
                 />
 
                 {registration ? (
@@ -162,7 +151,6 @@ const Authentication = () => {
 
                     <Button
                       type="submit"
-                      disabled={isSubmitting}
                       color="primary"
                       variant="contained"
                       fullWidth
@@ -176,7 +164,6 @@ const Authentication = () => {
                       component="button"
                       onClick={() => setRegistration(false)}
                       key="1"
-                      disabled={isSubmitting}
                     >
                       Already an user?
                     </Link>
@@ -185,7 +172,6 @@ const Authentication = () => {
                   <div>
                     <Button
                       type="submit"
-                      disabled={isSubmitting}
                       color="primary"
                       variant="contained"
                       fullWidth
@@ -197,7 +183,6 @@ const Authentication = () => {
                     <Link
                       type="button"
                       onClick={() => setRegistration(true)}
-                      disabled={isSubmitting}
                       component="button"
                     >
                       SIGN UP

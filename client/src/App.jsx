@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Global, css } from '@emotion/core';
-import styled from '@emotion/styled';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 import Authentication from './components/Authentication';
 import AccountCreation from './components/AccountCreation';
 import AccountView from './components/AccountView';
@@ -30,34 +28,35 @@ const App = () => {
 
   const accountById = id => accounts.find(a => a.id === id);
 
+  if (!user) {
+    return <Authentication />;
+  }
+
+  if (accounts.length === 0) {
+    return (
+      <Container maxWidth="xs">
+        <AccountCreation />
+      </Container>
+    );
+  }
+
   return (
     <div>
-      <CssBaseline />
-      {user ? (
-        <Router>
-          {accounts.length !== 0 ? (
-            <div>
-              <DesktopNav />
-              <div>
-                <Route exact path="/" render={() => <p>Welcome</p>} />
-                <Route exact path="/accounts" render={() => <AccountView />} />
-                <Route
-                  exact
-                  path="/accounts/:id"
-                  render={({ match }) => (
-                    <Account account={accountById(match.params.id)} />
-                  )}
-                />
-              </div>
-              <MobileNav />
-            </div>
-          ) : (
-            <AccountCreation />
-          )}
-        </Router>
-      ) : (
-        <Authentication />
-      )}
+      <Router>
+        <DesktopNav />
+        <div>
+          <Route exact path="/" render={() => <p>Welcome</p>} />
+          <Route exact path="/accounts" render={() => <AccountView />} />
+          <Route
+            exact
+            path="/accounts/:id"
+            render={({ match }) => (
+              <Account account={accountById(match.params.id)} />
+            )}
+          />
+        </div>
+        <MobileNav />
+      </Router>
     </div>
   );
 };
