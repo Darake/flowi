@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import AccountList from './AccountList';
 import AccountCreation from '../AccountCreation';
+import AccountCreationModal from '../AccountCreation/AccountCreationModal';
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -39,7 +40,8 @@ const AccountView = () => {
         Accounts
       </Typography>
       <AccountList />
-      <Hidden smDown>
+      <AccountCreationModal />
+      <Hidden smUp>
         <Popup
           trigger={
             <Button
