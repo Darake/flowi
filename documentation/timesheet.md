@@ -92,5 +92,7 @@
 | 2019-12-27 | 1     | refactor AccountList to use material-ui                                          |
 | 2019-12-27 | 2     | refactor AccountView to use material-ui                                          |
 | 2019-12-27 | 1     | fix a few bugs, refactor AccountCreation modal & Account page to use material-ui |
+| 2019-12-27 | 1     | refactor Account & apply material-ui to it                                       |
+| TOTAL      | 11    |                                                                                  |
 
-### Total hours: 121h
+### Total hours: 122h

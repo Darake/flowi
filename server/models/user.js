@@ -22,6 +22,12 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Account'
     }
+  ],
+  budgets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Budget'
+    }
   ]
 });
 
