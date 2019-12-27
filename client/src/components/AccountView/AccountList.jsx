@@ -8,14 +8,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 
-const useStyles = makeStyles(theme => ({
-  active: {
-    backgroundColor: theme.palette.action.selected
-  },
+const useStyles = makeStyles({
   balance: {
     color: '#38bec9'
   }
-}));
+});
 
 const AccountList = () => {
   const accounts = useSelector(state => state.accounts);
@@ -36,7 +33,6 @@ const AccountList = () => {
               key={row.id}
               onClick={() => onClick(row.id)}
               className={classes.row}
-              activeClassName={classes.active}
             >
               <TableCell scope="row">{row.name}</TableCell>
               <TableCell align="right" className={classes.balance}>

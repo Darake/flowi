@@ -76,6 +76,15 @@ const App = () => {
               <Account account={accountById(match.params.id)} />
             )}
           />
+          <Route
+            exact
+            path="/new-account"
+            render={() => (
+              <Container maxWidth="xs">
+                <AccountCreation />
+              </Container>
+            )}
+          />
         </main>
         <Hidden smUp>
           <MobileNav />
