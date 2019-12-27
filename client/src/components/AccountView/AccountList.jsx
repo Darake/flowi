@@ -1,77 +1,54 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { useHistory, useLocation } from 'react-router-dom';
-import styled from '@emotion/styled';
+import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableRow from '@material-ui/core/TableRow';
+
+const useStyles = makeStyles(theme => ({
+  active: {
+    backgroundColor: theme.palette.action.selected
+  },
+  balance: {
+    color: '#38bec9'
+  }
+}));
 
 const AccountList = () => {
   const accounts = useSelector(state => state.accounts);
-
+  const user = useSelector(state => state.user);
   const history = useHistory();
+  const classes = useStyles();
 
   const onClick = id => {
     history.push(`/accounts/${id}`);
   };
 
-  const Table = styled.table`
-    width: 100%;
-    border-collapse: collapse;
-  `;
-
   return (
-    <Table>
-      <tbody>
-        {accounts.map(a => (
-          <ListItem
-            key={a.id}
-            id={a.id}
-            name={a.name}
-            balance={a.balance}
-            onClick={onClick}
-          />
-        ))}
-      </tbody>
-    </Table>
+    <TableContainer>
+      <Table aria-label="simple table">
+        <TableBody>
+          {accounts.map(row => (
+            <TableRow
+              key={row.id}
+              onClick={() => onClick(row.id)}
+              className={classes.row}
+              activeClassName={classes.active}
+            >
+              <TableCell scope="row">{row.name}</TableCell>
+              <TableCell align="right" className={classes.balance}>
+                {row.balance}
+                {user.currency}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-};
-
-const ListItem = ({ id, name, balance, onClick }) => {
-  const location = useLocation();
-
-  const accountPathname = `/accounts/${id}`;
-
-  const Row = styled.tr`
-    :hover {
-      background-color: #0a558c;
-      cursor: pointer;
-    }
-    background-color: ${accountPathname === location.pathname
-      ? '#003E6B'
-      : '#0f609b'};
-  `;
-
-  const NameCell = styled.td`
-    padding: 8px 8px 8px 12px;
-  `;
-
-  const BalanceCell = styled.td`
-    text-align: right;
-    padding-right: 12px;
-  `;
-
-  return (
-    <Row onClick={() => onClick(id)}>
-      <NameCell>{name}</NameCell>
-      <BalanceCell>{balance}</BalanceCell>
-    </Row>
-  );
-};
-
-ListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  balance: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired
 };
 
 export default AccountList;

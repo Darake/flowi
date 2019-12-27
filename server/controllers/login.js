@@ -20,8 +20,9 @@ loginRouter.post('/', async (req, res, next) => {
       };
 
       const token = jwt.sign(userForToken, process.env.SECRET);
+      const { currency } = user;
 
-      res.status(200).send({ token, email });
+      res.status(200).send({ token, email, currency });
     } else {
       res.status(401).json({
         error: 'invalid email or password'

@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import AccountList from './AccountList';
 import AccountCreation from '../AccountCreation';
 
-const StyledAccountView = styled.div`
+/*const StyledAccountView = styled.div`
   margin-bottom: auto;
   color: white;
 `;
@@ -23,14 +23,14 @@ const Button = styled.button`
   font-size: 12px;
   margin-top: 12px;
   margin-left: 12px;
-`;
+`;*/
 
 const AccountView = () => (
-  <StyledAccountView>
-    <Header>Accounts</Header>
+  <div>
+    <h2>Accounts</h2>
     <AccountList />
     <Popup
-      trigger={<Button type="button">Add Account</Button>}
+      trigger={<button type="button">Add Account</button>}
       modal
       closeOnDocumentClick
     >
@@ -43,7 +43,7 @@ const AccountView = () => (
         </div>
       )}
     </Popup>
-  </StyledAccountView>
+  </div>
 );
 
 export default AccountView;

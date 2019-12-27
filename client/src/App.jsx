@@ -13,16 +13,21 @@ import DesktopNav from './components/Navigation/DesktopNav';
 import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   container: {
     paddingLeft: 0,
     paddingRight: 0,
-    height: '100vh'
+    height: '100vh',
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column'
+    }
   },
   main: {
+    flexGrow: 1,
     paddingBottom: '56px'
   }
-});
+}));
 
 const App = () => {
   const user = useSelector(state => state.user);
@@ -58,7 +63,9 @@ const App = () => {
   return (
     <Container className={classes.container}>
       <Router>
-        <DesktopNav />
+        <Hidden smDown>
+          <DesktopNav />
+        </Hidden>
         <main className={classes.main}>
           <Route exact path="/" render={() => <p>Welcome</p>} />
           <Route exact path="/accounts" render={() => <AccountView />} />

@@ -140,9 +140,9 @@ const Authentication = () => {
                         onBlur={handleBlur}
                         labelWidth={labelWidth}
                       >
-                        <MenuItem value="EUR">EUR</MenuItem>
-                        <MenuItem value="USD">USD</MenuItem>
-                        <MenuItem value="GPB">GPB</MenuItem>
+                        <MenuItem value="€">EUR</MenuItem>
+                        <MenuItem value="$">USD</MenuItem>
+                        <MenuItem value="£">GPB</MenuItem>
                       </Select>
                       <FormHelperText>
                         {errors.currency && touched.currency && errors.currency}
