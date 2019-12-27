@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: theme.spacing(1)
+  },
+  accounts: {
+    paddingBottom: theme.spacing(8)
   }
 }));
 
@@ -28,7 +31,7 @@ const AccountView = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.accounts}>
       <Typography component="h1" variant="h6" className={classes.header}>
         Accounts
       </Typography>

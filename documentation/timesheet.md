@@ -90,6 +90,6 @@
 | 2019-12-23 | 1     | refactor mobile nav to use material-ui                                 |
 | 2019-12-27 | 1     | refactor desktop nav to use material-ui                                |
 | 2019-12-27 | 1     | refactor AccountList to use material-ui                                |
-| 2019-12-27 | 1     | refactor AccountView to use material-ui                                |
+| 2019-12-27 | 2     | refactor AccountView to use material-ui                                |
 
-### Total hours: 119h
+### Total hours: 120h

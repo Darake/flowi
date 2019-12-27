@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -18,10 +19,16 @@ const useStyles = makeStyles(theme => ({
 
 const AccountCreation = ({ closeModal }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const classes = useStyles();
 
   const handleSubmit = async ({ accountName, startingBalance }) => {
-    dispatch(createAccount(accountName, Number(startingBalance)));
-    if (closeModal) closeModal();
+    await dispatch(createAccount(accountName, Number(startingBalance)));
+    if (closeModal) {
+      closeModal();
+    } else {
+      history.push('/accounts');
+    }
   };
 
   const accountSchema = Yup.object().shape({
@@ -30,8 +37,6 @@ const AccountCreation = ({ closeModal }) => {
       .typeError('Starting balance needs to be a number.')
       .required('Starting balance required.')
   });
-
-  const classes = useStyles();
 
   return (
     <Box mt={10}>

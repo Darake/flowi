@@ -31,7 +31,7 @@ const AccountList = () => {
       <Table aria-label="simple table">
         <TableBody>
           {accounts.map(row => (
-            <ListItem row={row} />
+            <ListItem row={row} key={row.id} />
           ))}
         </TableBody>
       </Table>
@@ -53,11 +53,7 @@ const ListItem = ({ row }) => {
   };
 
   return (
-    <TableRow
-      key={row.id}
-      onClick={() => onClick(row.id)}
-      className={classes.row}
-    >
+    <TableRow onClick={() => onClick(row.id)} className={classes.row}>
       <TableCell scope="row">{row.name}</TableCell>
       <TableCell align="right" className={classes.balance}>
         {row.balance}

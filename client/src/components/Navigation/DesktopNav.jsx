@@ -25,9 +25,9 @@ const useStyles = makeStyles(theme => ({
   logout: {
     bottom: 0,
     position: 'fixed',
-    width: drawerWidth
+    width: drawerWidth,
+    backgroundColor: 'white'
   },
-
   active: {
     backgroundColor: theme.palette.action.selected
   }

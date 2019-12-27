@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
@@ -62,34 +62,32 @@ const App = () => {
 
   return (
     <Container className={classes.container}>
-      <Router>
-        <Hidden smDown>
-          <DesktopNav />
-        </Hidden>
-        <main className={classes.main}>
-          <Route exact path="/" render={() => <p>Welcome</p>} />
-          <Route exact path="/accounts" render={() => <AccountView />} />
-          <Route
-            exact
-            path="/accounts/:id"
-            render={({ match }) => (
-              <Account account={accountById(match.params.id)} />
-            )}
-          />
-          <Route
-            exact
-            path="/new-account"
-            render={() => (
-              <Container maxWidth="xs">
-                <AccountCreation />
-              </Container>
-            )}
-          />
-        </main>
-        <Hidden smUp>
-          <MobileNav />
-        </Hidden>
-      </Router>
+      <Hidden smDown>
+        <DesktopNav />
+      </Hidden>
+      <main className={classes.main}>
+        <Route exact path="/" render={() => <p>Welcome</p>} />
+        <Route exact path="/accounts" render={() => <AccountView />} />
+        <Route
+          exact
+          path="/accounts/:id"
+          render={({ match }) => (
+            <Account account={accountById(match.params.id)} />
+          )}
+        />
+        <Route
+          exact
+          path="/new-account"
+          render={() => (
+            <Container maxWidth="xs">
+              <AccountCreation />
+            </Container>
+          )}
+        />
+      </main>
+      <Hidden smUp>
+        <MobileNav />
+      </Hidden>
     </Container>
   );
 };
