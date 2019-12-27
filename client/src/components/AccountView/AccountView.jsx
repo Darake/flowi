@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import Hidden from '@material-ui/core/Hidden';
+import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import AccountList from './AccountList';
 import AccountCreation from '../AccountCreation';
@@ -17,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: theme.spacing(10),
     right: theme.spacing(2)
+  },
+  button: {
+    margin: theme.spacing(1)
   }
 }));
 
@@ -29,33 +33,42 @@ const AccountView = () => {
         Accounts
       </Typography>
       <AccountList />
-      <Popup
-        trigger={
-          <Hidden smDown>
-            <button type="button">Add Account</button>
-          </Hidden>
-        }
-        modal
-        closeOnDocumentClick
-      >
-        {close => (
-          <div>
-            <AccountCreation closeModal={close} />
-            <button type="button" onClick={() => close()}>
-              CANCEL
-            </button>
-          </div>
-        )}
-      </Popup>
-      <Fab
-        color="primary"
-        aria-label="add"
-        className={classes.fab}
-        component={Link}
-        to="/new-account"
-      >
-        <AddIcon />
-      </Fab>
+      <Hidden smDown>
+        <Popup
+          trigger={
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.button}
+              size="small"
+            >
+              Add Account
+            </Button>
+          }
+          modal
+          closeOnDocumentClick
+        >
+          {close => (
+            <div>
+              <AccountCreation closeModal={close} />
+              <button type="button" onClick={() => close()}>
+                CANCEL
+              </button>
+            </div>
+          )}
+        </Popup>
+      </Hidden>
+      <Hidden smUp>
+        <Fab
+          color="primary"
+          aria-label="add"
+          className={classes.fab}
+          component={Link}
+          to="/new-account"
+        >
+          <AddIcon />
+        </Fab>
+      </Hidden>
     </div>
   );
 };
