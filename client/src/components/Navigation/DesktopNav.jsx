@@ -26,7 +26,11 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     position: 'fixed',
     width: drawerWidth,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRight: '1px solid rgba(0, 0, 0, 0.12)',
+    borderTop: '1px solid rgba(0, 0, 0, 0.12)',
+    paddingTop: 0,
+    paddingBottom: 0
   },
   active: {
     backgroundColor: theme.palette.action.selected

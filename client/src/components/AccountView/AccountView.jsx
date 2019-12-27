@@ -15,15 +15,18 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2)
   },
   fab: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing(10),
-    right: theme.spacing(2)
+    right: theme.spacing(2),
+    opacity: 0.7
   },
   button: {
     margin: theme.spacing(1)
   },
   accounts: {
-    paddingBottom: theme.spacing(8)
+    [theme.breakpoints.up('sm')]: {
+      paddingBottom: theme.spacing(8)
+    }
   }
 }));
 
