@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       padding: theme.spacing(1)
     },
-    paddingBottom: '56px'
+    paddingBottom: '56px',
+    width: '100%'
   }
 }));
 
@@ -67,7 +68,7 @@ const App = () => {
   }
 
   return (
-    <Container className={classes.container}>
+    <div className={classes.container}>
       <Hidden smDown>
         <DesktopNav />
       </Hidden>
@@ -94,7 +95,7 @@ const App = () => {
       <Hidden smUp>
         <MobileNav />
       </Hidden>
-    </Container>
+    </div>
   );
 };
 
