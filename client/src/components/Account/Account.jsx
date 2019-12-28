@@ -7,7 +7,6 @@ import AccountContent from './AccountContent';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    margin: theme.spacing(1),
     display: 'flex'
   }
 }));

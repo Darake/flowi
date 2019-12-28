@@ -10,8 +10,10 @@ import AccountView from './components/AccountView';
 import Account from './components/Account';
 import MobileNav from './components/Navigation/MobileNav';
 import DesktopNav from './components/Navigation/DesktopNav';
+import BudgetView from './components/BudgetView';
 import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
+import { initializeBudgets } from './reducers/budgetReducer';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -25,6 +27,9 @@ const useStyles = makeStyles(theme => ({
   },
   main: {
     flexGrow: 1,
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(1)
+    },
     paddingBottom: '56px'
   }
 }));
@@ -41,6 +46,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       dispatch(initializeAccounts());
+      dispatch(initializeBudgets());
     }
   }, [user, dispatch]);
 
@@ -66,7 +72,7 @@ const App = () => {
         <DesktopNav />
       </Hidden>
       <main className={classes.main}>
-        <Route exact path="/" render={() => <p>Welcome</p>} />
+        <Route exact path="/" render={() => <BudgetView />} />
         <Route exact path="/accounts" render={() => <AccountView />} />
         <Route
           exact

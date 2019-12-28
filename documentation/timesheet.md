@@ -95,4 +95,11 @@
 | 2019-12-27 | 1     | refactor Account & apply material-ui to it                                       |
 | TOTAL      | 11    |                                                                                  |
 
-### Total hours: 122h
+## Budget
+
+| **Date**   | Hours | Target                                                                                 |
+| ---------- | ----- | -------------------------------------------------------------------------------------- |
+| 2019-12-28 | 1     | Budget model & controller in backend, service & reducer in frontend, viewing component |
+| 2019-12-28 | 1     | Change CSS in frontend                                                                 |
+
+### Total hours: 124h

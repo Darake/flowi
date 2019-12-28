@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
+import Balance from '../Shared/Balance';
 
 const useStyles = makeStyles(theme => ({
   balance: {
@@ -55,9 +56,8 @@ const ListItem = ({ row }) => {
   return (
     <TableRow onClick={() => onClick(row.id)} className={classes.row}>
       <TableCell scope="row">{row.name}</TableCell>
-      <TableCell align="right" className={classes.balance}>
-        {row.balance}
-        {user.currency}
+      <TableCell align="right">
+        <Balance balance={row.balance} />
       </TableCell>
     </TableRow>
   );

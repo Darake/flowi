@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { updateAccount } from '../../reducers/accountReducer';
-import AccountBalance from './AccountBalance';
+import Balance from '../Shared/Balance';
 
 const useStyles = makeStyles(theme => ({
   nameEdit: {
@@ -42,7 +42,7 @@ const AccountEditing = ({ account, setEditing }) => {
           autoFocus
           className={classes.nameEdit}
         />
-        <AccountBalance balance={account.balance} />
+        <Balance balance={account.balance} />
       </CardContent>
       <CardActions>
         <Button size="small" color="primary" type="button" onClick={handleSave}>

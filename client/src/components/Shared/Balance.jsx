@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   }
 });
 
-const AccountBalance = ({ balance }) => {
+const Balance = ({ balance }) => {
   const classes = useStyles();
   const user = useSelector(state => state.user);
 
@@ -23,8 +23,8 @@ const AccountBalance = ({ balance }) => {
   );
 };
 
-AccountBalance.propTypes = {
+Balance.propTypes = {
   balance: PropTypes.number.isRequired
 };
 
-export default AccountBalance;
+export default Balance;
