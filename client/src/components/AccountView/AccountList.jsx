@@ -42,7 +42,6 @@ const AccountList = () => {
 
 const ListItem = ({ row }) => {
   const location = useLocation();
-  const user = useSelector(state => state.user);
   const history = useHistory();
 
   const accountPathname = `/accounts/${row.id}`;

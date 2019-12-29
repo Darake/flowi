@@ -101,5 +101,8 @@
 | ---------- | ----- | -------------------------------------------------------------------------------------- |
 | 2019-12-28 | 1     | Budget model & controller in backend, service & reducer in frontend, viewing component |
 | 2019-12-28 | 1     | Change CSS in frontend                                                                 |
+| 2019-12-28 | 2     | Budget category creation in frontend & CSS changes                                     |
+| 2019-12-28 | 1     | Budget funds adding & moving, splitting components to smaller pieces                   |
+| 2019-12-29 | 5     | Budget funds adding & moving                                                           |
 
-### Total hours: 124h
+### Total hours: 132h
