@@ -105,5 +105,7 @@
 | 2019-12-28 | 1     | Budget funds adding & moving, splitting components to smaller pieces                   |
 | 2019-12-29 | 5     | Budget funds adding & moving                                                           |
 | 2019-12-30 | 5     | Budget funds adding                                                                    |
+| 2019-12-30 | 1     | Fix Material-ui value-out-of-range warning                                             |
+| 2019-12-30 | 1     | Refactor budget funds adding component into smaller pieces                             |
 
-### Total hours: 137h
+### Total hours: 139h

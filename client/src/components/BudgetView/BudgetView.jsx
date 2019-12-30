@@ -4,20 +4,20 @@ import BudgetHeader from './BudgetHeader';
 import BudgetTable from './BudgetTable';
 
 const BudgetView = () => {
-  const [addingDialogOpen, setAddingDialogOpen] = useState(false);
+  const [fundsAddingDialogOpen, setFundsAddingDialogOpen] = useState(false);
   const [clickedCategory, setClickedCategory] = useState(null);
 
   return (
     <div>
       <BudgetFundsAdding
-        open={addingDialogOpen}
-        setOpen={setAddingDialogOpen}
+        open={fundsAddingDialogOpen}
+        setOpen={setFundsAddingDialogOpen}
         budget={clickedCategory}
       />
       <BudgetHeader />
       <BudgetTable
         setClickedCategory={setClickedCategory}
-        setAddingDialogOpen={setAddingDialogOpen}
+        setAddingDialogOpen={setFundsAddingDialogOpen}
       />
     </div>
   );
