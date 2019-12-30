@@ -50,3 +50,11 @@
             <Button onClick={handleClose} color="primary" autoFocus>
               Agree
             </Button>
+
+
+{React.Children.map(children, (child, i) => {
+  return React.cloneElement(child, {
+    index: i,
+    focused: focused
+  });
+})}

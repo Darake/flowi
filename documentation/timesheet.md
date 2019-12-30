@@ -104,5 +104,6 @@
 | 2019-12-28 | 2     | Budget category creation in frontend & CSS changes                                     |
 | 2019-12-28 | 1     | Budget funds adding & moving, splitting components to smaller pieces                   |
 | 2019-12-29 | 5     | Budget funds adding & moving                                                           |
+| 2019-12-30 | 5     | Budget funds adding                                                                    |
 
-### Total hours: 132h
+### Total hours: 137h
