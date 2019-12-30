@@ -63,9 +63,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column'
-  },
-  saveButton: {
-    paddingRight: 's'
   }
 }));
 
@@ -127,6 +124,8 @@ const BudgetFundsAdding = ({ open, setOpen, budget }) => {
 
   const budgetName = budget ? budget.name : 'placeholder';
 
+  const budgetById = id => budgets.filter(b => b.id === id)[0];
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -134,13 +133,14 @@ const BudgetFundsAdding = ({ open, setOpen, budget }) => {
   const handleSubmit = values => {
     handleClose();
     const totalAddition = values.fundSources.reduce((sum, source) => {
-      if (source.object.name === 'Accounts') {
+      if (source.object === 'Accounts') {
         return sum + Number(source.addition);
       }
-      if (source.object.name) {
+      if (source.object !== '') {
+        const sourceBudget = budgetById(source.object);
         const updatedSourceBudget = {
-          ...source.object,
-          balance: Number(source.object.balance) - Number(source.addition)
+          ...sourceBudget,
+          balance: Number(sourceBudget.balance) - Number(source.addition)
         };
         dispatch(updateBudget(updatedSourceBudget));
         return sum + Number(source.addition);
@@ -185,10 +185,10 @@ const BudgetFundsAdding = ({ open, setOpen, budget }) => {
                           className={classes.fundSourceObject}
                         >
                           <MenuItem
-                            value={accounts}
+                            value={accounts.name}
                             className={classes.fundSourceOption}
                             disabled={values.fundSources
-                              .map(s => s.object.name)
+                              .map(s => s.object)
                               .includes('Accounts')}
                           >
                             Accounts
@@ -205,11 +205,11 @@ const BudgetFundsAdding = ({ open, setOpen, budget }) => {
                             .map(b => (
                               <MenuItem
                                 key={b.id}
-                                value={b}
+                                value={b.id}
                                 className={classes.fundSourceOption}
                                 disabled={values.fundSources
-                                  .map(s => s.object.name)
-                                  .includes(b.name)}
+                                  .map(s => s.object)
+                                  .includes(b.id)}
                               >
                                 {b.name}
                                 {values.fundSources[index].object === '' ? (
@@ -236,13 +236,14 @@ const BudgetFundsAdding = ({ open, setOpen, budget }) => {
                           }}
                           disabled={values.fundSources[index].object === ''}
                           onChange={e => {
-                            if (
-                              e.target.value >
-                              values.fundSources[index].object.balance
-                            ) {
+                            const { balance } =
+                              values.fundSources[index].object === 'Accounts'
+                                ? accounts
+                                : budgetById(values.fundSources[index].object);
+                            if (e.target.value > balance) {
                               setFieldValue(
                                 `fundSources.${index}.addition`,
-                                values.fundSources[index].object.balance
+                                balance
                               );
                             } else if (e.target.value < 0) {
                               setFieldValue(`fundSources.${index}.addition`, 0);
