@@ -50,9 +50,11 @@ export const FormikSelectField = ({
         <Select {...field} {...props} labelId={labelId} labelWidth={labelWidth}>
           {children}
         </Select>
-        <FormHelperText>
-          {meta.error && meta.touched && meta.error}
-        </FormHelperText>
+        {meta.error && meta.touched ? (
+          <FormHelperText>
+            {meta.error && meta.touched && meta.error}
+          </FormHelperText>
+        ) : null}
       </FormControl>
     </>
   );

@@ -88,7 +88,7 @@ const FundSources = ({ budget, values, setFieldValue, arrayHelpers }) => {
           <FormikSelectField
             label="Source"
             name={`fundSources.${index}.object`}
-            className={classes.fundSourceObject}
+            formControlClassName={classes.fundSourceObject}
           >
             <MenuItem
               value={accounts.name}
