@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import MaterialField from '../Shared/MaterialComponents';
+import { FormikTextField } from '../Shared/MaterialFormikFields';
 import { createAccount } from '../../reducers/accountReducer';
 
 const useStyles = makeStyles(theme => ({
@@ -50,36 +50,35 @@ const AccountCreation = ({ closeModal }) => {
         }}
         validationSchema={accountSchema}
         onSubmit={handleSubmit}
-        render={formikProps => {
-          return (
-            <Form>
-              <MaterialField
-                type="text"
-                name="accountName"
-                label="Account name"
-                {...formikProps}
-              />
+      >
+        <Form>
+          <FormikTextField
+            name="accountName"
+            label="Account name"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+          />
 
-              <MaterialField
-                type="text"
-                name="startingBalance"
-                label="Starting balance"
-                {...formikProps}
-              />
+          <FormikTextField
+            name="startingBalance"
+            label="Starting balance"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+          />
 
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                fullWidth
-                className={classes.submit}
-              >
-                CONFIRM
-              </Button>
-            </Form>
-          );
-        }}
-      />
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            fullWidth
+            className={classes.submit}
+          >
+            CONFIRM
+          </Button>
+        </Form>
+      </Formik>
     </Box>
   );
 };
