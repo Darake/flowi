@@ -103,7 +103,7 @@ const FundSources = ({ budget, values, setFieldValue, arrayHelpers }) => {
                 />
               ) : null}
             </MenuItem>
-            <ListSubheader disabled>Other Budgets</ListSubheader>
+            <ListSubheader value="">Other Budgets</ListSubheader>
             {budgets
               .filter(b => b.id !== budget.id)
               .map(b => (
