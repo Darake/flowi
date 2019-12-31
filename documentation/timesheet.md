@@ -107,5 +107,6 @@
 | 2019-12-30 | 5     | Budget funds adding                                                                    |
 | 2019-12-30 | 1     | Fix Material-ui value-out-of-range warning                                             |
 | 2019-12-30 | 1     | Refactor budget funds adding component into smaller pieces                             |
+| 2019-12-31 |       | Migrate old formik forms to ver 2.0                                                    |
 
 ### Total hours: 139h
