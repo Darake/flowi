@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import BudgetFundsAdding from './BudgetFundsAdding';
 import BudgetHeader from './BudgetHeader';
 import BudgetTable from './BudgetTable';
+import BudgetDialog from './BudgetDialog';
 
 const BudgetView = () => {
   const [fundsAddingDialogOpen, setFundsAddingDialogOpen] = useState(false);
@@ -9,7 +9,7 @@ const BudgetView = () => {
 
   return (
     <div>
-      <BudgetFundsAdding
+      <BudgetDialog
         open={fundsAddingDialogOpen}
         setOpen={setFundsAddingDialogOpen}
         budget={clickedCategory}
