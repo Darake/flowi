@@ -26,6 +26,7 @@ const BudgetCreation = () => {
     if (name.length > 0) {
       await dispatch(createBudget(name, 0));
     }
+    setName('');
     handleClose();
   };
 

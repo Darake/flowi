@@ -109,6 +109,6 @@
 | 2019-12-30 | 1     | Refactor budget funds adding component into smaller pieces                             |
 | 2019-12-31 | 1     | Migrate old formik forms to ver 2.0 & Fix fund adding selectfield positioning          |
 | 2020-01-02 | 1     | tab system for budget dialog, selected budget to redux & budget editing functionality  |
-| 2020-01-02 |       | Budget name editing                                                                    |
+| 2020-01-02 |       | Budget name editing, budget category deletion                                          |
 
 ### Total hours: 141h

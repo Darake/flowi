@@ -19,6 +19,7 @@ const BudgetDialog = ({ open, setOpen }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setTab(0);
     dispatch(resetBudget());
   };
 

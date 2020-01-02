@@ -9,10 +9,14 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { updateBudget } from '../../reducers/budgetReducer';
+import BudgetDeletionDialog from './BudgetDeletionDialog';
 
 const useStyles = makeStyles(theme => ({
   editingDialogContent: {
-    marginBottom: theme.spacing(4)
+    marginBottom: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start'
   }
 }));
 
@@ -39,7 +43,8 @@ const BudgetEditing = ({ handleClose }) => {
       <DialogTitle id="category-editing">{`Edit ${budget.name}`}</DialogTitle>
       <DialogContent className={classes.editingDialogContent}>
         <DialogContentText>Enter a new name for the category</DialogContentText>
-        <TextField type="text" value={newName} onChange={onChange} />
+        <TextField type="text" fullWidth value={newName} onChange={onChange} />
+        <BudgetDeletionDialog closeMainDialog={handleClose} />
       </DialogContent>
       <DialogActions>
         <Button size="small" onClick={handleClose}>
