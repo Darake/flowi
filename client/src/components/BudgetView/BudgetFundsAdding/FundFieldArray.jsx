@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FundFieldArray = ({ budget, values, setFieldValue }) => {
+const FundFieldArray = ({ values, setFieldValue }) => {
   const classes = useStyles();
 
   return (
@@ -20,7 +20,6 @@ const FundFieldArray = ({ budget, values, setFieldValue }) => {
       {arrayHelpers => (
         <div>
           <FundSources
-            budget={budget}
             values={values}
             setFieldValue={setFieldValue}
             arrayHelpers={arrayHelpers}
@@ -39,16 +38,7 @@ const FundFieldArray = ({ budget, values, setFieldValue }) => {
   );
 };
 
-FundFieldArray.defaultProps = {
-  budget: null
-};
-
 FundFieldArray.propTypes = {
-  budget: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    balance: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired
-  }),
   values: PropTypes.objectOf(PropTypes.array).isRequired,
   setFieldValue: PropTypes.func.isRequired
 };

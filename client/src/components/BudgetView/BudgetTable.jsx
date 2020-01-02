@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Balance from '../Shared/Balance';
+import { setBudget } from '../../reducers/selectedBudgetReducer';
 
 const useStyles = makeStyles(theme => ({
   category: {
@@ -20,13 +21,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BudgetTable = ({ setClickedCategory, setAddingDialogOpen }) => {
+const BudgetTable = ({ setBudgetDialogOpen }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const budgets = useSelector(state => state.budgets);
 
   const handleCategoryClick = budget => {
-    setClickedCategory(budget);
-    setAddingDialogOpen(true);
+    dispatch(setBudget(budget));
+    setBudgetDialogOpen(true);
   };
 
   return (
@@ -60,8 +62,7 @@ const BudgetTable = ({ setClickedCategory, setAddingDialogOpen }) => {
 };
 
 BudgetTable.propTypes = {
-  setClickedCategory: PropTypes.func.isRequired,
-  setAddingDialogOpen: PropTypes.func.isRequired
+  setBudgetDialogOpen: PropTypes.func.isRequired
 };
 
 export default BudgetTable;

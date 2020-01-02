@@ -108,6 +108,7 @@
 | 2019-12-30 | 1     | Fix Material-ui value-out-of-range warning                                             |
 | 2019-12-30 | 1     | Refactor budget funds adding component into smaller pieces                             |
 | 2019-12-31 | 1     | Migrate old formik forms to ver 2.0 & Fix fund adding selectfield positioning          |
-| 2020-01-02 |       | Create a tab system for selected budget dialog                                         |
+| 2020-01-02 | 1     | tab system for budget dialog, selected budget to redux & budget editing functionality  |
+| 2020-01-02 |       | Budget name editing                                                                    |
 
-### Total hours: 140h
+### Total hours: 141h

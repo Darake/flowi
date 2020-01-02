@@ -42,9 +42,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FundSources = ({ budget, values, setFieldValue, arrayHelpers }) => {
+const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
   const classes = useStyles();
   const budgets = useSelector(state => state.budgets);
+  const budget = useSelector(state => state.selectedBudget);
   const totalBudgeted = budgets.reduce((sum, b) => sum + b.balance, 0);
   const totalAccountBalance = useSelector(state => state.accounts).reduce(
     (sum, account) => sum + account.balance,
@@ -149,16 +150,7 @@ const FundSources = ({ budget, values, setFieldValue, arrayHelpers }) => {
   );
 };
 
-FundSources.defaultProps = {
-  budget: null
-};
-
 FundSources.propTypes = {
-  budget: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    balance: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired
-  }),
   values: PropTypes.objectOf(PropTypes.array).isRequired,
   setFieldValue: PropTypes.func.isRequired,
   arrayHelpers: PropTypes.objectOf(PropTypes.any).isRequired
