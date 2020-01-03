@@ -2,13 +2,17 @@ const mongoose = require('mongoose');
 const createModel = require('./modelFactory');
 
 const transactionSchema = mongoose.Schema({
-  source: {
+  sourceAccount: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Account'
   },
-  target: {
-    type: Object,
-    required: true
+  targetAccount: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Account'
+  },
+  targetBudget: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Budget'
   },
   amount: {
     type: Number,

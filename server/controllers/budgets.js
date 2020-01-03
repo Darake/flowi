@@ -26,7 +26,7 @@ budgetRouter.post('/', async (req, res, next) => {
     if (!userId) {
       res.status(401).json({ error: 'invalid token' });
     } else {
-      const budget = new Budget({ name, balance: balance || 0 });
+      const budget = new Budget({ name, balance: balance || 0, user: userId });
       const savedBudget = await budget.save();
 
       const user = await User.findById(userId);
@@ -53,7 +53,7 @@ budgetRouter.put('/:id', async (req, res, next) => {
     if (!req.userId || !user.budgets.includes(budgetId)) {
       res.status(401).json({ error: 'invalid token' });
     } else {
-      const budget = { name, balance };
+      const budget = { name, balance, user: userId };
       const updatedBudget = await Budget.findByIdAndUpdate(budgetId, budget, {
         new: true
       });

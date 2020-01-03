@@ -110,6 +110,13 @@
 | 2019-12-31 | 1     | Migrate old formik forms to ver 2.0 & Fix fund adding selectfield positioning          |
 | 2020-01-02 | 1     | tab system for budget dialog, selected budget to redux & budget editing functionality  |
 | 2020-01-02 | 1     | Budget name editing, budget category deletion & transaction model                      |
-| 2020-01-03 |       | transaction model, transaction controller                                              |
+| TOTAL      | 20    |                                                                                        |
 
-### Total hours: 142h
+## Transaction
+
+| **Date**   | Hours | Target                                         |
+| ---------- | ----- | ---------------------------------------------- |
+| 2020-01-03 | 1     | transaction model, transaction post controller |
+| 2020-01-03 |       | transaction post controller                    |
+
+### Total hours: 143h

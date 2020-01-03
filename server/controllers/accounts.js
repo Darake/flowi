@@ -26,7 +26,7 @@ accountRouter.post('/', async (req, res, next) => {
     if (!userId) {
       res.status(401).json({ error: 'invalid token' });
     } else {
-      const account = new Account({ name, balance });
+      const account = new Account({ name, balance, user: userId });
       const savedAccount = await account.save();
 
       const user = await User.findById(userId);
@@ -53,7 +53,7 @@ accountRouter.put('/:id', async (req, res, next) => {
     if (!req.userId || !user.accounts.includes(accountId)) {
       res.status(401).json({ error: 'invalid token' });
     } else {
-      const account = { name, balance };
+      const account = { name, balance, user: userId };
       const updatedAccount = await Account.findByIdAndUpdate(
         accountId,
         account,

@@ -13,6 +13,10 @@ const accountSchema = mongoose.Schema({
   transactions: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
