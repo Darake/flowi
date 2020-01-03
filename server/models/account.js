@@ -9,6 +9,10 @@ const accountSchema = mongoose.Schema({
   balance: {
     type: Number,
     required: true
+  },
+  transactions: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
   }
 });
 

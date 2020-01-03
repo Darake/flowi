@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const createModel = require('./modelFactory');
 
 const userSchema = mongoose.Schema({
   email: {
@@ -32,15 +33,7 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.plugin(uniqueValidator, { message: '{PATH} must be unique' });
-userSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-    delete returnedObject.passwordHash;
-  }
-});
 
-const User = mongoose.model('User', userSchema);
+const User = createModel('User', userSchema);
 
 module.exports = User;
