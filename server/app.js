@@ -10,15 +10,15 @@ const accountRouter = require('./controllers/accounts');
 const budgetRouter = require('./controllers/budgets');
 const testingRouter = require('./controllers/testing');
 
-mongoose.set('useFindAndModify', false);
-
 const app = express();
 
 logger.info('connecting to', config.MONGODB_URI);
 mongoose
   .connect(config.MONGODB_URI, {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(() => {
     logger.info('connected to MongoDB');

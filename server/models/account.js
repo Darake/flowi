@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const createModel = require('./modelFactory');
 
 const accountSchema = mongoose.Schema({
   name: {
@@ -11,14 +12,6 @@ const accountSchema = mongoose.Schema({
   }
 });
 
-accountSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  }
-});
-
-const Account = mongoose.model('Account', accountSchema);
+const Account = createModel('Account', accountSchema);
 
 module.exports = Account;
