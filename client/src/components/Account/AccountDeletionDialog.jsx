@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { deleteAccount } from '../../reducers/accountReducer';
 
-const AccountDeletion = ({ account }) => {
+const AccountDeletionDialog = ({ account }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [open, setOpen] = useState(false);
@@ -57,7 +57,7 @@ const AccountDeletion = ({ account }) => {
   );
 };
 
-AccountDeletion.propTypes = {
+AccountDeletionDialog.propTypes = {
   account: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -65,4 +65,4 @@ AccountDeletion.propTypes = {
   }).isRequired
 };
 
-export default AccountDeletion;
+export default AccountDeletionDialog;

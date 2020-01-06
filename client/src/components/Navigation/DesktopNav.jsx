@@ -11,7 +11,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import AccountView from '../AccountView';
+import Accounts from '../Accounts';
 import { logout } from '../../reducers/userReducer';
 
 const drawerWidth = 240;
@@ -79,7 +79,7 @@ const DesktopNav = () => {
         </ListItem>
       </List>
       <Divider />
-      <AccountView />
+      <Accounts />
       <List className={classes.logout}>
         <ListItem button onClick={() => dispatch(logout())}>
           <ListItemIcon>

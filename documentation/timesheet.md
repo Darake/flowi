@@ -120,4 +120,10 @@
 | 2020-01-03 | 1     | transaction post controller, adding outflow transactions in frontend |
 | 2020-01-06 | 7     | adding outflow transactions in frontend                              |
 
+## Refactoring
+
+| **Date**   | Hours | Target                              |
+| ---------- | ----- | ----------------------------------- |
+| 2020-01-06 |       | refactoring file structure & naming |
+
 ### Total hours: 151h

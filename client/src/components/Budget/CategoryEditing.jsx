@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { updateBudget } from '../../reducers/budgetReducer';
-import BudgetDeletionDialog from './BudgetDeletionDialog';
+import CategoryDeletionDialog from './CategoryDeletionDialog';
 
 const useStyles = makeStyles(theme => ({
   editingDialogContent: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BudgetEditing = ({ handleClose }) => {
+const CategoryEditing = ({ handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const budget = useSelector(state => state.selectedBudget);
@@ -44,7 +44,7 @@ const BudgetEditing = ({ handleClose }) => {
       <DialogContent className={classes.editingDialogContent}>
         <DialogContentText>Enter a new name for the category</DialogContentText>
         <TextField type="text" fullWidth value={newName} onChange={onChange} />
-        <BudgetDeletionDialog closeMainDialog={handleClose} />
+        <CategoryDeletionDialog closeMainDialog={handleClose} />
       </DialogContent>
       <DialogActions>
         <Button size="small" onClick={handleClose}>
@@ -58,8 +58,8 @@ const BudgetEditing = ({ handleClose }) => {
   );
 };
 
-BudgetEditing.propTypes = {
+CategoryEditing.propTypes = {
   handleClose: PropTypes.func.isRequired
 };
 
-export default BudgetEditing;
+export default CategoryEditing;

@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AccountList = () => {
+const AccountTable = () => {
   const accounts = useSelector(state => state.accounts);
 
   return (
@@ -32,7 +32,7 @@ const AccountList = () => {
       <Table aria-label="simple table">
         <TableBody>
           {accounts.map(row => (
-            <ListItem row={row} key={row.id} />
+            <AccountRow row={row} key={row.id} />
           ))}
         </TableBody>
       </Table>
@@ -40,7 +40,7 @@ const AccountList = () => {
   );
 };
 
-const ListItem = ({ row }) => {
+const AccountRow = ({ row }) => {
   const location = useLocation();
   const history = useHistory();
 
@@ -62,8 +62,8 @@ const ListItem = ({ row }) => {
   );
 };
 
-ListItem.propTypes = {
+AccountRow.propTypes = {
   row: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default AccountList;
+export default AccountTable;

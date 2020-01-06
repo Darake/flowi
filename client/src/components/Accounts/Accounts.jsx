@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
-import AccountList from './AccountList';
-import AccountViewHeader from './Header/AccountViewHeader';
+import AccountTable from './AccountTable';
+import AccountsHeader from './Header/AccountsHeader';
 import AccountCreationModal from '../AccountCreation/AccountCreationModal';
 
 const useStyles = makeStyles(theme => ({
@@ -13,13 +13,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AccountView = () => {
+const Accounts = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.accounts}>
-      <AccountViewHeader />
-      <AccountList />
+      <AccountsHeader />
+      <AccountTable />
       <Hidden smDown>
         <AccountCreationModal />
       </Hidden>
@@ -27,4 +27,4 @@ const AccountView = () => {
   );
 };
 
-export default AccountView;
+export default Accounts;

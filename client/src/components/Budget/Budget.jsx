@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import BudgetTable from './BudgetTable';
-import BudgetDialog from './BudgetDialog';
-import BudgetCreation from '../BudgetCreation';
+import CategoryDialog from './CategoryDialog';
+import CategoryCreationDialog from './CategoryCreationDialog';
 import Header from '../Shared/Header';
 
-const BudgetView = () => {
+const Budget = () => {
   const [budgetDialogOpen, setBudgetDialogOpen] = useState(false);
 
   return (
     <div>
-      <BudgetDialog open={budgetDialogOpen} setOpen={setBudgetDialogOpen} />
+      <CategoryDialog open={budgetDialogOpen} setOpen={setBudgetDialogOpen} />
       <Header title="Budget">
-        <BudgetCreation />
+        <CategoryCreationDialog />
       </Header>
       <BudgetTable setBudgetDialogOpen={setBudgetDialogOpen} />
     </div>
   );
 };
 
-export default BudgetView;
+export default Budget;

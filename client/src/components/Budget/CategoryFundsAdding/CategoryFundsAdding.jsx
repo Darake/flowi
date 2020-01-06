@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { updateBudget } from '../../../reducers/budgetReducer';
-import FundFieldArray from './FundFieldArray';
+import FundFieldArray from './FundSourceFieldArray';
 
 const useStyles = makeStyles(theme => ({
   dialogContent: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BudgetFundsAdding = ({ handleClose }) => {
+const CategoryFundsAdding = ({ handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const budgets = useSelector(state => state.budgets);
@@ -94,8 +94,8 @@ const BudgetFundsAdding = ({ handleClose }) => {
   );
 };
 
-BudgetFundsAdding.propTypes = {
+CategoryFundsAdding.propTypes = {
   handleClose: PropTypes.func.isRequired
 };
 
-export default BudgetFundsAdding;
+export default CategoryFundsAdding;

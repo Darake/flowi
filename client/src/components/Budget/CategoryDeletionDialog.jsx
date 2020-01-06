@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BudgetDeletionDialog = ({ closeMainDialog }) => {
+const CategoryDeletionDialog = ({ closeMainDialog }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const budget = useSelector(state => state.selectedBudget);
@@ -70,8 +70,8 @@ const BudgetDeletionDialog = ({ closeMainDialog }) => {
   );
 };
 
-BudgetDeletionDialog.propTypes = {
+CategoryDeletionDialog.propTypes = {
   closeMainDialog: PropTypes.func.isRequired
 };
 
-export default BudgetDeletionDialog;
+export default CategoryDeletionDialog;

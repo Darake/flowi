@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import DesktopHeader from './DesktopHeader';
 import Header from '../../Shared/Header';
 
-const AccountViewHeader = () => (
+const AccountsHeader = () => (
   <div>
     <Hidden smUp>
       <Header title="Accounts">
@@ -25,4 +25,4 @@ const AccountViewHeader = () => (
     </Hidden>
   </div>
 );
-export default AccountViewHeader;
+export default AccountsHeader;

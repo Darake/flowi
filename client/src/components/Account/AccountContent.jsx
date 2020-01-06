@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import AccountDeletion from './AccountDeletion';
+import AccountDeletionDialog from './AccountDeletionDialog';
 import Balance from '../Shared/Balance';
 
 const AccountContent = ({ account, handleEdit }) => (
@@ -19,7 +19,7 @@ const AccountContent = ({ account, handleEdit }) => (
       <Button size="small" type="button" onClick={() => handleEdit()}>
         Edit name
       </Button>
-      <AccountDeletion account={account} />
+      <AccountDeletionDialog account={account} />
     </CardActions>
   </div>
 );

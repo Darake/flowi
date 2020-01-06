@@ -6,12 +6,12 @@ import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
 import Authentication from './components/Authentication';
 import AccountCreation from './components/AccountCreation';
-import AccountView from './components/AccountView';
+import Accounts from './components/Accounts';
 import Account from './components/Account';
 import MobileNav from './components/Navigation/MobileNav';
 import DesktopNav from './components/Navigation/DesktopNav';
-import BudgetView from './components/BudgetView';
-import TransactionView from './components/TransactionView';
+import Budget from './components/Budget';
+import Transactions from './components/Transactions';
 import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
 import { initializeBudgets } from './reducers/budgetReducer';
@@ -74,8 +74,8 @@ const App = () => {
         <DesktopNav />
       </Hidden>
       <main className={classes.main}>
-        <Route exact path="/" render={() => <BudgetView />} />
-        <Route exact path="/accounts" render={() => <AccountView />} />
+        <Route exact path="/" render={() => <Budget />} />
+        <Route exact path="/accounts" render={() => <Accounts />} />
         <Route
           exact
           path="/accounts/:id"
@@ -92,7 +92,7 @@ const App = () => {
             </Container>
           )}
         />
-        <Route exact path="/transactions" render={() => <TransactionView />} />
+        <Route exact path="/transactions" render={() => <Transactions />} />
       </main>
       <Hidden smUp>
         <MobileNav />

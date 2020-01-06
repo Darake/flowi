@@ -7,11 +7,11 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useTheme } from '@material-ui/core/styles';
-import BudgetFundsAdding from './BudgetFundsAdding';
-import BudgetEditing from './BudgetEditing';
+import CategoryFundsAdding from './CategoryFundsAdding';
+import CategoryEditing from './CategoryEditing';
 import { resetBudget } from '../../reducers/selectedBudgetReducer';
 
-const BudgetDialog = ({ open, setOpen }) => {
+const CategoryDialog = ({ open, setOpen }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [tab, setTab] = useState(0);
@@ -48,17 +48,17 @@ const BudgetDialog = ({ open, setOpen }) => {
         </Tabs>
       </Paper>
       {tab === 0 ? (
-        <BudgetFundsAdding handleClose={handleClose} />
+        <CategoryFundsAdding handleClose={handleClose} />
       ) : (
-        <BudgetEditing handleClose={handleClose} />
+        <CategoryEditing handleClose={handleClose} />
       )}
     </Dialog>
   );
 };
 
-BudgetDialog.propTypes = {
+CategoryDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired
 };
 
-export default BudgetDialog;
+export default CategoryDialog;
