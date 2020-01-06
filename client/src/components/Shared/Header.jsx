@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import BudgetCreation from '../BudgetCreation';
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BudgetHeader = () => {
+const BudgetHeader = ({ title, children }) => {
   const classes = useStyles();
 
   return (
@@ -27,11 +27,16 @@ const BudgetHeader = () => {
       square
     >
       <Typography component="h1" variant="h6" className={classes.header}>
-        Budget
+        {title}
       </Typography>
-      <BudgetCreation />
+      {children}
     </Paper>
   );
+};
+
+BudgetHeader.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 export default BudgetHeader;

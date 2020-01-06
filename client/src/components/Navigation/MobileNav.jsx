@@ -6,6 +6,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import GridOn from '@material-ui/icons/GridOn';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { logout } from '../../reducers/userReducer';
 
@@ -21,13 +22,12 @@ const MobileNav = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState(0);
 
-  if (value === 2) dispatch(logout());
+  if (value === 3) dispatch(logout());
 
   const classes = useStyles();
 
   return (
     <BottomNavigation
-      showLabels
       value={value}
       onChange={(e, newValue) => setValue(newValue)}
       className={classes.stickToBottom}
@@ -37,6 +37,12 @@ const MobileNav = () => {
         icon={<GridOn />}
         component={Link}
         to="/"
+      />
+      <BottomNavigationAction
+        label="Transactions"
+        icon={<ReceiptIcon />}
+        component={Link}
+        to="/transactions"
       />
       <BottomNavigationAction
         label="Accounts"

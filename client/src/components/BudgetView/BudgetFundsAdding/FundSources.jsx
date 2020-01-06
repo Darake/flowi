@@ -151,7 +151,7 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
 };
 
 FundSources.propTypes = {
-  values: PropTypes.objectOf(PropTypes.array).isRequired,
+  values: PropTypes.objectOf(PropTypes.any).isRequired,
   setFieldValue: PropTypes.func.isRequired,
   arrayHelpers: PropTypes.objectOf(PropTypes.any).isRequired
 };

@@ -39,7 +39,7 @@ const FundFieldArray = ({ values, setFieldValue }) => {
 };
 
 FundFieldArray.propTypes = {
-  values: PropTypes.objectOf(PropTypes.array).isRequired,
+  values: PropTypes.objectOf(PropTypes.any).isRequired,
   setFieldValue: PropTypes.func.isRequired
 };
 

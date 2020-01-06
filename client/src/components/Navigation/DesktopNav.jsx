@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import GridOn from '@material-ui/icons/GridOn';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import AccountView from '../AccountView';
@@ -63,6 +64,18 @@ const DesktopNav = () => {
             <GridOn />
           </ListItemIcon>
           <ListItemText primary="Budget" />
+        </ListItem>
+        <ListItem
+          button
+          component={NavLink}
+          exact
+          to="/transactions"
+          activeClassName={classes.active}
+        >
+          <ListItemIcon>
+            <ReceiptIcon />
+          </ListItemIcon>
+          <ListItemText primary="Transactions" />
         </ListItem>
       </List>
       <Divider />

@@ -114,9 +114,10 @@
 
 ## Transaction
 
-| **Date**   | Hours | Target                                         |
-| ---------- | ----- | ---------------------------------------------- |
-| 2020-01-03 | 1     | transaction model, transaction post controller |
-| 2020-01-03 |       | transaction post controller                    |
+| **Date**   | Hours | Target                                                               |
+| ---------- | ----- | -------------------------------------------------------------------- |
+| 2020-01-03 | 1     | transaction model, transaction post controller                       |
+| 2020-01-03 | 1     | transaction post controller, adding outflow transactions in frontend |
+| 2020-01-06 | 7     | adding outflow transactions in frontend                              |
 
-### Total hours: 143h
+### Total hours: 151h

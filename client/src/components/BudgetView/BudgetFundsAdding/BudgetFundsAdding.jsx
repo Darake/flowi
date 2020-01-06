@@ -72,11 +72,7 @@ const BudgetFundsAdding = ({ handleClose }) => {
               <DialogContentText>
                 Choose one or multiple sources
               </DialogContentText>
-              <FundFieldArray
-                budget={budget}
-                values={values}
-                setFieldValue={setFieldValue}
-              />
+              <FundFieldArray values={values} setFieldValue={setFieldValue} />
             </DialogContent>
             <DialogActions className={classes.dialogButtons}>
               <Button size="small" onClick={handleClose}>

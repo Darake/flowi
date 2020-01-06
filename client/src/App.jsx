@@ -11,6 +11,7 @@ import Account from './components/Account';
 import MobileNav from './components/Navigation/MobileNav';
 import DesktopNav from './components/Navigation/DesktopNav';
 import BudgetView from './components/BudgetView';
+import TransactionView from './components/TransactionView';
 import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
 import { initializeBudgets } from './reducers/budgetReducer';
@@ -91,6 +92,7 @@ const App = () => {
             </Container>
           )}
         />
+        <Route exact path="/transactions" render={() => <TransactionView />} />
       </main>
       <Hidden smUp>
         <MobileNav />

@@ -10,15 +10,13 @@ import Select from '@material-ui/core/Select';
 export const FormikTextField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <>
-      <TextField
-        label={label}
-        helperText={meta.error && meta.touched && meta.error}
-        error={meta.error && meta.touched}
-        {...field}
-        {...props}
-      />
-    </>
+    <TextField
+      label={label}
+      helperText={meta.error && meta.touched && meta.error}
+      error={meta.error && meta.touched}
+      {...field}
+      {...props}
+    />
   );
 };
 

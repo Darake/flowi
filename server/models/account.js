@@ -10,10 +10,12 @@ const accountSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  transactions: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Transaction'
-  },
+  transactions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Transaction'
+    }
+  ],
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
