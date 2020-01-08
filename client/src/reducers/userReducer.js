@@ -1,6 +1,6 @@
 import authService from '../services/auth';
 import accountService from '../services/accounts';
-import budgetService from '../services/budgets';
+import categoryService from '../services/categories';
 import transactionService from '../services/transactions';
 import { setNotification } from './notificationReducer';
 
@@ -22,7 +22,7 @@ export const checkUser = () => {
     if (loggedUser) {
       const user = JSON.parse(loggedUser);
       accountService.setToken(user.token);
-      budgetService.setToken(user.token);
+      categoryService.setToken(user.token);
       transactionService.setToken(user.token);
       dispatch({
         type: 'SET_USER',
@@ -46,7 +46,7 @@ export const login = (email, password) => {
     try {
       const user = await authService.login({ email, password });
       accountService.setToken(user.token);
-      budgetService.setToken(user.token);
+      categoryService.setToken(user.token);
       transactionService.setToken(user.token);
       window.localStorage.setItem('loggedFlowiUser', JSON.stringify(user));
       dispatch({

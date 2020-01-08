@@ -7,9 +7,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { createBudget } from '../../reducers/budgetReducer';
+import { createCategory } from '../../reducers/categoryReducer';
 
-const BudgetCreation = () => {
+const CategoryCreationDialog = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const BudgetCreation = () => {
 
   const handleSave = async () => {
     if (name.length > 0) {
-      await dispatch(createBudget(name, 0));
+      await dispatch(createCategory(name, 0));
     }
     setName('');
     handleClose();
@@ -74,4 +74,4 @@ const BudgetCreation = () => {
   );
 };
 
-export default BudgetCreation;
+export default CategoryCreationDialog;

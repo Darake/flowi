@@ -10,9 +10,9 @@ const transactionSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Account'
   },
-  targetBudget: {
+  targetCategory: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Budget'
+    ref: 'Category'
   },
   amount: {
     type: Number,

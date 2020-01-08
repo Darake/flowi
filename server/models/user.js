@@ -24,10 +24,10 @@ const userSchema = mongoose.Schema({
       ref: 'Account'
     }
   ],
-  budgets: [
+  categories: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Budget'
+      ref: 'Category'
     }
   ]
 });

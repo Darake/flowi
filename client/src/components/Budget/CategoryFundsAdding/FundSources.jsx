@@ -44,9 +44,9 @@ const useStyles = makeStyles(theme => ({
 
 const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
   const classes = useStyles();
-  const budgets = useSelector(state => state.budgets);
-  const budget = useSelector(state => state.selectedBudget);
-  const totalBudgeted = budgets.reduce((sum, b) => sum + b.balance, 0);
+  const categories = useSelector(state => state.categories);
+  const category = useSelector(state => state.selectedCategory);
+  const totalBudgeted = categories.reduce((sum, b) => sum + b.balance, 0);
   const totalAccountBalance = useSelector(state => state.accounts).reduce(
     (sum, account) => sum + account.balance,
     0
@@ -59,7 +59,7 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
 
   const { currency } = useSelector(state => state.user);
 
-  const budgetById = id => budgets.filter(b => b.id === id)[0];
+  const categoryById = id => categories.filter(b => b.id === id)[0];
 
   const sourceAlreadySelected = source =>
     values.fundSources.map(s => s.object).includes(source);
@@ -72,7 +72,7 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
     const { balance } =
       values.fundSources[index].object === 'Accounts'
         ? accounts
-        : budgetById(values.fundSources[index].object);
+        : categoryById(values.fundSources[index].object);
     if (e.target.value > balance) {
       setFieldValue(`fundSources.${index}.addition`, balance);
     } else if (e.target.value < 0) {
@@ -105,8 +105,8 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
               ) : null}
             </MenuItem>
             <ListSubheader value="">Other Budgets</ListSubheader>
-            {budgets
-              .filter(b => b.id !== budget.id)
+            {categories
+              .filter(b => b.id !== category.id)
               .map(b => (
                 <MenuItem
                   key={b.id}

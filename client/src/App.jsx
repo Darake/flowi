@@ -14,7 +14,7 @@ import Budget from './components/Budget';
 import Transactions from './components/Transactions';
 import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
-import { initializeBudgets } from './reducers/budgetReducer';
+import { initializeCategories } from './reducers/categoryReducer';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -48,7 +48,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       dispatch(initializeAccounts());
-      dispatch(initializeBudgets());
+      dispatch(initializeCategories());
     }
   }, [user, dispatch]);
 

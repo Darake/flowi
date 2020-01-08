@@ -6,7 +6,7 @@ const userValid = async (
   userId,
   sourceAccount,
   targetAccount,
-  targetBudget
+  targetCategory
 ) => {
   if (!userId) {
     return false;
@@ -15,7 +15,7 @@ const userValid = async (
   if (
     (sourceAccount && !user.accounts.includes(sourceAccount)) ||
     (targetAccount && !user.accounts.includes(targetAccount)) ||
-    (targetBudget && !user.budgets.includes(targetBudget))
+    (targetCategory && !user.categories.includes(targetCategory))
   ) {
     return false;
   }
@@ -24,17 +24,17 @@ const userValid = async (
 
 transactionRouter.post('/', async (request, response, next) => {
   const {
-    body: { sourceAccount, targetAccount, targetBudget, amount },
+    body: { sourceAccount, targetAccount, targetCategory, amount },
     userId
   } = request;
   try {
-    if (!userValid(userId, sourceAccount, targetAccount, targetBudget)) {
+    if (!userValid(userId, sourceAccount, targetAccount, targetCategory)) {
       response.status(401).json({ error: 'invalid token' });
     } else {
       const savedTransaction = await new Transaction({
         sourceAccount,
         targetAccount,
-        targetBudget,
+        targetCategory,
         amount
       }).save();
 

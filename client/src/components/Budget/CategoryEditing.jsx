@@ -8,7 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { updateBudget } from '../../reducers/budgetReducer';
+import { updateCategory } from '../../reducers/categoryReducer';
 import CategoryDeletionDialog from './CategoryDeletionDialog';
 
 const useStyles = makeStyles(theme => ({
@@ -23,8 +23,8 @@ const useStyles = makeStyles(theme => ({
 const CategoryEditing = ({ handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const budget = useSelector(state => state.selectedBudget);
-  const [newName, setNewName] = useState(budget.name);
+  const category = useSelector(state => state.selectedCategory);
+  const [newName, setNewName] = useState(category.name);
 
   const onChange = e => {
     setNewName(e.target.value);
@@ -32,15 +32,15 @@ const CategoryEditing = ({ handleClose }) => {
 
   const handleSave = async () => {
     if (newName) {
-      const updatedBudget = { ...budget, name: newName };
-      await dispatch(updateBudget(updatedBudget));
+      const updatedCategory = { ...category, name: newName };
+      await dispatch(updateCategory(updatedCategory));
       handleClose();
     }
   };
 
   return (
     <>
-      <DialogTitle id="category-editing">{`Edit ${budget.name}`}</DialogTitle>
+      <DialogTitle id="category-editing">{`Edit ${category.name}`}</DialogTitle>
       <DialogContent className={classes.editingDialogContent}>
         <DialogContentText>Enter a new name for the category</DialogContentText>
         <TextField type="text" fullWidth value={newName} onChange={onChange} />

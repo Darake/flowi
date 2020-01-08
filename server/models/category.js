@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const createModel = require('./modelFactory');
 
-const budgetSchema = mongoose.Schema({
+const categorySchema = mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -16,6 +16,6 @@ const budgetSchema = mongoose.Schema({
   }
 });
 
-const Budget = createModel('Budget', budgetSchema);
+const Category = createModel('Category', categorySchema);
 
-module.exports = Budget;
+module.exports = Category;

@@ -17,10 +17,13 @@ import {
   FormikTextField
 } from '../Shared/MaterialFormikFields';
 import TransactionFundAdding from './TransactionFundAdding';
-import { setBudget, resetBudget } from '../../reducers/selectedBudgetReducer';
+import {
+  setCategory,
+  resetCategory
+} from '../../reducers/selectedCategoryReducer';
 import { setNotification } from '../../reducers/notificationReducer';
-import { updateBudget } from '../../reducers/budgetReducer';
 import { updateAccount } from '../../reducers/accountReducer';
+import { updateCategory } from '../../reducers/categoryReducer';
 import transactionService from '../../services/transactions';
 
 const useStyles = makeStyles(theme => ({
@@ -48,7 +51,7 @@ const TransactionAddingDialog = () => {
   const [open, setOpen] = useState(false);
   const [fundAdding, setFundAdding] = useState(false);
   const accounts = useSelector(state => state.accounts);
-  const budgets = useSelector(state => state.budgets);
+  const categories = useSelector(state => state.categories);
   const { currency } = useSelector(state => state.user);
   const fundError = useSelector(state => state.notification);
 
@@ -61,32 +64,38 @@ const TransactionAddingDialog = () => {
     setOpen(false);
   };
 
-  const updateBudgets = async values => {
+  const updateCategories = async values => {
     const totalAddition = values.fundSources.reduce((sum, source) => {
       if (source.object === 'Accounts') {
         return sum + Number(source.addition);
       }
       if (source.object !== '') {
-        const sourceBudget = budgets.filter(b => b.id === source.object)[0];
-        const updatedSourceBudget = {
-          ...sourceBudget,
-          balance: Number(sourceBudget.balance) - Number(source.addition)
+        const sourceCategory = categories.filter(
+          c => c.id === source.object
+        )[0];
+        const updatedSourceCategory = {
+          ...sourceCategory,
+          balance: Number(sourceCategory.balance) - Number(source.addition)
         };
-        dispatch(updateBudget(updatedSourceBudget));
+        dispatch(updateCategory(updatedSourceCategory));
         return sum + Number(source.addition);
       }
       return sum;
     }, 0);
-    const selectedBudget = budgets.filter(b => b.id === values.category)[0];
-    const updatedBudget = {
-      ...selectedBudget,
-      balance: Number(totalAddition) + Number(selectedBudget.balance)
+    const selectedCategory = categories.filter(
+      c => c.id === values.category
+    )[0];
+    const updatedCategory = {
+      ...selectedCategory,
+      balance: Number(totalAddition) + Number(selectedCategory.balance)
     };
-    await dispatch(updateBudget(updatedBudget));
+    await dispatch(updateCategory(updatedCategory));
   };
 
   const enoughBudgeted = values => {
-    const selectedCategory = budgets.filter(b => b.id === values.category)[0];
+    const selectedCategory = categories.filter(
+      b => b.id === values.category
+    )[0];
     const totalBudgeted = values.fundSources.reduce(
       (sum, source) => Number(sum) + Number(source.addition),
       0
@@ -98,7 +107,7 @@ const TransactionAddingDialog = () => {
     if (fundAdding && !enoughBudgeted(values)) {
       dispatch(setNotification(`Please add more funds to selected category`));
     } else {
-      await updateBudgets(values);
+      await updateCategories(values);
       await transactionService.create({
         sourceAccount: values.account,
         targetBudget: values.category,
@@ -111,15 +120,17 @@ const TransactionAddingDialog = () => {
           balance: sourceAccount.balance - values.amount
         })
       );
-      const targetBudget = budgets.filter(b => b.id === values.category)[0];
+      const targetCategory = categories.filter(
+        c => c.id === values.category
+      )[0];
       const totalBudgeted = values.fundSources.reduce(
         (sum, source) => Number(sum) + Number(source.addition),
         0
       );
       await dispatch(
-        updateBudget({
-          ...targetBudget,
-          balance: targetBudget.balance - values.amount + totalBudgeted
+        updateCategory({
+          ...targetCategory,
+          balance: targetCategory.balance - values.amount + totalBudgeted
         })
       );
       handleClose();
@@ -129,21 +140,21 @@ const TransactionAddingDialog = () => {
   const valueSelected = value => value !== '';
 
   const handleCategoryChange = (e, values, setFieldValue) => {
-    const selectedCategory = budgets.filter(b => b.id === e.target.value)[0];
+    const selectedCategory = categories.filter(b => b.id === e.target.value)[0];
     setFieldValue('category', e.target.value);
     if (
       valueSelected(e.target.value) &&
       selectedCategory.balance < values.amount
     ) {
-      dispatch(setBudget(selectedCategory));
+      dispatch(setCategory(selectedCategory));
       setFundAdding(true);
     } else {
       setFundAdding(false);
-      dispatch(resetBudget());
+      dispatch(resetCategory());
     }
   };
 
-  const updateCategory = (values, updatedAmount, setFieldValue) => {
+  const updateCategoryField = (values, updatedAmount, setFieldValue) => {
     const fakeEvent = { target: { value: values.category } };
     const updatedValues = { ...values, amount: updatedAmount };
     handleCategoryChange(fakeEvent, updatedValues, setFieldValue);
@@ -160,7 +171,7 @@ const TransactionAddingDialog = () => {
       newAmount = e.target.value;
     }
     setFieldValue('amount', newAmount);
-    updateCategory(values, newAmount, setFieldValue);
+    updateCategoryField(values, newAmount, setFieldValue);
   };
 
   const updateAmount = (values, updatedAccountId, setFieldValue) => {
@@ -252,7 +263,7 @@ const TransactionAddingDialog = () => {
                   onChange={e => handleCategoryChange(e, values, setFieldValue)}
                   fullWidth
                 >
-                  {budgets.map(budget => (
+                  {categories.map(budget => (
                     <MenuItem key={budget.id} value={budget.id}>
                       {budget.name}
                     </MenuItem>

@@ -1,1 +1,1 @@
-export { default } from './AccountViewHeader';
+export { default } from './AccountsHeader';

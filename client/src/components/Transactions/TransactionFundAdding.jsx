@@ -5,7 +5,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import FundSourceFieldArray from '../Budget/CategoryFundsAdding/FundSourceFieldArray';
 
 const TransactionFundAdding = ({ show, values, setFieldValue, ...props }) => {
-  const category = useSelector(state => state.selectedBudget);
+  const category = useSelector(state => state.selectedCategory);
   const { currency } = useSelector(state => state.user);
   const fundsNeeded = values.amount - category.balance;
 

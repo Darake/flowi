@@ -5,11 +5,11 @@ import Card from '@material-ui/core/Card';
 import AccountEditing from './AccountEditing';
 import AccountContent from './AccountContent';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   card: {
     display: 'flex'
   }
-}));
+});
 
 const Account = ({ account }) => {
   const [editing, setEditing] = useState(false);

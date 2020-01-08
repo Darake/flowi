@@ -5,15 +5,18 @@ import CategoryCreationDialog from './CategoryCreationDialog';
 import Header from '../Shared/Header';
 
 const Budget = () => {
-  const [budgetDialogOpen, setBudgetDialogOpen] = useState(false);
+  const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
 
   return (
     <div>
-      <CategoryDialog open={budgetDialogOpen} setOpen={setBudgetDialogOpen} />
+      <CategoryDialog
+        open={categoryDialogOpen}
+        setOpen={setCategoryDialogOpen}
+      />
       <Header title="Budget">
         <CategoryCreationDialog />
       </Header>
-      <BudgetTable setBudgetDialogOpen={setBudgetDialogOpen} />
+      <BudgetTable setCategoryDialogOpen={setCategoryDialogOpen} />
     </div>
   );
 };

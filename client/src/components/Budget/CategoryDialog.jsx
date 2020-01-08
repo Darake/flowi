@@ -9,7 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import { useTheme } from '@material-ui/core/styles';
 import CategoryFundsAdding from './CategoryFundsAdding';
 import CategoryEditing from './CategoryEditing';
-import { resetBudget } from '../../reducers/selectedBudgetReducer';
+import { resetCategory } from '../../reducers/selectedCategoryReducer';
 
 const CategoryDialog = ({ open, setOpen }) => {
   const theme = useTheme();
@@ -20,7 +20,7 @@ const CategoryDialog = ({ open, setOpen }) => {
   const handleClose = () => {
     setOpen(false);
     setTab(0);
-    dispatch(resetBudget());
+    dispatch(resetCategory());
   };
 
   const handleTabChange = (event, newValue) => {

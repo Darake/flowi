@@ -7,7 +7,7 @@ const middleware = require('./utils/middleware');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const accountRouter = require('./controllers/accounts');
-const budgetRouter = require('./controllers/budgets');
+const categoryRouter = require('./controllers/categories');
 const transactionRouter = require('./controllers/transactions');
 const testingRouter = require('./controllers/testing');
 
@@ -36,7 +36,7 @@ app.use(middleware.userIdExtractor);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/accounts', accountRouter);
-app.use('/api/budgets', budgetRouter);
+app.use('/api/categories', categoryRouter);
 app.use('/api/transactions', transactionRouter);
 
 if (process.env.NODE_ENV === 'test') {

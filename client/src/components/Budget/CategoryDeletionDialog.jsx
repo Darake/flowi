@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
-import { deleteBudget } from '../../reducers/budgetReducer';
+import { deleteCategory } from '../../reducers/categoryReducer';
 
 const useStyles = makeStyles(theme => ({
   deleteCategoryButton: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 const CategoryDeletionDialog = ({ closeMainDialog }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const budget = useSelector(state => state.selectedBudget);
+  const category = useSelector(state => state.selectedCategory);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -32,7 +32,7 @@ const CategoryDeletionDialog = ({ closeMainDialog }) => {
   };
 
   const handleDelete = async () => {
-    await dispatch(deleteBudget(budget));
+    await dispatch(deleteCategory(category));
     handleClose();
     closeMainDialog();
   };
@@ -53,7 +53,7 @@ const CategoryDeletionDialog = ({ closeMainDialog }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle>{`Delete ${budget.name}?`}</DialogTitle>
+        <DialogTitle>{`Delete ${category.name}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Deleting a budget permanently deletes it.

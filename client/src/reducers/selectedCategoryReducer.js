@@ -2,24 +2,24 @@ export const initialState = { name: 'Placeholder' };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case 'SET_BUDGET':
+    case 'SET_CATEGORY':
       return payload;
-    case 'RESET_BUDGET':
+    case 'RESET_CATEGORY':
       return initialState;
     default:
       return state;
   }
 };
 
-export const setBudget = budget => {
+export const setCategory = category => {
   return {
-    type: 'SET_BUDGET',
-    payload: budget
+    type: 'SET_CATEGORY',
+    payload: category
   };
 };
 
-export const resetBudget = () => {
+export const resetCategory = () => {
   return {
-    type: 'RESET_BUDGET'
+    type: 'RESET_CATEGORY'
   };
 };

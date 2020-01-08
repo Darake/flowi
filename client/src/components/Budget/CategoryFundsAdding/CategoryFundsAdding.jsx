@@ -8,7 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { updateBudget } from '../../../reducers/budgetReducer';
+import { updateCategory } from '../../../reducers/categoryReducer';
 import FundFieldArray from './FundSourceFieldArray';
 
 const useStyles = makeStyles(theme => ({
@@ -28,10 +28,10 @@ const useStyles = makeStyles(theme => ({
 const CategoryFundsAdding = ({ handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const budgets = useSelector(state => state.budgets);
-  const budget = useSelector(state => state.selectedBudget);
+  const categories = useSelector(state => state.categories);
+  const category = useSelector(state => state.selectedCategory);
 
-  const budgetById = id => budgets.filter(b => b.id === id)[0];
+  const categoryById = id => categories.filter(b => b.id === id)[0];
 
   const handleSubmit = values => {
     handleClose();
@@ -40,26 +40,26 @@ const CategoryFundsAdding = ({ handleClose }) => {
         return sum + Number(source.addition);
       }
       if (source.object !== '') {
-        const sourceBudget = budgetById(source.object);
-        const updatedSourceBudget = {
-          ...sourceBudget,
-          balance: Number(sourceBudget.balance) - Number(source.addition)
+        const sourceCategory = categoryById(source.object);
+        const updatedSourceCategory = {
+          ...sourceCategory,
+          balance: Number(sourceCategory.balance) - Number(source.addition)
         };
-        dispatch(updateBudget(updatedSourceBudget));
+        dispatch(updateCategory(updatedSourceCategory));
         return sum + Number(source.addition);
       }
       return sum;
     }, 0);
-    const updatedBudget = {
-      ...budget,
-      balance: Number(totalAddition) + Number(budget.balance)
+    const updatedCategory = {
+      ...category,
+      balance: Number(totalAddition) + Number(category.balance)
     };
-    dispatch(updateBudget(updatedBudget));
+    dispatch(updateCategory(updatedCategory));
   };
 
   return (
     <>
-      <DialogTitle id="fund-adding">{`Add funds to ${budget.name}`}</DialogTitle>
+      <DialogTitle id="fund-adding">{`Add funds to ${category.name}`}</DialogTitle>
       <Formik
         onSubmit={handleSubmit}
         initialValues={{

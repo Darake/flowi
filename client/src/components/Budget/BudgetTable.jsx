@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Balance from '../Shared/Balance';
-import { setBudget } from '../../reducers/selectedBudgetReducer';
+import { setCategory } from '../../reducers/selectedCategoryReducer';
 
 const useStyles = makeStyles(theme => ({
   category: {
@@ -21,14 +21,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BudgetTable = ({ setBudgetDialogOpen }) => {
+const BudgetTable = ({ setCategoryDialogOpen }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const budgets = useSelector(state => state.budgets);
+  const categories = useSelector(state => state.categories);
 
-  const handleCategoryClick = budget => {
-    dispatch(setBudget(budget));
-    setBudgetDialogOpen(true);
+  const handleCategoryClick = category => {
+    dispatch(setCategory(category));
+    setCategoryDialogOpen(true);
   };
 
   return (
@@ -41,7 +41,7 @@ const BudgetTable = ({ setBudgetDialogOpen }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {budgets.map(row => (
+          {categories.map(row => (
             <TableRow
               key={row.name}
               onClick={() => handleCategoryClick(row)}
@@ -62,7 +62,7 @@ const BudgetTable = ({ setBudgetDialogOpen }) => {
 };
 
 BudgetTable.propTypes = {
-  setBudgetDialogOpen: PropTypes.func.isRequired
+  setCategoryDialogOpen: PropTypes.func.isRequired
 };
 
 export default BudgetTable;

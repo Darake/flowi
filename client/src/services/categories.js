@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = '/api/budgets';
+const baseUrl = '/api/categories';
 
 let token = null;
 
@@ -17,15 +17,15 @@ const getAll = async () => {
   return response.data;
 };
 
-const create = async newBudget => {
-  const response = await axios.post(baseUrl, newBudget, getConfig());
+const create = async newCategory => {
+  const response = await axios.post(baseUrl, newCategory, getConfig());
   return response.data;
 };
 
-const update = async updatedBudget => {
+const update = async updatedCategory => {
   const response = await axios.put(
-    `${baseUrl}/${updatedBudget.id}`,
-    updatedBudget,
+    `${baseUrl}/${updatedCategory.id}`,
+    updatedCategory,
     getConfig()
   );
   return response.data;
