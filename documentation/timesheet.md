@@ -122,9 +122,9 @@
 
 ## Refactoring
 
-| **Date**   | Hours | Target                                                                           |
-| ---------- | ----- | -------------------------------------------------------------------------------- |
-| 2020-01-06 | 1     | refactoring file structure & naming, refactoring "budget" naming into "category" |
-| 2020-01-08 |       | refactoring "budget" naming into "category"                                      |
+| **Date**   | Hours | Target                                                                                 |
+| ---------- | ----- | -------------------------------------------------------------------------------------- |
+| 2020-01-06 | 1     | refactoring file structure & naming, refactoring "budget" naming into "category"       |
+| 2020-01-08 |       | refactoring "budget" naming into "category", save transactin into account transactions |
 
 ### Total hours: 152h

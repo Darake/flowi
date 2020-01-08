@@ -108,7 +108,7 @@ const TransactionAddingDialog = () => {
       dispatch(setNotification(`Please add more funds to selected category`));
     } else {
       await updateCategories(values);
-      await transactionService.create({
+      const createdTransaction = await transactionService.create({
         sourceAccount: values.account,
         targetBudget: values.category,
         amount: values.amount
@@ -117,7 +117,8 @@ const TransactionAddingDialog = () => {
       await dispatch(
         updateAccount({
           ...sourceAccount,
-          balance: sourceAccount.balance - values.amount
+          balance: sourceAccount.balance - values.amount,
+          transactions: sourceAccount.transactions.concat(createdTransaction.id)
         })
       );
       const targetCategory = categories.filter(
