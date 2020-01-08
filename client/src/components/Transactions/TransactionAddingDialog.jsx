@@ -25,6 +25,7 @@ import { setNotification } from '../../reducers/notificationReducer';
 import { updateAccount } from '../../reducers/accountReducer';
 import { updateCategory } from '../../reducers/categoryReducer';
 import { useResourceService } from '../../services/resources';
+import { findById } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
   accountAndAmount: {
@@ -65,38 +66,36 @@ const TransactionAddingDialog = () => {
     setOpen(false);
   };
 
+  const valueSelected = value => value !== '';
+
   const updateCategories = async values => {
     const totalAddition = values.fundSources.reduce((sum, source) => {
       if (source.object === 'Accounts') {
         return sum + Number(source.addition);
       }
-      if (source.object !== '') {
-        const sourceCategory = categories.filter(
-          c => c.id === source.object
-        )[0];
-        const updatedSourceCategory = {
-          ...sourceCategory,
-          balance: Number(sourceCategory.balance) - Number(source.addition)
-        };
-        dispatch(updateCategory(updatedSourceCategory));
+      if (valueSelected(source.object)) {
+        const sourceCategory = findById(categories, source.object);
+        dispatch(
+          updateCategory({
+            ...sourceCategory,
+            balance: Number(sourceCategory.balance) - Number(source.addition)
+          })
+        );
         return sum + Number(source.addition);
       }
       return sum;
     }, 0);
-    const selectedCategory = categories.filter(
-      c => c.id === values.category
-    )[0];
-    const updatedCategory = {
-      ...selectedCategory,
-      balance: Number(totalAddition) + Number(selectedCategory.balance)
-    };
-    await dispatch(updateCategory(updatedCategory));
+    const selectedCategory = findById(categories, values.category);
+    await dispatch(
+      updateCategory({
+        ...selectedCategory,
+        balance: Number(totalAddition) + Number(selectedCategory.balance)
+      })
+    );
   };
 
   const enoughBudgeted = values => {
-    const selectedCategory = categories.filter(
-      b => b.id === values.category
-    )[0];
+    const selectedCategory = findById(categories, values.category);
     const totalBudgeted = values.fundSources.reduce(
       (sum, source) => Number(sum) + Number(source.addition),
       0
@@ -114,7 +113,7 @@ const TransactionAddingDialog = () => {
         targetBudget: values.category,
         amount: values.amount
       });
-      const sourceAccount = accounts.filter(a => a.id === values.account)[0];
+      const sourceAccount = findById(accounts, values.account);
       await dispatch(
         updateAccount({
           ...sourceAccount,
@@ -122,9 +121,7 @@ const TransactionAddingDialog = () => {
           transactions: sourceAccount.transactions.concat(createdTransaction.id)
         })
       );
-      const targetCategory = categories.filter(
-        c => c.id === values.category
-      )[0];
+      const targetCategory = findById(categories, values.category);
       const totalBudgeted = values.fundSources.reduce(
         (sum, source) => Number(sum) + Number(source.addition),
         0
@@ -139,10 +136,8 @@ const TransactionAddingDialog = () => {
     }
   };
 
-  const valueSelected = value => value !== '';
-
   const handleCategoryChange = (e, values, setFieldValue) => {
-    const selectedCategory = categories.filter(b => b.id === e.target.value)[0];
+    const selectedCategory = findById(categories, values.category);
     setFieldValue('category', e.target.value);
     if (
       valueSelected(e.target.value) &&
@@ -163,7 +158,7 @@ const TransactionAddingDialog = () => {
   };
 
   const handleAmountChange = (e, values, setFieldValue) => {
-    const selectedAccount = accounts.filter(a => a.id === values.account)[0];
+    const selectedAccount = findById(accounts, values.account);
     let newAmount;
     if (selectedAccount && selectedAccount.balance < e.target.value) {
       newAmount = selectedAccount.balance;
@@ -183,7 +178,7 @@ const TransactionAddingDialog = () => {
   };
 
   const handleAccountChange = (e, values, setFieldValue) => {
-    const selectedAccount = accounts.filter(a => a.id === e.target.value)[0];
+    const selectedAccount = findById(accounts, values.account);
     setFieldValue('account', e.target.value);
     if (
       valueSelected(values.amount) &&

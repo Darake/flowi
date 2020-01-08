@@ -128,6 +128,8 @@
 | 2020-01-08 | 1     | refactoring "budget" naming , save transactin into account transactions, refactor services |
 | 2020-01-08 | 1     | refactor services, show nothing when accounts havent been initialized, fix token bug       |
 | 2020-01-08 | 1     | clear data logging out, show '/' instead of accounts on desktop, refactor reducers         |
-| 2020-01-08 |       | refactor reducers                                                                          |
+| 2020-01-08 | 1     | refactor reducers, create shared dialog component                                          |
+| 2020-01-08 | 1     | create shared dialog component (didnt work)                                                |
+| 2020-01-08 | 1     | create shared dialog component (didnt work), findById util                                 |
 
-### Total hours: 155h
+### Total hours: 158h
