@@ -8,6 +8,8 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     case 'INITIALIZE_CATEGORIES':
       return payload;
+    case 'CLEAR_CATEGORIES':
+      return initialState;
     case 'NEW_CATEGORY':
       return [...state, payload];
     case 'UPDATE_CATEGORY':
@@ -29,6 +31,12 @@ export const initializeCategories = () => {
       type: 'INITIALIZE_CATEGORIES',
       payload: categories
     });
+  };
+};
+
+export const clearCategories = () => {
+  return {
+    type: 'CLEAR_CATEGORIES'
   };
 };
 

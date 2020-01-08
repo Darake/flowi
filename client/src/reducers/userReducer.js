@@ -1,6 +1,8 @@
 import authService from '../services/auth';
 import { setToken } from '../services/token';
 import { setNotification } from './notificationReducer';
+import { clearAccounts } from './accountReducer';
+import { clearCategories } from './categoryReducer';
 
 export const initialState = null;
 
@@ -29,11 +31,15 @@ export const checkUser = () => {
 };
 
 export const logout = () => {
-  window.localStorage.clear();
-  setToken(null);
-  return {
-    type: 'SET_USER',
-    payload: null
+  return async dispatch => {
+    window.localStorage.clear();
+    setToken(null);
+    dispatch(clearCategories());
+    dispatch(clearAccounts());
+    dispatch({
+      type: 'SET_USER',
+      payload: null
+    });
   };
 };
 

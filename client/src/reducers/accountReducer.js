@@ -8,6 +8,8 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     case 'INITIALIZE_ACCOUNTS':
       return payload;
+    case 'CLEAR_ACCOUNTS':
+      return initialState;
     case 'NEW_ACCOUNT':
       return [...state, payload];
     case 'UPDATE_ACCOUNT':
@@ -29,6 +31,12 @@ export const initializeAccounts = () => {
       type: 'INITIALIZE_ACCOUNTS',
       payload: accounts
     });
+  };
+};
+
+export const clearAccounts = () => {
+  return {
+    type: 'CLEAR_ACCOUNTS'
   };
 };
 
