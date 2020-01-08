@@ -2,7 +2,7 @@ import { useResourceService } from '../services/resources';
 
 const accountService = useResourceService('/api/accounts');
 
-export const initialState = [];
+export const initialState = null;
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {

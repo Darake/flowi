@@ -38,7 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 const App = () => {
   const user = useSelector(state => state.user);
-  const accounts = useSelector(state => state.accounts);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,12 +51,18 @@ const App = () => {
     }
   }, [user, dispatch]);
 
+  const accounts = useSelector(state => state.accounts);
+
   const accountById = id => accounts.find(a => a.id === id);
 
   const classes = useStyles();
 
   if (!user) {
     return <Authentication />;
+  }
+
+  if (!accounts) {
+    return null;
   }
 
   if (accounts.length === 0) {
