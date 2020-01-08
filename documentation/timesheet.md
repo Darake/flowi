@@ -126,6 +126,6 @@
 | ---------- | ----- | ------------------------------------------------------------------------------------------ |
 | 2020-01-06 | 1     | refactoring file structure & naming, refactoring "budget" naming into "category"           |
 | 2020-01-08 | 1     | refactoring "budget" naming , save transactin into account transactions, refactor services |
-| 2020-01-08 |       | refactor services, show nothing when accounts havent been initialized yet                  |
+| 2020-01-08 | 1     | refactor services, show nothing when accounts havent been initialized, fix token bug       |
 
-### Total hours: 153h
+### Total hours: 154h

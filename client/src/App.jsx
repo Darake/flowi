@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 const App = () => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const accounts = useSelector(state => state.accounts);
 
   useEffect(() => {
     dispatch(checkUser());
@@ -50,8 +51,6 @@ const App = () => {
       dispatch(initializeCategories());
     }
   }, [user, dispatch]);
-
-  const accounts = useSelector(state => state.accounts);
 
   const accountById = id => accounts.find(a => a.id === id);
 

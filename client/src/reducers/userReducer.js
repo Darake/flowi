@@ -42,6 +42,7 @@ export const login = (email, password) => {
     try {
       const user = await authService.login({ email, password });
       window.localStorage.setItem('loggedFlowiUser', JSON.stringify(user));
+      setToken(user.token);
       dispatch({
         type: 'SET_USER',
         payload: user
