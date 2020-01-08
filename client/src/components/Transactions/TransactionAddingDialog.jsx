@@ -68,30 +68,39 @@ const TransactionAddingDialog = () => {
 
   const valueSelected = value => value !== '';
 
+  const subtractFromCategory = source => {
+    const sourceCategory = findById(categories, source.object);
+    dispatch(
+      updateCategory({
+        ...sourceCategory,
+        balance: Number(sourceCategory.balance) - Number(source.addition)
+      })
+    );
+  };
+
+  const addToCategory = async (values, addition) => {
+    const selectedCategory = findById(categories, values.category);
+    await dispatch(
+      updateCategory({
+        ...selectedCategory,
+        balance: Number(addition) + Number(selectedCategory.balance)
+      })
+    );
+  };
+
   const updateCategories = async values => {
     const totalAddition = values.fundSources.reduce((sum, source) => {
       if (source.object === 'Accounts') {
         return sum + Number(source.addition);
       }
       if (valueSelected(source.object)) {
-        const sourceCategory = findById(categories, source.object);
-        dispatch(
-          updateCategory({
-            ...sourceCategory,
-            balance: Number(sourceCategory.balance) - Number(source.addition)
-          })
-        );
+        subtractFromCategory(source);
         return sum + Number(source.addition);
       }
       return sum;
     }, 0);
-    const selectedCategory = findById(categories, values.category);
-    await dispatch(
-      updateCategory({
-        ...selectedCategory,
-        balance: Number(totalAddition) + Number(selectedCategory.balance)
-      })
-    );
+
+    addToCategory(values, totalAddition);
   };
 
   const enoughBudgeted = values => {
@@ -101,6 +110,31 @@ const TransactionAddingDialog = () => {
       0
     );
     return selectedCategory.balance + totalBudgeted >= values.amount;
+  };
+
+  const updateAccountWithNewValues = async (values, newTransaction) => {
+    const sourceAccount = findById(accounts, values.account);
+    await dispatch(
+      updateAccount({
+        ...sourceAccount,
+        balance: sourceAccount.balance - values.amount,
+        transactions: sourceAccount.transactions.concat(newTransaction.id)
+      })
+    );
+  };
+
+  const updateCategoryWithNewBalance = async values => {
+    const targetCategory = findById(categories, values.category);
+    const totalBudgeted = values.fundSources.reduce(
+      (sum, source) => Number(sum) + Number(source.addition),
+      0
+    );
+    await dispatch(
+      updateCategory({
+        ...targetCategory,
+        balance: targetCategory.balance - values.amount + totalBudgeted
+      })
+    );
   };
 
   const handleSubmit = async values => {
@@ -113,25 +147,8 @@ const TransactionAddingDialog = () => {
         targetBudget: values.category,
         amount: values.amount
       });
-      const sourceAccount = findById(accounts, values.account);
-      await dispatch(
-        updateAccount({
-          ...sourceAccount,
-          balance: sourceAccount.balance - values.amount,
-          transactions: sourceAccount.transactions.concat(createdTransaction.id)
-        })
-      );
-      const targetCategory = findById(categories, values.category);
-      const totalBudgeted = values.fundSources.reduce(
-        (sum, source) => Number(sum) + Number(source.addition),
-        0
-      );
-      await dispatch(
-        updateCategory({
-          ...targetCategory,
-          balance: targetCategory.balance - values.amount + totalBudgeted
-        })
-      );
+      await updateAccountWithNewValues(values, createdTransaction);
+      await updateCategoryWithNewBalance(values);
       handleClose();
     }
   };
@@ -171,7 +188,7 @@ const TransactionAddingDialog = () => {
     updateCategoryField(values, newAmount, setFieldValue);
   };
 
-  const updateAmount = (values, updatedAccountId, setFieldValue) => {
+  const updateAmountField = (values, updatedAccountId, setFieldValue) => {
     const fakeEvent = { target: { value: values.amount } };
     const updatedValues = { ...values, account: updatedAccountId };
     handleAmountChange(fakeEvent, updatedValues, setFieldValue);
@@ -184,7 +201,7 @@ const TransactionAddingDialog = () => {
       valueSelected(values.amount) &&
       selectedAccount.balance < values.amount
     ) {
-      updateAmount(values, selectedAccount.id, setFieldValue);
+      updateAmountField(values, selectedAccount.id, setFieldValue);
     }
   };
 

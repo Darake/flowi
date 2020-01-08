@@ -131,5 +131,12 @@
 | 2020-01-08 | 1     | refactor reducers, create shared dialog component                                          |
 | 2020-01-08 | 1     | create shared dialog component (didnt work)                                                |
 | 2020-01-08 | 1     | create shared dialog component (didnt work), findById util                                 |
+| TOTAL      | 7     |                                                                                            |
+
+## Transaction (continued)
+
+| **Date**   | Hours | Target                     |
+| ---------- | ----- | -------------------------- |
+| 2020-01-08 |       | refactor transactionAdding |
 
 ### Total hours: 158h
