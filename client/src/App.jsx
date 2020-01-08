@@ -16,6 +16,7 @@ import Transactions from './components/Transactions';
 import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
 import { initializeCategories } from './reducers/categoryReducer';
+import { initializeTransactions } from './reducers/transactionReducer';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -42,6 +43,7 @@ const App = () => {
   const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
   const categories = useSelector(state => state.categories);
+  const transactions = useSelector(state => state.transactions);
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -53,6 +55,7 @@ const App = () => {
     if (user) {
       dispatch(initializeAccounts());
       dispatch(initializeCategories());
+      dispatch(initializeTransactions());
     }
   }, [user, dispatch]);
 
@@ -64,7 +67,7 @@ const App = () => {
     return <Authentication />;
   }
 
-  if (!accounts || !categories) {
+  if (!accounts || !categories || !transactions) {
     return null;
   }
 

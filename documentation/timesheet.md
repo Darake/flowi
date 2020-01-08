@@ -135,8 +135,8 @@
 
 ## Transaction (continued)
 
-| **Date**   | Hours | Target                     |
-| ---------- | ----- | -------------------------- |
-| 2020-01-08 |       | refactor transactionAdding |
+| **Date**   | Hours | Target                                           |
+| ---------- | ----- | ------------------------------------------------ |
+| 2020-01-08 |       | refactor transactionAdding, transactions reducer |
 
 ### Total hours: 158h
