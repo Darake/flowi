@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Route } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { Route, Redirect } from 'react-router-dom';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Authentication from './components/Authentication';
 import AccountCreation from './components/AccountCreation';
 import Accounts from './components/Accounts';
@@ -40,6 +41,8 @@ const App = () => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     dispatch(checkUser());
@@ -79,7 +82,11 @@ const App = () => {
       </Hidden>
       <main className={classes.main}>
         <Route exact path="/" render={() => <Budget />} />
-        <Route exact path="/accounts" render={() => <Accounts />} />
+        <Route
+          exact
+          path="/accounts"
+          render={() => (mobile ? <Accounts /> : <Redirect to="/" />)}
+        />
         <Route
           exact
           path="/accounts/:id"

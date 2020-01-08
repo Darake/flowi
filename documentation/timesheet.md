@@ -127,6 +127,6 @@
 | 2020-01-06 | 1     | refactoring file structure & naming, refactoring "budget" naming into "category"           |
 | 2020-01-08 | 1     | refactoring "budget" naming , save transactin into account transactions, refactor services |
 | 2020-01-08 | 1     | refactor services, show nothing when accounts havent been initialized, fix token bug       |
-| 2020-01-08 |       | clear all data when logging out                                                            |
+| 2020-01-08 |       | clear all data when logging out, redirect to frontpage instead of accounts on desktop      |
 
 ### Total hours: 154h
