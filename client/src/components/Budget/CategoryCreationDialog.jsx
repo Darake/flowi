@@ -24,7 +24,7 @@ const CategoryCreationDialog = () => {
 
   const handleSave = async () => {
     if (name.length > 0) {
-      await dispatch(createCategory(name, 0));
+      await dispatch(createCategory({ name, balance: 0 }));
     }
     setName('');
     handleClose();

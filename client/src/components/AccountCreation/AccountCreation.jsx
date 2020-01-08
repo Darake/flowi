@@ -23,7 +23,9 @@ const AccountCreation = ({ closeModal }) => {
   const classes = useStyles();
 
   const handleSubmit = async ({ accountName, startingBalance }) => {
-    await dispatch(createAccount(accountName, Number(startingBalance)));
+    await dispatch(
+      createAccount({ name: accountName, balance: Number(startingBalance) })
+    );
     if (closeModal) {
       closeModal();
     } else {

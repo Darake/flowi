@@ -41,6 +41,7 @@ const App = () => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
+  const categories = useSelector(state => state.categories);
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -63,7 +64,7 @@ const App = () => {
     return <Authentication />;
   }
 
-  if (!accounts) {
+  if (!accounts || !categories) {
     return null;
   }
 

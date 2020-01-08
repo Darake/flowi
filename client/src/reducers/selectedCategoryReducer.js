@@ -1,15 +1,6 @@
-export const initialState = { name: 'Placeholder' };
+import { useSetResetReducer } from './singleValueReducer';
 
-export default (state = initialState, { type, payload }) => {
-  switch (type) {
-    case 'SET_CATEGORY':
-      return payload;
-    case 'RESET_CATEGORY':
-      return initialState;
-    default:
-      return state;
-  }
-};
+export default useSetResetReducer('CATEGORY', { name: 'Placeholder' });
 
 export const setCategory = category => {
   return {

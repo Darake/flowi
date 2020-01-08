@@ -1,15 +1,6 @@
-const initialState = null;
+import { useSetResetReducer } from './singleValueReducer';
 
-export default (state = initialState, { type, payload }) => {
-  switch (type) {
-    case 'SET_NOTIFICATION':
-      return payload;
-    case 'NULL_NOTIFICATION':
-      return null;
-    default:
-      return state;
-  }
-};
+export default useSetResetReducer('NOTIFICATION');
 
 export const setNotification = message => {
   return async dispatch => {
@@ -19,7 +10,7 @@ export const setNotification = message => {
     });
     setTimeout(() => {
       dispatch({
-        type: 'NULL_NOTIFICATION'
+        type: 'RESET_NOTIFICATION'
       });
     }, 5000);
   };

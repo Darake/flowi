@@ -3,18 +3,9 @@ import { setToken } from '../services/token';
 import { setNotification } from './notificationReducer';
 import { clearAccounts } from './accountReducer';
 import { clearCategories } from './categoryReducer';
+import { useSetResetReducer } from './singleValueReducer';
 
-export const initialState = null;
-
-export default (state = initialState, { type, payload }) => {
-  switch (type) {
-    case 'SET_USER':
-      return payload;
-
-    default:
-      return state;
-  }
-};
+export default useSetResetReducer('USER');
 
 export const checkUser = () => {
   return async dispatch => {
@@ -37,8 +28,7 @@ export const logout = () => {
     dispatch(clearCategories());
     dispatch(clearAccounts());
     dispatch({
-      type: 'SET_USER',
-      payload: null
+      type: 'RESET_USER'
     });
   };
 };
