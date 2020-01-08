@@ -1,4 +1,6 @@
-import accountService from '../services/accounts';
+import { useResourceService } from '../services/resources';
+
+const accountService = useResourceService('/api/accounts');
 
 export const initialState = [];
 

@@ -24,7 +24,7 @@ import {
 import { setNotification } from '../../reducers/notificationReducer';
 import { updateAccount } from '../../reducers/accountReducer';
 import { updateCategory } from '../../reducers/categoryReducer';
-import transactionService from '../../services/transactions';
+import { useResourceService } from '../../services/resources';
 
 const useStyles = makeStyles(theme => ({
   accountAndAmount: {
@@ -54,6 +54,7 @@ const TransactionAddingDialog = () => {
   const categories = useSelector(state => state.categories);
   const { currency } = useSelector(state => state.user);
   const fundError = useSelector(state => state.notification);
+  const transactionService = useResourceService('/api/transactions');
 
   const handleOpen = () => {
     setOpen(true);

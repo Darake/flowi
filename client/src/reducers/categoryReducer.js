@@ -1,4 +1,6 @@
-import categoryService from '../services/categories';
+import { useResourceService } from '../services/resources';
+
+const categoryService = useResourceService('/api/categories');
 
 export const initialState = [];
 
