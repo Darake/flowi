@@ -1,6 +1,37 @@
 const transactionRouter = require('express').Router();
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
+const Account = require('../models/account');
+const Category = require('../models/category');
+
+const updateUser = async (userId, transactionId) => {
+  const user = await User.findById(userId);
+  user.transactions.concat(transactionId);
+  await user.save();
+};
+
+const updateSourceAndTarget = async (
+  sourceAccountId,
+  targetAccountId,
+  targetBudgetId,
+  amount
+) => {
+  if (sourceAccountId) {
+    const sourceAccount = await Account.findById(sourceAccountId);
+    sourceAccount.balance -= amount;
+    await sourceAccount.save();
+  }
+  if (targetAccountId) {
+    const targetAccount = await Account.findById(targetAccountId);
+    targetAccount.balance += amount;
+    await targetAccount.save();
+  }
+  if (targetBudgetId) {
+    const targetBudget = await Category.findById(targetBudgetId);
+    targetBudget.balance -= amount;
+    await targetBudget.save();
+  }
+};
 
 const userValid = async (
   userId,
@@ -28,14 +59,10 @@ transactionRouter.get('/', async (request, response, next) => {
     if (!userId) {
       response.status(401).json({ error: 'invalid token' });
     } else {
-      const user = await User.findById(userId).populate({
-        path: 'accounts',
-        populate: { path: 'transactions' }
-      });
-      const transactions = user.accounts.reduce(
-        (t, account) => t.concat(account.transactions),
-        []
-      );
+      const transactions = await User.findById(userId).populate({
+        path: 'transactions',
+        populate: [{ path: 'accounts' }, { path: 'categories' }]
+      }).transactions;
       response.json(transactions);
     }
   } catch (exception) {
@@ -58,6 +85,15 @@ transactionRouter.post('/', async (request, response, next) => {
         targetCategory,
         amount
       }).save();
+
+      await updateSourceAndTarget(
+        sourceAccount,
+        targetAccount,
+        targetCategory,
+        amount
+      );
+
+      await updateUser(userId, savedTransaction.id);
 
       response.json(savedTransaction.toJSON());
     }

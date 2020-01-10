@@ -47,7 +47,7 @@ categoryRouter.post('/', async (req, res, next) => {
 categoryRouter.put('/:id', async (req, res, next) => {
   try {
     const {
-      body: { name, balance },
+      body: { name, balance, transactions },
       params: { id: categoryId },
       userId
     } = req;
@@ -57,7 +57,7 @@ categoryRouter.put('/:id', async (req, res, next) => {
     if (!req.userId || !user.categories.includes(categoryId)) {
       res.status(401).json({ error: 'invalid token' });
     } else {
-      const category = { name, balance, user: userId };
+      const category = { name, balance, user: userId, transactions };
       const updatedCategory = await Category.findByIdAndUpdate(
         categoryId,
         category,

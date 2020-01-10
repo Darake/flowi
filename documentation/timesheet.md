@@ -135,8 +135,10 @@
 
 ## Transaction (continued)
 
-| **Date**   | Hours | Target                                                                      |
-| ---------- | ----- | --------------------------------------------------------------------------- |
-| 2020-01-08 |       | refactor transactionAdding, transactions reducer, transaction get api point |
+| **Date**   | Hours | Target                                                                     |
+| ---------- | ----- | -------------------------------------------------------------------------- |
+| 2020-01-08 | 1     | refactor transactionAddin, transactions reducer, transaction get api point |
+| 2020-01-10 | 1     | backend models/controller alteration                                       |
+| 2020-01-10 |       | backend models/controller alteration                                       |
 
-### Total hours: 158h
+### Total hours: 160h
