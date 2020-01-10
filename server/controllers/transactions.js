@@ -62,12 +62,11 @@ transactionRouter.get('/', async (request, response, next) => {
       const user = await User.findById(userId).populate({
         path: 'transactions',
         populate: [
-          { path: 'sourceAccount' },
-          { path: 'targetCategory' },
-          { path: 'targetAccount' }
+          { path: 'sourceAccount', select: 'name' },
+          { path: 'targetCategory', select: 'name' },
+          { path: 'targetAccount', select: 'name' }
         ]
       });
-      console.log(user.transactions);
       response.json(user.transactions);
     }
   } catch (exception) {
