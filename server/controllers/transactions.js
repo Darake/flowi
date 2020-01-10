@@ -61,8 +61,13 @@ transactionRouter.get('/', async (request, response, next) => {
     } else {
       const user = await User.findById(userId).populate({
         path: 'transactions',
-        populate: [{ path: 'accounts' }, { path: 'categories' }]
+        populate: [
+          { path: 'sourceAccount' },
+          { path: 'targetCategory' },
+          { path: 'targetAccount' }
+        ]
       });
+      console.log(user.transactions);
       response.json(user.transactions);
     }
   } catch (exception) {
