@@ -6,7 +6,7 @@ const Category = require('../models/category');
 
 const updateUser = async (userId, transactionId) => {
   const user = await User.findById(userId);
-  user.transactions.concat(transactionId);
+  user.transactions = user.transactions.concat(transactionId);
   await user.save();
 };
 
@@ -59,11 +59,11 @@ transactionRouter.get('/', async (request, response, next) => {
     if (!userId) {
       response.status(401).json({ error: 'invalid token' });
     } else {
-      const transactions = await User.findById(userId).populate({
+      const user = await User.findById(userId).populate({
         path: 'transactions',
         populate: [{ path: 'accounts' }, { path: 'categories' }]
-      }).transactions;
-      response.json(transactions);
+      });
+      response.json(user.transactions);
     }
   } catch (exception) {
     next(exception);

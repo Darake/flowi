@@ -79,7 +79,7 @@ export const useResourceReducer = (name, pluralName) => {
     deleteResource
   };
 
-  return [reducer, actionCreators];
+  return [reducer, actionCreators, resourceService];
 };
 
 export default { useResourceReducer };

@@ -139,6 +139,6 @@
 | ---------- | ----- | -------------------------------------------------------------------------- |
 | 2020-01-08 | 1     | refactor transactionAddin, transactions reducer, transaction get api point |
 | 2020-01-10 | 1     | backend models/controller alteration                                       |
-| 2020-01-10 |       | backend models/controller alteration                                       |
+| 2020-01-10 |       | backend models/controller alteration, transaction creation alteration      |
 
 ### Total hours: 160h

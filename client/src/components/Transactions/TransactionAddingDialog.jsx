@@ -22,9 +22,8 @@ import {
   resetCategory
 } from '../../reducers/selectedCategoryReducer';
 import { setNotification } from '../../reducers/notificationReducer';
-import { updateAccount } from '../../reducers/accountReducer';
 import { updateCategory } from '../../reducers/categoryReducer';
-import { useResourceService } from '../../services/resources';
+import { createOutflowTransaction } from '../../reducers/transactionReducer';
 import { findById } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -55,7 +54,6 @@ const TransactionAddingDialog = () => {
   const categories = useSelector(state => state.categories);
   const { currency } = useSelector(state => state.user);
   const fundError = useSelector(state => state.notification);
-  const transactionService = useResourceService('/api/transactions');
 
   const handleOpen = () => {
     setOpen(true);
@@ -112,49 +110,26 @@ const TransactionAddingDialog = () => {
     return selectedCategory.balance + totalBudgeted >= values.amount;
   };
 
-  const updateAccountWithNewValues = async (values, newTransaction) => {
-    const sourceAccount = findById(accounts, values.account);
-    await dispatch(
-      updateAccount({
-        ...sourceAccount,
-        balance: sourceAccount.balance - values.amount,
-        transactions: sourceAccount.transactions.concat(newTransaction.id)
-      })
-    );
-  };
-
-  const updateCategoryWithNewBalance = async values => {
-    const targetCategory = findById(categories, values.category);
-    const totalBudgeted = values.fundSources.reduce(
-      (sum, source) => Number(sum) + Number(source.addition),
-      0
-    );
-    await dispatch(
-      updateCategory({
-        ...targetCategory,
-        balance: targetCategory.balance - values.amount + totalBudgeted
-      })
-    );
-  };
-
   const handleSubmit = async values => {
     if (fundAdding && !enoughBudgeted(values)) {
       dispatch(setNotification(`Please add more funds to selected category`));
     } else {
-      await updateCategories(values);
-      const createdTransaction = await transactionService.create({
-        sourceAccount: values.account,
-        targetBudget: values.category,
-        amount: values.amount
-      });
-      await updateAccountWithNewValues(values, createdTransaction);
-      await updateCategoryWithNewBalance(values);
+      if (fundAdding) {
+        await updateCategories(values);
+      }
+      await dispatch(
+        createOutflowTransaction(
+          findById(accounts, values.account),
+          findById(categories, values.category),
+          values.amount
+        )
+      );
       handleClose();
     }
   };
 
   const handleCategoryChange = (e, values, setFieldValue) => {
-    const selectedCategory = findById(categories, values.category);
+    const selectedCategory = findById(categories, e.target.value);
     setFieldValue('category', e.target.value);
     if (
       valueSelected(e.target.value) &&

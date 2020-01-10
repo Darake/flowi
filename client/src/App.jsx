@@ -17,6 +17,7 @@ import { checkUser } from './reducers/userReducer';
 import { initializeAccounts } from './reducers/accountReducer';
 import { initializeCategories } from './reducers/categoryReducer';
 import { initializeTransactions } from './reducers/transactionReducer';
+import { findById } from './utils';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -59,8 +60,6 @@ const App = () => {
     }
   }, [user, dispatch]);
 
-  const accountById = id => accounts.find(a => a.id === id);
-
   const classes = useStyles();
 
   if (!user) {
@@ -95,7 +94,7 @@ const App = () => {
           exact
           path="/accounts/:id"
           render={({ match }) => (
-            <Account account={accountById(match.params.id)} />
+            <Account account={findById(accounts, match.params.id)} />
           )}
         />
         <Route
