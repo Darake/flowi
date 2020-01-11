@@ -9,23 +9,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import { updateCategory } from '../../../reducers/categoryReducer';
 import FundFieldArray from './FundSourceFieldArray';
 import DialogActionButtons from '../../Shared/DialogActionButtons';
+import { useSharedStyles } from '../../Shared/SharedStyles';
 
 const useStyles = makeStyles(theme => ({
   dialogContent: {
     marginBottom: theme.spacing(4)
-  },
-  dialogButtons: {
-    marginTop: 'auto'
-  },
-  dialogForm: {
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column'
   }
 }));
 
 const CategoryFundsAdding = ({ handleClose }) => {
   const classes = useStyles();
+  const sharedClasses = useSharedStyles();
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
   const category = useSelector(state => state.selectedCategory);
@@ -66,7 +60,7 @@ const CategoryFundsAdding = ({ handleClose }) => {
         }}
       >
         {({ values, setFieldValue }) => (
-          <Form className={classes.dialogForm}>
+          <Form className={sharedClasses.dialogForm}>
             <DialogContent className={classes.dialogContent}>
               <DialogContentText>
                 Choose one or multiple sources
@@ -75,7 +69,7 @@ const CategoryFundsAdding = ({ handleClose }) => {
             </DialogContent>
             <DialogActionButtons
               handleClose={handleClose}
-              dialogActionClassName={classes.dialogButtons}
+              dialogActionClassName={sharedClasses.dialogButtons}
             />
           </Form>
         )}

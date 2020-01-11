@@ -26,9 +26,13 @@ const TransactionsTable = () => {
           {transactions.map(row => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.sourceAccount.name}
+                {row.sourceAccount ? row.sourceAccount.name : ''}
               </TableCell>
-              <TableCell>{row.targetCategory.name}</TableCell>
+              <TableCell>
+                {row.targetAccount
+                  ? row.targetAccount.name
+                  : row.targetCategory.name}
+              </TableCell>
               <TableCell align="right">
                 <Balance balance={row.amount} />
               </TableCell>

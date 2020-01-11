@@ -40,3 +40,20 @@ export const createOutflowTransaction = (
     });
   };
 };
+
+export const createInflowTransaction = (targetAccount, amount) => {
+  return async dispatch => {
+    const savedTransaction = await transactionService.create({
+      targetAccount: targetAccount.id,
+      amount
+    });
+    dispatch({
+      type: 'NEW_TRANSACTION',
+      payload: savedTransaction
+    });
+    dispatch({
+      type: 'UPDATE_ACCOUNT',
+      payload: { ...targetAccount, balance: targetAccount.balance + amount }
+    });
+  };
+};
