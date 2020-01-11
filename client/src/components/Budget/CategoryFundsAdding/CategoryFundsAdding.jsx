@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { updateCategory } from '../../../reducers/categoryReducer';
 import FundFieldArray from './FundSourceFieldArray';
+import DialogActionButtons from '../../Shared/DialogActionButtons';
 
 const useStyles = makeStyles(theme => ({
   dialogContent: {
@@ -74,19 +73,10 @@ const CategoryFundsAdding = ({ handleClose }) => {
               </DialogContentText>
               <FundFieldArray values={values} setFieldValue={setFieldValue} />
             </DialogContent>
-            <DialogActions className={classes.dialogButtons}>
-              <Button size="small" onClick={handleClose}>
-                CANCEL
-              </Button>
-              <Button
-                type="submit"
-                size="small"
-                color="primary"
-                className={classes.saveButton}
-              >
-                SAVE
-              </Button>
-            </DialogActions>
+            <DialogActionButtons
+              handleClose={handleClose}
+              dialogActionClassName={classes.dialogButtons}
+            />
           </Form>
         )}
       </Formik>

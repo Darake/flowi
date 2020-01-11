@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { updateCategory } from '../../reducers/categoryReducer';
 import CategoryDeletionDialog from './CategoryDeletionDialog';
+import DialogActionButtons from '../Shared/DialogActionButtons';
 
 const useStyles = makeStyles(theme => ({
   editingDialogContent: {
@@ -46,14 +45,10 @@ const CategoryEditing = ({ handleClose }) => {
         <TextField type="text" fullWidth value={newName} onChange={onChange} />
         <CategoryDeletionDialog closeMainDialog={handleClose} />
       </DialogContent>
-      <DialogActions>
-        <Button size="small" onClick={handleClose}>
-          CANCEL
-        </Button>
-        <Button size="small" color="primary" onClick={handleSave}>
-          SAVE
-        </Button>
-      </DialogActions>
+      <DialogActionButtons
+        handleClose={handleClose}
+        handlePrimaryClick={handleSave}
+      />
     </>
   );
 };
