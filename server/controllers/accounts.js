@@ -80,7 +80,10 @@ accountRouter.delete('/:id', async (req, res, next) => {
     const user = await User.findById(userId);
 
     if (user.accounts.includes(accountId)) {
-      await Account.findByIdAndRemove(accountId);
+      user.accounts = user.accounts.filter(
+        account => account.toString() !== accountId
+      );
+      await user.save();
       res.status(204).end();
     } else {
       res.status(401).json({ error: 'invalid token' });

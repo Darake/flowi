@@ -141,6 +141,6 @@
 | 2020-01-10 | 1     | backend models/controller alteration                                                    |
 | 2020-01-10 | 1     | backend models/controller alteration, transaction creation alteration, TransactionTable |
 | 2020-01-10 | 1     | TransactionTable, change what transactions api get returns, adding inflow transactions  |
-| 2020-01-11 |       | create DialogActionButtons shared component                                             |
+| 2020-01-11 |       | create DialogActionButtons shared component, only delete accounts/categories from user  |
 
 ### Total hours: 162h

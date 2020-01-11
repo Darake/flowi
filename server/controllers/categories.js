@@ -86,7 +86,10 @@ categoryRouter.delete('/:id', async (req, res, next) => {
     const user = await User.findById(userId);
 
     if (user.categories.includes(categoryId)) {
-      await Category.findByIdAndRemove(categoryId);
+      user.categories = user.categories.filter(
+        category => category.toString() !== categoryId
+      );
+      await user.save();
       res.status(204).end();
     } else {
       res.status(401).json({ error: 'invalid token' });
