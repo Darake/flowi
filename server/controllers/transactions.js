@@ -90,6 +90,14 @@ transactionRouter.post('/', async (request, response, next) => {
         amount
       }).save();
 
+      const populatedTransaction = await Transaction.findById(
+        savedTransaction.id
+      ).populate([
+        { path: 'sourceAccount', select: 'name' },
+        { path: 'targetCategory', select: 'name' },
+        { path: 'targetAccount', select: 'name' }
+      ]);
+
       await updateSourceAndTarget(
         sourceAccount,
         targetAccount,
@@ -99,7 +107,7 @@ transactionRouter.post('/', async (request, response, next) => {
 
       await updateUser(userId, savedTransaction.id);
 
-      response.json(savedTransaction.toJSON());
+      response.json(populatedTransaction.toJSON());
     }
   } catch (exception) {
     next(exception);
