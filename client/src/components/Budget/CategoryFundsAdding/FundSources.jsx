@@ -2,14 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 import Balance from '../../Shared/Balance';
 import {
-  FormikTextField,
+  FormikAmountField,
   FormikSelectField
 } from '../../Shared/MaterialFormikFields';
 
@@ -56,8 +55,6 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
     name: 'Accounts',
     balance: totalAccountBalance - totalBudgeted
   };
-
-  const { currency } = useSelector(state => state.user);
 
   const categoryById = id => categories.filter(b => b.id === id)[0];
 
@@ -121,17 +118,11 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
                 </MenuItem>
               ))}
           </FormikSelectField>
-          <FormikTextField
-            type="number"
+          <FormikAmountField
             label="Amount"
             name={`fundSources.${index}.addition`}
             value={source.addition}
             className={classes.fundSourceAddition}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">{currency}</InputAdornment>
-              )
-            }}
             disabled={sourceNotSelected(index)}
             onChange={e => handleAmountChange(e, index)}
           />

@@ -135,24 +135,27 @@
 
 ## Transaction (continued)
 
-| **Date**   | Hours | Target                                                                                    |
-| ---------- | ----- | ----------------------------------------------------------------------------------------- |
-| 2020-01-08 | 1     | refactor transactionAddin, transactions reducer, transaction get api point                |
-| 2020-01-10 | 1     | backend models/controller alteration                                                      |
-| 2020-01-10 | 1     | backend models/controller alteration, transaction creation alteration, TransactionTable   |
-| 2020-01-10 | 1     | TransactionTable, change what transactions api get returns, adding inflow transactions    |
-| 2020-01-11 | 1     | create DialogActionButtons, only delete accounts/categories from user, inflow transaction |
-| 2020-01-11 | 1     | inflow transaction, transfer transaction                                                  |
-| 2020-01-12 | 1     | shared AccountAndAmount component, transfer transaction                                   |
-| 2020-01-12 | 1     | shared AccountAndAmount component, transfer transaction                                   |
-| 2020-01-12 | 1     | transfer transaction                                                                      |
-| 2020-01-12 | 1     | transfer transaction, fix transaction actionbutton placement on mobile                    |
-| 2020-01-12 | 1     | fix transaction name bug, outflow transactions in red, refactor TransactionTable          |
+| **Date**   | Hours    | Target                                                                                    |
+| ---------- | -------- | ----------------------------------------------------------------------------------------- |
+| 2020-01-08 | 1        | refactor transactionAddin, transactions reducer, transaction get api point                |
+| 2020-01-10 | 1        | backend models/controller alteration                                                      |
+| 2020-01-10 | 1        | backend models/controller alteration, transaction creation alteration, TransactionTable   |
+| 2020-01-10 | 1        | TransactionTable, change what transactions api get returns, adding inflow transactions    |
+| 2020-01-11 | 1        | create DialogActionButtons, only delete accounts/categories from user, inflow transaction |
+| 2020-01-11 | 1        | inflow transaction, transfer transaction                                                  |
+| 2020-01-12 | 1        | shared AccountAndAmount component, transfer transaction                                   |
+| 2020-01-12 | 1        | shared AccountAndAmount component, transfer transaction                                   |
+| 2020-01-12 | 1        | transfer transaction                                                                      |
+| 2020-01-12 | 1        | transfer transaction, fix transaction actionbutton placement on mobile                    |
+| 2020-01-12 | 1        | fix transaction name bug, outflow transactions in red, refactor TransactionTable          |
+| TOTAL      | 9+11 =20 |                                                                                           |
 
-## Readme
+## Finishing touches
 
-| **Date**   | Hours | Target        |
-| ---------- | ----- | ------------- |
-| 2020-01-12 | 1     | update README |
+| **Date**   | Hours | Target                                                                             |
+| ---------- | ----- | ---------------------------------------------------------------------------------- |
+| 2020-01-12 | 1     | update README                                                                      |
+| 2020-01-13 | 1     | update README, check that instructions work, refactor AccountCreation to fit style |
+| 2020-01-13 |       | FormikAmountField, refactor AccountCreation to fit style                           |
 
-### Total hours: 169h
+### Total hours: 171h

@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { useField } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 export const FormikTextField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
+
   return (
     <TextField
       label={label}
@@ -22,6 +25,20 @@ export const FormikTextField = ({ label, ...props }) => {
 
 FormikTextField.propTypes = {
   label: PropTypes.string.isRequired
+};
+
+export const FormikAmountField = props => {
+  const { currency } = useSelector(state => state.user);
+
+  return (
+    <FormikTextField
+      type="number"
+      InputProps={{
+        endAdornment: <InputAdornment position="end">{currency}</InputAdornment>
+      }}
+      {...props}
+    />
+  );
 };
 
 export const FormikSelectField = ({
