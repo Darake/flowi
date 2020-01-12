@@ -149,4 +149,10 @@
 | 2020-01-12 | 1     | transfer transaction, fix transaction actionbutton placement on mobile                    |
 | 2020-01-12 | 1     | fix transaction name bug, outflow transactions in red, refactor TransactionTable          |
 
+## Readme
+
+| **Date**   | Hours | Target        |
+| ---------- | ----- | ------------- |
+| 2020-01-12 | 1     | update README |
+
 ### Total hours: 169h
