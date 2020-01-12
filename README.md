@@ -79,7 +79,9 @@ docker-compose -f server-unit.yml -p test up --abort-on-container-exit
 
 Or for client:
 
-`@docker-compose -f client-unit.yml -p test up`
+```
+docker-compose -f client-unit.yml -p test up
+```
 
 For end to end tests:
 
