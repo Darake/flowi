@@ -6,13 +6,8 @@ import * as Yup from 'yup';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import MenuItem from '@material-ui/core/MenuItem';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  FormikSelectField,
-  FormikTextField
-} from '../Shared/MaterialFormikFields';
 import TransactionFundAdding from './TransactionFundAdding';
 import {
   setCategory,
@@ -24,6 +19,8 @@ import { createOutflowTransaction } from '../../reducers/transactionReducer';
 import { findById } from '../../utils';
 import DialogActionButtons from '../Shared/DialogActionButtons';
 import { useSharedStyles } from '../Shared/SharedStyles';
+import AccountAndAmountField from './AccountAndAmountField';
+import SelectWithItems from './SelectWithItems';
 
 const useStyles = makeStyles(theme => ({
   accountAndAmount: {
@@ -42,14 +39,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewOutflowTransaction = ({ handleClose }) => {
+const NewOutflowTransaction = ({ handleClose, hidden }) => {
   const classes = useStyles();
   const sharedClasses = useSharedStyles();
   const dispatch = useDispatch();
   const [fundAdding, setFundAdding] = useState(false);
   const accounts = useSelector(state => state.accounts);
   const categories = useSelector(state => state.categories);
-  const { currency } = useSelector(state => state.user);
   const fundError = useSelector(state => state.notification);
 
   const valueSelected = value => value !== '';
@@ -177,7 +173,7 @@ const NewOutflowTransaction = ({ handleClose }) => {
   });
 
   return (
-    <>
+    <Box hidden={hidden}>
       <DialogTitle>New outflow transaction</DialogTitle>
       <Formik
         onSubmit={handleSubmit}
@@ -195,44 +191,25 @@ const NewOutflowTransaction = ({ handleClose }) => {
               <DialogContentText>
                 Select account, target category and the transaction amount.
               </DialogContentText>
-              <div className={classes.accountAndAmount}>
-                <FormikSelectField
-                  name="account"
-                  label="Account"
-                  formControlClassName={classes.account}
-                  onChange={e => handleAccountChange(e, values, setFieldValue)}
-                >
-                  {accounts.map(account => (
-                    <MenuItem key={account.id} value={account.id}>
-                      {account.name}
-                    </MenuItem>
-                  ))}
-                </FormikSelectField>
-                <FormikTextField
-                  name="amount"
-                  label="Amount"
-                  type="number"
-                  className={classes.amount}
-                  onChange={e => handleAmountChange(e, values, setFieldValue)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">{currency}</InputAdornment>
-                    )
-                  }}
-                />
-              </div>
-              <FormikSelectField
+              <AccountAndAmountField
+                accountName="account"
+                amountName="amount"
+                handleAccountChange={e =>
+                  handleAccountChange(e, values, setFieldValue)
+                }
+                handleAmountChange={e =>
+                  handleAmountChange(e, values, setFieldValue)
+                }
+              />
+              <SelectWithItems
                 name="category"
                 label="Category"
-                onChange={e => handleCategoryChange(e, values, setFieldValue)}
+                handleChange={e =>
+                  handleCategoryChange(e, values, setFieldValue)
+                }
+                items={categories}
                 fullWidth
-              >
-                {categories.map(budget => (
-                  <MenuItem key={budget.id} value={budget.id}>
-                    {budget.name}
-                  </MenuItem>
-                ))}
-              </FormikSelectField>
+              />
               <TransactionFundAdding
                 show={fundAdding}
                 values={values}
@@ -250,12 +227,13 @@ const NewOutflowTransaction = ({ handleClose }) => {
           </Form>
         )}
       </Formik>
-    </>
+    </Box>
   );
 };
 
 NewOutflowTransaction.propTypes = {
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  hidden: PropTypes.bool.isRequired
 };
 
 export default NewOutflowTransaction;

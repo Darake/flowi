@@ -8,11 +8,18 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import NewOutflowTransaction from './NewOutflowTransaction';
 import NewInflowTransaction from './NewInflowTransaction';
+import NewTransferTransaction from './NewTransferTransaction';
+
+const tabs = Object.freeze({
+  OUTFLOW: 0,
+  INFLOW: 1,
+  TRANSFER: 2
+});
 
 const TransactionAddingDialog = () => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(tabs.OUTFLOW);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -21,7 +28,7 @@ const TransactionAddingDialog = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setTab(0);
+    setTab(tabs.OUTFLOW);
   };
 
   const handleTabChange = (event, newValue) => {
@@ -38,7 +45,12 @@ const TransactionAddingDialog = () => {
       >
         ADD TRANSACTION
       </Button>
-      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose}>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        fullWidth
+      >
         <Paper square>
           <Tabs
             value={tab}
@@ -48,15 +60,23 @@ const TransactionAddingDialog = () => {
             onChange={handleTabChange}
             aria-label="disabled tabs example"
           >
-            <Tab label="Outflow" />
-            <Tab label="Inflow" />
+            <Tab value={tabs.OUTFLOW} label="Outflow" />
+            <Tab value={tabs.INFLOW} label="Inflow" />
+            <Tab value={tabs.TRANSFER} label="Transfer" />
           </Tabs>
         </Paper>
-        {tab === 0 ? (
-          <NewOutflowTransaction handleClose={handleClose} />
-        ) : (
-          <NewInflowTransaction handleClose={handleClose} />
-        )}
+        <NewOutflowTransaction
+          handleClose={handleClose}
+          hidden={tab !== tabs.OUTFLOW}
+        />
+        <NewInflowTransaction
+          handleClose={handleClose}
+          hidden={tab !== tabs.INFLOW}
+        />
+        <NewTransferTransaction
+          handleClose={handleClose}
+          hidden={tab !== tabs.TRANSFER}
+        />
       </Dialog>
     </>
   );

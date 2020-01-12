@@ -142,6 +142,10 @@
 | 2020-01-10 | 1     | backend models/controller alteration, transaction creation alteration, TransactionTable   |
 | 2020-01-10 | 1     | TransactionTable, change what transactions api get returns, adding inflow transactions    |
 | 2020-01-11 | 1     | create DialogActionButtons, only delete accounts/categories from user, inflow transaction |
-| 2020-01-11 |       | inflow transaction                                                                        |
+| 2020-01-11 | 1     | inflow transaction, transfer transaction                                                  |
+| 2020-01-12 | 1     | shared AccountAndAmount component, transfer transaction                                   |
+| 2020-01-12 | 1     | shared AccountAndAmount component, transfer transaction                                   |
+| 2020-01-12 | 1     | transfer transaction                                                                      |
+| 2020-01-12 |       | transfer transaction                                                                      |
 
-### Total hours: 163h
+### Total hours: 167h

@@ -6,38 +6,17 @@ import * as Yup from 'yup';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  FormikSelectField,
-  FormikTextField
-} from '../Shared/MaterialFormikFields';
+import Box from '@material-ui/core/Box';
+import AccountAndAmountField from './AccountAndAmountField';
 import DialogActionButtons from '../Shared/DialogActionButtons';
 import { createInflowTransaction } from '../../reducers/transactionReducer';
 import { findById } from '../../utils';
 import { useSharedStyles } from '../Shared/SharedStyles';
 
-const useStyles = makeStyles(theme => ({
-  accountAndAmount: {
-    display: 'flex',
-    marginBottom: theme.spacing(3)
-  },
-  account: {
-    flexGrow: 1,
-    marginRight: theme.spacing(1)
-  },
-  amount: {
-    width: '100px'
-  }
-}));
-
-const NewInflowTransaction = ({ handleClose }) => {
-  const classes = useStyles();
+const NewInflowTransaction = ({ handleClose, hidden }) => {
   const sharedClasses = useSharedStyles();
   const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
-  const { currency } = useSelector(state => state.user);
 
   const handleSubmit = async values => {
     await dispatch(
@@ -55,7 +34,7 @@ const NewInflowTransaction = ({ handleClose }) => {
   });
 
   return (
-    <>
+    <Box hidden={hidden}>
       <DialogTitle>New inflow transaction</DialogTitle>
       <Formik
         initialValues={{
@@ -65,48 +44,33 @@ const NewInflowTransaction = ({ handleClose }) => {
         validationSchema={inflowValidationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className={sharedClasses.dialogForm}>
-          <DialogContent>
-            <DialogContentText>
-              Select a target account and amount.
-            </DialogContentText>
-            <div className={classes.accountAndAmount}>
-              <FormikSelectField
-                name="inflowAccount"
-                label="Account"
-                formControlClassName={classes.account}
-              >
-                {accounts.map(account => (
-                  <MenuItem key={account.id} value={account.id}>
-                    {account.name}
-                  </MenuItem>
-                ))}
-              </FormikSelectField>
-              <FormikTextField
-                name="inflowAmount"
-                label="Amount"
-                type="number"
-                className={classes.amount}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">{currency}</InputAdornment>
-                  )
-                }}
+        {({ handleChange }) => (
+          <Form className={sharedClasses.dialogForm}>
+            <DialogContent>
+              <DialogContentText>
+                Select a target account and amount.
+              </DialogContentText>
+              <AccountAndAmountField
+                accountName="inflowAccount"
+                amountName="inflowAmount"
+                handleAccountChange={handleChange}
+                handleAmountChange={handleChange}
               />
-            </div>
-          </DialogContent>
-          <DialogActionButtons
-            handleClose={handleClose}
-            dialogActionClassName={sharedClasses.dialogButtons}
-          />
-        </Form>
+            </DialogContent>
+            <DialogActionButtons
+              handleClose={handleClose}
+              dialogActionClassName={sharedClasses.dialogButtons}
+            />
+          </Form>
+        )}
       </Formik>
-    </>
+    </Box>
   );
 };
 
 NewInflowTransaction.propTypes = {
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  hidden: PropTypes.bool.isRequired
 };
 
 export default NewInflowTransaction;

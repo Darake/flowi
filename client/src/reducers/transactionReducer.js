@@ -57,3 +57,25 @@ export const createInflowTransaction = (targetAccount, amount) => {
     });
   };
 };
+
+export const createTransfer = (sourceAccount, targetAccount, amount) => {
+  return async dispatch => {
+    const savedTransaction = await transactionService.create({
+      sourceAccount: sourceAccount.id,
+      targetAccount: targetAccount.id,
+      amount
+    });
+    dispatch({
+      type: 'NEW_TRANSACTION',
+      payload: savedTransaction
+    });
+    dispatch({
+      type: 'UPDATE_ACCOUNT',
+      payload: { ...sourceAccount, balance: sourceAccount.balance - amount }
+    });
+    dispatch({
+      type: 'UPDATE_ACCOUNT',
+      payload: { ...targetAccount, balance: targetAccount.balance + amount }
+    });
+  };
+};

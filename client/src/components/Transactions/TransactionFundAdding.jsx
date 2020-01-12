@@ -14,7 +14,7 @@ const TransactionFundAdding = ({ show, values, setFieldValue, ...props }) => {
   return (
     <div {...props}>
       <DialogContentText color="error">
-        {`Not enough budgeted for ${category.name}. Please budget at least ${fundsNeeded}${currency} more below.`}
+        {`Not enough budgeted for ${category.name}. Budget at least ${fundsNeeded}${currency} more below.`}
       </DialogContentText>
       <FundSourceFieldArray values={values} setFieldValue={setFieldValue} />
     </div>
