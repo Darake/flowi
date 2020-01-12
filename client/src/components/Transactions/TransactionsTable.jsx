@@ -34,7 +34,10 @@ const TransactionsTable = () => {
                   : row.targetCategory.name}
               </TableCell>
               <TableCell align="right">
-                <Balance balance={row.amount} />
+                <Balance
+                  balance={row.amount}
+                  outflow={Boolean(row.targetCategory)}
+                />
               </TableCell>
             </TableRow>
           ))}

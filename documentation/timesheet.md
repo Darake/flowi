@@ -147,6 +147,6 @@
 | 2020-01-12 | 1     | shared AccountAndAmount component, transfer transaction                                   |
 | 2020-01-12 | 1     | transfer transaction                                                                      |
 | 2020-01-12 | 1     | transfer transaction, fix transaction actionbutton placement on mobile                    |
-| 2020-01-12 |       | fix transaction name appearance bug                                                       |
+| 2020-01-12 |       | fix transaction name appearance bug, outflow transactions in red                          |
 
 ### Total hours: 168h

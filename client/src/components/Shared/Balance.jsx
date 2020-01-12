@@ -6,17 +6,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   balance: {
-    color: '#38bec9',
+    color: outflow => (outflow ? 'red' : '#38bec9'),
     display: 'block'
   }
 });
 
-const Balance = ({ balance }) => {
-  const classes = useStyles();
+const Balance = ({ balance, outflow = false }) => {
+  const classes = useStyles(outflow);
   const user = useSelector(state => state.user);
+
+  const sign = outflow ? '-' : null;
 
   return (
     <Typography component="span" variant="body2" className={classes.balance}>
+      {sign}
       {balance}
       {user.currency}
     </Typography>
@@ -24,7 +27,12 @@ const Balance = ({ balance }) => {
 };
 
 Balance.propTypes = {
-  balance: PropTypes.number.isRequired
+  balance: PropTypes.number.isRequired,
+  outflow: PropTypes.bool
+};
+
+Balance.defaultProps = {
+  outflow: false
 };
 
 export default Balance;
