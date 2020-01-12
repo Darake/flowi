@@ -23,17 +23,6 @@ import AccountAndAmountField from './AccountAndAmountField';
 import SelectWithItems from './SelectWithItems';
 
 const useStyles = makeStyles(theme => ({
-  accountAndAmount: {
-    display: 'flex',
-    marginBottom: theme.spacing(3)
-  },
-  account: {
-    flexGrow: 1,
-    marginRight: theme.spacing(1)
-  },
-  amount: {
-    width: '100px'
-  },
   fundAdding: {
     marginTop: theme.spacing(6)
   }
@@ -47,6 +36,8 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
   const accounts = useSelector(state => state.accounts);
   const categories = useSelector(state => state.categories);
   const fundError = useSelector(state => state.notification);
+
+  if (hidden) return null;
 
   const valueSelected = value => value !== '';
 
@@ -173,7 +164,7 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
   });
 
   return (
-    <Box hidden={hidden}>
+    <Box height="100%" display="flex" flexDirection="column">
       <DialogTitle>New outflow transaction</DialogTitle>
       <Formik
         onSubmit={handleSubmit}

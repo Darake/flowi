@@ -19,6 +19,8 @@ const NewTransferTransaction = ({ handleClose, hidden }) => {
   const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
 
+  if (hidden) return null;
+
   const accountsExcludingSource = sourceId => {
     return accounts.filter(account => account.id !== sourceId);
   };
@@ -64,7 +66,7 @@ const NewTransferTransaction = ({ handleClose, hidden }) => {
   });
 
   return (
-    <Box hidden={hidden}>
+    <Box height="100%" display="flex" flexDirection="column">
       <DialogTitle>Transfer funds between accounts</DialogTitle>
       <Formik
         initialValues={{

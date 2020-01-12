@@ -18,6 +18,8 @@ const NewInflowTransaction = ({ handleClose, hidden }) => {
   const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
 
+  if (hidden) return null;
+
   const handleSubmit = async values => {
     await dispatch(
       createInflowTransaction(
@@ -34,7 +36,7 @@ const NewInflowTransaction = ({ handleClose, hidden }) => {
   });
 
   return (
-    <Box hidden={hidden}>
+    <Box height="100%" display="flex" flexDirection="column">
       <DialogTitle>New inflow transaction</DialogTitle>
       <Formik
         initialValues={{

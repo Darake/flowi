@@ -146,6 +146,6 @@
 | 2020-01-12 | 1     | shared AccountAndAmount component, transfer transaction                                   |
 | 2020-01-12 | 1     | shared AccountAndAmount component, transfer transaction                                   |
 | 2020-01-12 | 1     | transfer transaction                                                                      |
-| 2020-01-12 |       | transfer transaction                                                                      |
+| 2020-01-12 | 1     | transfer transaction, fix transaction actionbutton placement on mobile                    |
 
-### Total hours: 167h
+### Total hours: 168h
