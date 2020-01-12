@@ -38,6 +38,7 @@ const AccountCreation = ({ closeModal }) => {
     startingBalance: Yup.number()
       .typeError('Starting balance needs to be a number.')
       .required('Starting balance required.')
+      .min(0, 'Starting balance cant be negative.')
   });
 
   return (

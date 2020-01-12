@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import AccountTable from './AccountTable';
 import AccountsHeader from './Header/AccountsHeader';
-import AccountCreationModal from '../AccountCreation/AccountCreationModal';
+import AccountCreationDialog from '../AccountCreation/AccountCreationDialog';
 
 const useStyles = makeStyles(theme => ({
   accounts: {
@@ -21,7 +21,7 @@ const Accounts = () => {
       <AccountsHeader />
       <AccountTable />
       <Hidden smDown>
-        <AccountCreationModal />
+        <AccountCreationDialog />
       </Hidden>
     </div>
   );
