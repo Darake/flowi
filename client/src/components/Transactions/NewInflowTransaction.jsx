@@ -32,7 +32,9 @@ const NewInflowTransaction = ({ handleClose, hidden }) => {
 
   const inflowValidationSchema = Yup.object().shape({
     inflowAccount: Yup.string().required('Please choose an account'),
-    inflowAmount: Yup.number().required('Please enter the transaction amount')
+    inflowAmount: Yup.number()
+      .required('Please enter the transaction amount')
+      .min(1, 'Amount needs to be above 0')
   });
 
   return (
