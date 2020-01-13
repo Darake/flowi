@@ -43,6 +43,14 @@ if (process.env.NODE_ENV === 'test') {
   app.use('/api/reset', testingRouter);
 }
 
+app.get('/*', (request, response) => {
+  response.sendFile(path.join(__dirname, 'build/index.html'), err => {
+    if (err) {
+      response.status(500).send(err);
+    }
+  });
+});
+
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
