@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 app.get('/*', (request, response) => {
-  response.sendFile(path.join(__dirname, 'build/index.html'), err => {
+  response.sendFile('build/index.html', err => {
     if (err) {
       response.status(500).send(err);
     }
