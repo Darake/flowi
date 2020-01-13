@@ -7,22 +7,31 @@ import Box from '@material-ui/core/Box';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { makeStyles } from '@material-ui/core/styles';
 import AccountAndAmountField from './AccountAndAmountField';
 import SelectWithItems from './SelectWithItems';
 import DialogActionButtons from '../Shared/DialogActionButtons';
 import { useSharedStyles } from '../Shared/SharedStyles';
 import { findById } from '../../utils';
 import { createTransfer } from '../../reducers/transactionReducer';
+import { FormikDatePicker } from '../Shared/MaterialFormikFields';
+
+const useStyles = makeStyles(theme => ({
+  transactionDate: {
+    marginTop: theme.spacing(5)
+  }
+}));
 
 const NewTransferTransaction = ({ handleClose, hidden }) => {
+  const classes = useStyles();
   const sharedClasses = useSharedStyles();
   const dispatch = useDispatch();
   const accounts = useSelector(state => state.accounts);
 
   if (hidden) return null;
 
-  const accountsExcludingSource = sourceId => {
-    return accounts.filter(account => account.id !== sourceId);
+  const accountsExcludingOne = id => {
+    return accounts.filter(account => account.id !== id);
   };
 
   const accountById = id => findById(accounts, id);
@@ -51,7 +60,8 @@ const NewTransferTransaction = ({ handleClose, hidden }) => {
       createTransfer(
         accountById(values.sourceAccount),
         accountById(values.targetAccount),
-        Number(values.transferAmount)
+        Number(values.transferAmount),
+        values.transferDate
       )
     );
     handleClose();
@@ -62,7 +72,8 @@ const NewTransferTransaction = ({ handleClose, hidden }) => {
     targetAccount: Yup.string().required('Choose a target account'),
     transferAmount: Yup.number()
       .required('Enter transfer amount')
-      .min(1, 'Amount cant be 0')
+      .min(1, 'Amount cant be 0'),
+    transferDate: Yup.date('Invalid Date Format').required()
   });
 
   return (
@@ -72,12 +83,13 @@ const NewTransferTransaction = ({ handleClose, hidden }) => {
         initialValues={{
           sourceAccount: '',
           targetAccount: '',
-          transferAmount: ''
+          transferAmount: '',
+          transferDate: new Date()
         }}
         onSubmit={handleSubmit}
         validationSchema={transferValidationSchema}
       >
-        {({ values, handleChange, setFieldValue }) => (
+        {({ values, handleChange, setFieldValue, setFieldError }) => (
           <Form className={sharedClasses.dialogForm}>
             <DialogContent>
               <DialogContentText>
@@ -97,8 +109,16 @@ const NewTransferTransaction = ({ handleClose, hidden }) => {
                 name="targetAccount"
                 label="Target account"
                 handleChange={handleChange}
-                items={accountsExcludingSource(values.sourceAccount)}
+                items={accountsExcludingOne(values.sourceAccount)}
                 fullWidth
+              />
+              <FormikDatePicker
+                name="transferDate"
+                label="Transaction date"
+                setFieldError={setFieldError}
+                onChange={value => setFieldValue('transferDate', value, false)}
+                fullWidth
+                className={classes.transactionDate}
               />
             </DialogContent>
             <DialogActionButtons handleClose={handleClose} />

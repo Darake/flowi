@@ -21,10 +21,14 @@ import DialogActionButtons from '../Shared/DialogActionButtons';
 import { useSharedStyles } from '../Shared/SharedStyles';
 import AccountAndAmountField from './AccountAndAmountField';
 import SelectWithItems from './SelectWithItems';
+import { FormikDatePicker } from '../Shared/MaterialFormikFields';
 
 const useStyles = makeStyles(theme => ({
   fundAdding: {
     marginTop: theme.spacing(6)
+  },
+  transactionDate: {
+    marginTop: theme.spacing(5)
   }
 }));
 
@@ -96,7 +100,8 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
         createOutflowTransaction(
           findById(accounts, values.account),
           findById(categories, values.category),
-          values.amount
+          values.amount,
+          values.outflowDate
         )
       );
       handleClose();
@@ -160,7 +165,8 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
     amount: Yup.number()
       .required('Please enter the transaction amount')
       .min(1, 'Amount needs to be greater than 0'),
-    category: Yup.string().required('Please choose a target category')
+    category: Yup.string().required('Please choose a target category'),
+    outflowDate: Yup.date('Invalid Date Format').required()
   });
 
   return (
@@ -173,10 +179,11 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
           account: '',
           category: '',
           amount: '',
+          outflowDate: new Date(),
           fundSources: [{ object: '', addition: '' }]
         }}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, setFieldValue, setFieldError }) => (
           <Form className={sharedClasses.dialogForm}>
             <DialogContent>
               <DialogContentText>
@@ -200,6 +207,14 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
                 }
                 items={categories}
                 fullWidth
+              />
+              <FormikDatePicker
+                name="outflowDate"
+                label="Transaction date"
+                setFieldError={setFieldError}
+                onChange={value => setFieldValue('inflowDate', value, false)}
+                fullWidth
+                className={classes.transactionDate}
               />
               <TransactionFundAdding
                 show={fundAdding}

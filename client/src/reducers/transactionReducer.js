@@ -18,13 +18,15 @@ export const deleteTransaction = actionCreators.deleteResource;
 export const createOutflowTransaction = (
   sourceAccount,
   targetCategory,
-  amount
+  amount,
+  date
 ) => {
   return async dispatch => {
     const savedTransaction = await transactionService.create({
       sourceAccount: sourceAccount.id,
       targetCategory: targetCategory.id,
-      amount
+      amount,
+      date
     });
     dispatch({
       type: 'NEW_TRANSACTION',
@@ -41,11 +43,12 @@ export const createOutflowTransaction = (
   };
 };
 
-export const createInflowTransaction = (targetAccount, amount) => {
+export const createInflowTransaction = (targetAccount, amount, date) => {
   return async dispatch => {
     const savedTransaction = await transactionService.create({
       targetAccount: targetAccount.id,
-      amount
+      amount,
+      date
     });
     dispatch({
       type: 'NEW_TRANSACTION',
@@ -58,12 +61,13 @@ export const createInflowTransaction = (targetAccount, amount) => {
   };
 };
 
-export const createTransfer = (sourceAccount, targetAccount, amount) => {
+export const createTransfer = (sourceAccount, targetAccount, amount, date) => {
   return async dispatch => {
     const savedTransaction = await transactionService.create({
       sourceAccount: sourceAccount.id,
       targetAccount: targetAccount.id,
-      amount
+      amount,
+      date
     });
     dispatch({
       type: 'NEW_TRANSACTION',

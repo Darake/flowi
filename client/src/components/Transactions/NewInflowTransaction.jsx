@@ -12,6 +12,7 @@ import DialogActionButtons from '../Shared/DialogActionButtons';
 import { createInflowTransaction } from '../../reducers/transactionReducer';
 import { findById } from '../../utils';
 import { useSharedStyles } from '../Shared/SharedStyles';
+import { FormikDatePicker } from '../Shared/MaterialFormikFields';
 
 const NewInflowTransaction = ({ handleClose, hidden }) => {
   const sharedClasses = useSharedStyles();
@@ -24,7 +25,8 @@ const NewInflowTransaction = ({ handleClose, hidden }) => {
     await dispatch(
       createInflowTransaction(
         findById(accounts, values.inflowAccount),
-        values.inflowAmount
+        values.inflowAmount,
+        values.inflowDate
       )
     );
     handleClose();
@@ -34,7 +36,8 @@ const NewInflowTransaction = ({ handleClose, hidden }) => {
     inflowAccount: Yup.string().required('Please choose an account'),
     inflowAmount: Yup.number()
       .required('Please enter the transaction amount')
-      .min(1, 'Amount needs to be above 0')
+      .min(1, 'Amount needs to be above 0'),
+    inflowDate: Yup.date('Invalid Date Format').required()
   });
 
   return (
@@ -43,12 +46,13 @@ const NewInflowTransaction = ({ handleClose, hidden }) => {
       <Formik
         initialValues={{
           inflowAccount: '',
-          inflowAmount: ''
+          inflowAmount: '',
+          inflowDate: new Date()
         }}
         validationSchema={inflowValidationSchema}
         onSubmit={handleSubmit}
       >
-        {({ handleChange }) => (
+        {({ handleChange, setFieldValue, setFieldError }) => (
           <Form className={sharedClasses.dialogForm}>
             <DialogContent>
               <DialogContentText>
@@ -59,6 +63,13 @@ const NewInflowTransaction = ({ handleClose, hidden }) => {
                 amountName="inflowAmount"
                 handleAccountChange={handleChange}
                 handleAmountChange={handleChange}
+              />
+              <FormikDatePicker
+                name="inflowDate"
+                label="Transaction date"
+                setFieldError={setFieldError}
+                onChange={value => setFieldValue('inflowDate', value, false)}
+                fullWidth
               />
             </DialogContent>
             <DialogActionButtons

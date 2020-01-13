@@ -59,7 +59,7 @@ transactionRouter.get('/', async (request, response, next) => {
     if (!userId) {
       response.status(401).json({ error: 'invalid token' });
     } else {
-      const user = await User.findById(userId).populate({
+      const { transactions } = await User.findById(userId).populate({
         path: 'transactions',
         populate: [
           { path: 'sourceAccount', select: 'name' },
@@ -67,7 +67,8 @@ transactionRouter.get('/', async (request, response, next) => {
           { path: 'targetAccount', select: 'name' }
         ]
       });
-      response.json(user.transactions);
+      transactions.sort((a, b) => a.date - b.date);
+      response.json(transactions);
     }
   } catch (exception) {
     next(exception);
@@ -76,7 +77,7 @@ transactionRouter.get('/', async (request, response, next) => {
 
 transactionRouter.post('/', async (request, response, next) => {
   const {
-    body: { sourceAccount, targetAccount, targetCategory, amount },
+    body: { sourceAccount, targetAccount, targetCategory, amount, date },
     userId
   } = request;
   try {
@@ -87,7 +88,8 @@ transactionRouter.post('/', async (request, response, next) => {
         sourceAccount,
         targetAccount,
         targetCategory,
-        amount
+        amount,
+        date
       }).save();
 
       const populatedTransaction = await Transaction.findById(

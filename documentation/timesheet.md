@@ -1,5 +1,7 @@
 # Timesheet
 
+### Total hours: 175h
+
 ## Setting up project
 
 | Date       | Hours | Target                                               |
@@ -158,6 +160,8 @@
 | 2020-01-13 | 1     | update README, check that instructions work, refactor AccountCreation to fit style       |
 | 2020-01-13 | 1     | FormikAmountField, AccountCreationDialog, accountview transactions, add transaction date |
 | 2020-01-14 | 1     | fix routing in heroku                                                                    |
-| 2020-01-14 |       | fix routing in heroku                                                                    |
+| 2020-01-14 | 1     | fix routing in heroku, adding date to transactions                                       |
+| 2020-01-14 | 2     | adding date to transactions                                                              |
+| TOTAL      | 7     |                                                                                          |
 
-### Total hours: 173h
+### Total hours: 175h

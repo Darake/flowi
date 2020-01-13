@@ -8,6 +8,40 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+
+export const FormikDatePicker = ({ label, setFieldError, ...props }) => {
+  const [field, meta] = useField(props);
+
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <KeyboardDatePicker
+        {...field}
+        {...props}
+        format="yyyy/MM/dd"
+        disableToolbar
+        margin="normal"
+        label={label}
+        error={Boolean(meta.error)}
+        helperText={meta.error}
+        onError={error => {
+          if (error !== meta.error) {
+            setFieldError(field.name, error);
+          }
+        }}
+        clearable
+      />
+    </MuiPickersUtilsProvider>
+  );
+};
+
+FormikDatePicker.propTypes = {
+  label: PropTypes.string.isRequired
+};
 
 export const FormikTextField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
