@@ -1,86 +1,76 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Balance from '../Shared/Balance';
 
-const TransactionRow = ({ transaction }) => {
-  if (transaction.targetCategory) {
-    return (
-      <TableRow>
-        <TableCell component="th" scope="row">
-          Outflow
-        </TableCell>
-        <TableCell>
-          {`${transaction.sourceAccount.name} -> ${transaction.targetCategory.name}`}
-        </TableCell>
-        <TableCell align="right">
-          <Balance balance={transaction.amount} outflow />
-        </TableCell>
-      </TableRow>
+const TransactionsTable = ({ account }) => {
+  let transactions = useSelector(state => state.transactions);
+  if (account) {
+    transactions = transactions.filter(
+      t =>
+        (t.sourceAccount && t.sourceAccount.id === account.id) ||
+        (t.targetAccount && t.targetAccount.id === account.id)
     );
   }
 
-  if (transaction.sourceAccount) {
-    return (
-      <TableRow>
-        <TableCell component="th" scope="row">
-          Transfer
-        </TableCell>
-        <TableCell>
-          {`${transaction.sourceAccount.name} -> ${transaction.targetAccount.name}`}
-        </TableCell>
-        <TableCell align="right">
-          <Balance balance={transaction.amount} />
-        </TableCell>
-      </TableRow>
-    );
-  }
-
-  return (
-    <TableRow>
-      <TableCell component="th" scope="row">
-        Inflow
-      </TableCell>
-      <TableCell>{transaction.targetAccount.name}</TableCell>
-      <TableCell align="right">
-        <Balance balance={transaction.amount} />
-      </TableCell>
-    </TableRow>
-  );
-};
-
-TransactionRow.propTypes = {
-  transaction: PropTypes.objectOf(PropTypes.any).isRequired
-};
-
-const TransactionsTable = () => {
-  const transactions = useSelector(state => state.transactions);
+  const transactionDetails = transaction => {
+    if (transaction.targetCategory) {
+      return {
+        type: 'Outflow',
+        info: `${transaction.sourceAccount.name} -> ${transaction.targetCategory.name}`,
+        outflow: true
+      };
+    }
+    if (transaction.sourceAccount) {
+      return {
+        type: 'Transfer',
+        info: `${transaction.sourceAccount.name} -> ${transaction.targetAccount.name}`,
+        outflow: account ? transaction.sourceAccount.id === account.id : false
+      };
+    }
+    return {
+      type: 'Inflow',
+      info: transaction.targetAccount.name,
+      outflow: false
+    };
+  };
 
   return (
     <TableContainer component={Paper}>
       <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Source</TableCell>
-            <TableCell>Target</TableCell>
-            <TableCell align="right">Amount</TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
           {transactions.map(row => (
-            <TransactionRow key={row.id} transaction={row} />
+            <TableRow key={row.id}>
+              <TableCell component="th" scope="row">
+                {transactionDetails(row).type}
+              </TableCell>
+              <TableCell>{transactionDetails(row).info}</TableCell>
+              <TableCell align="right">
+                <Balance
+                  balance={row.amount}
+                  outflow={transactionDetails(row).outflow}
+                />
+              </TableCell>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
+};
+
+TransactionsTable.propTypes = {
+  account: PropTypes.objectOf(PropTypes.any)
+};
+
+TransactionsTable.defaultProps = {
+  account: undefined
 };
 
 export default TransactionsTable;

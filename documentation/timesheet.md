@@ -152,10 +152,10 @@
 
 ## Finishing touches
 
-| **Date**   | Hours | Target                                                                             |
-| ---------- | ----- | ---------------------------------------------------------------------------------- |
-| 2020-01-12 | 1     | update README                                                                      |
-| 2020-01-13 | 1     | update README, check that instructions work, refactor AccountCreation to fit style |
-| 2020-01-13 |       | FormikAmountField, refactor AccountCreation to fit style                           |
+| **Date**   | Hours | Target                                                                                         |
+| ---------- | ----- | ---------------------------------------------------------------------------------------------- |
+| 2020-01-12 | 1     | update README                                                                                  |
+| 2020-01-13 | 1     | update README, check that instructions work, refactor AccountCreation to fit style             |
+| 2020-01-13 |       | FormikAmountField, AccountCreationDialog, remove .vscode from github, accountview transactions |
 
 ### Total hours: 171h
