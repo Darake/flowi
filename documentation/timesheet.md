@@ -152,10 +152,11 @@
 
 ## Finishing touches
 
-| **Date**   | Hours | Target                                                                                         |
-| ---------- | ----- | ---------------------------------------------------------------------------------------------- |
-| 2020-01-12 | 1     | update README                                                                                  |
-| 2020-01-13 | 1     | update README, check that instructions work, refactor AccountCreation to fit style             |
-| 2020-01-13 |       | FormikAmountField, AccountCreationDialog, remove .vscode from github, accountview transactions |
+| **Date**   | Hours | Target                                                                                   |
+| ---------- | ----- | ---------------------------------------------------------------------------------------- |
+| 2020-01-12 | 1     | update README                                                                            |
+| 2020-01-13 | 1     | update README, check that instructions work, refactor AccountCreation to fit style       |
+| 2020-01-13 | 1     | FormikAmountField, AccountCreationDialog, accountview transactions, add transaction date |
+| 2020-01-14 |       | fix routing in heroku                                                                    |
 
-### Total hours: 171h
+### Total hours: 172h
