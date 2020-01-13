@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 const config = require('./utils/config');
 const logger = require('./utils/logger');
 const middleware = require('./utils/middleware');
@@ -44,7 +45,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 app.get('/*', (request, response) => {
-  response.sendFile('build/index.html', err => {
+  response.sendFile(path.join(__dirname, 'build/index.html'), err => {
     if (err) {
       response.status(500).send(err);
     }
