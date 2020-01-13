@@ -42,9 +42,6 @@ app.use('/api/transactions', transactionRouter);
 if (process.env.NODE_ENV === 'test') {
   app.use('/api/reset', testingRouter);
 }
-app.get('/*', (request, response) => {
-  response.sendFile('build/index.html');
-});
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
