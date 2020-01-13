@@ -157,6 +157,7 @@
 | 2020-01-12 | 1     | update README                                                                            |
 | 2020-01-13 | 1     | update README, check that instructions work, refactor AccountCreation to fit style       |
 | 2020-01-13 | 1     | FormikAmountField, AccountCreationDialog, accountview transactions, add transaction date |
+| 2020-01-14 | 1     | fix routing in heroku                                                                    |
 | 2020-01-14 |       | fix routing in heroku                                                                    |
 
-### Total hours: 172h
+### Total hours: 173h
