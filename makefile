@@ -39,3 +39,4 @@ enter-client: ## Enter the dev environment client's container
 
 enter-server: ## Enter the dev environment server's container
 	@docker exec -it flowi-server_1 sh
+
