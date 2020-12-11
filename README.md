@@ -41,7 +41,9 @@ These instructions will get you a copy of the project up and running on your loc
 The app is containerized so the only things needed to get it up and running are:
 
 - [Docker](https://docs.docker.com/install/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)  
+
+In addition, [node.js](https://nodejs.org/en/) is recommended to run tests locally and to have other benefits in the IDE side.
 
 ### Installing
 
@@ -57,7 +59,19 @@ Now let's move into the newly downloaded project.
 cd flowi
 ```
 
-With docker compose we can get the whole system running with a simple command.
+If you have node.js installed we can do the initial setup with the following command.
+
+```
+npm run dev:setup
+```
+
+This is used to get the development environment running the first time. In future runs you should use the following.
+
+```
+npm run dev
+```
+
+If you don't want to use node.js, you can also use the following command to get the app running locally.
 
 ```
 docker-compose up

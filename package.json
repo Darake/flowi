@@ -1,0 +1,25 @@
+{
+  "name": "flowi",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <a href=\"\" rel=\"noopener\">  <img width=200px height=200px src=\"https://i.imgur.com/ZVx7qKZ.png\" alt=\"Project logo\"></a> </p>",
+  "scripts": {
+    "dev": "docker-compose up -d && docker-compose logs -f",
+    "docker:setup": "docker-compose up --build -d && docker-compose logs -f",
+    "modules:client": "npm --prefix ./client install",
+    "modules:server": "npm --prefix ./server install",
+    "dev:setup": "npm install && concurrently \"npm:docker:setup\" \"npm:modules:client\" \"npm:modules:server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Darake/flowi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Darake/flowi/issues"
+  },
+  "homepage": "https://github.com/Darake/flowi#readme",
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}

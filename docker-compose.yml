@@ -7,15 +7,16 @@ services:
     container_name: flowi-server_1
     expose:
       - "3001"
-    command: node_modules/.bin/nodemon index.js
+    command: [sh, -c, "/wait && nodemon index.js"]
     volumes:
-      - ./server/:/home/node/app
-      - /home/node/app/node_modules
+      - ./server/:/usr/local/app
+      - /usr/local/app/node_modules/
     environment:
       - NODE_ENV=development
       - PORT=3001
       - MONGODB_URI=mongodb://db:27017/flowi
       - SECRET="0riwOMsuoSj9F6iIk9ycN0cl3pg5WnoUW1EwxzpBuzEfNUkTRMNPQ6j4FUjE2wq"
+      - WAIT_HOSTS=db:27017
     ports:
       - 3001:3001
     depends_on:
@@ -29,8 +30,8 @@ services:
       - "3000"
     command: npm start
     volumes:
-      - ./client/:/home/node/app
-      - /home/node/app/node_modules
+      - ./client/:/usr/local/app
+      - /usr/local/app/node_modules/
     environment:
       - NODE_ENV=development
     ports:
