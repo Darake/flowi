@@ -42,7 +42,7 @@ const AccountCreation = ({ closeModal }) => {
   });
 
   return (
-    <Box mt={10}>
+    <Box mt={10} data-cy="initial-account">
       <Typography component="h1" variant="h6">
         Account creation
       </Typography>

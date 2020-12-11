@@ -7,7 +7,7 @@ services:
     container_name: flowi-server_1
     expose:
       - "3001"
-    command: [sh, -c, "/wait && nodemon index.js"]
+    command: [sh, -c, "/wait && npm run watch"]
     volumes:
       - ./server/:/usr/local/app
       - /usr/local/app/node_modules/

@@ -74,7 +74,7 @@ const Authentication = () => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" data-cy="auth-view">
       <div className={classes.paper}>
         <h1
           style={{
@@ -104,6 +104,7 @@ const Authentication = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              data-cy="email-field"
             />
 
             <FormikTextField
@@ -113,6 +114,7 @@ const Authentication = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              data-cy="password-field"
             />
 
             {registration ? (
@@ -126,8 +128,9 @@ const Authentication = () => {
                   labelWidth={labelWidth}
                   fullWidth
                   formControlClassName={classes.formControl}
+                  data-cy="currency-field"
                 >
-                  <MenuItem value="€">EUR</MenuItem>
+                  <MenuItem value="€" data-cy="eur-option">EUR</MenuItem>
                   <MenuItem value="$">USD</MenuItem>
                   <MenuItem value="£">GPB</MenuItem>
                 </FormikSelectField>
@@ -138,6 +141,7 @@ const Authentication = () => {
                   variant="contained"
                   fullWidth
                   className={classes.submit}
+                  data-cy="confirm-signup-button"
                 >
                   CONFIRM
                 </Button>
@@ -159,6 +163,7 @@ const Authentication = () => {
                   variant="contained"
                   fullWidth
                   className={classes.submit}
+                  data-cy="log-in-button"
                 >
                   LOG IN
                 </Button>
@@ -167,6 +172,7 @@ const Authentication = () => {
                   type="button"
                   onClick={() => setRegistration(true)}
                   component="button"
+                  data-cy="sign-up-button"
                 >
                   SIGN UP
                 </Link>

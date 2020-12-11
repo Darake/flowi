@@ -72,7 +72,7 @@ const App = () => {
 
   if (accounts.length === 0) {
     return (
-      <Container maxWidth="xs">
+      <Container maxWidth="xs" data-cy="initial-account-creation">
         <AccountCreation />
       </Container>
     );
@@ -83,7 +83,7 @@ const App = () => {
       <Hidden smDown>
         <DesktopNav />
       </Hidden>
-      <main className={classes.main}>
+      <main className={classes.main} data-cy="content">
         <Route exact path="/" render={() => <Budget />} />
         <Route
           exact
