@@ -4,6 +4,7 @@
   "description": "<p align=\"center\">   <a href=\"\" rel=\"noopener\">  <img width=200px height=200px src=\"https://i.imgur.com/ZVx7qKZ.png\" alt=\"Project logo\"></a> </p>",
   "scripts": {
     "dev": "docker-compose up -d && docker-compose logs -f",
+    "cypress:open": "cypress open",
     "docker:setup": "docker-compose up --build -d && docker-compose logs -f",
     "modules:client": "npm --prefix ./client install",
     "modules:server": "npm --prefix ./server install",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/Darake/flowi#readme",
   "devDependencies": {
-    "concurrently": "^5.3.0"
+    "concurrently": "^5.3.0",
+    "cypress": "^6.1.0"
   }
 }

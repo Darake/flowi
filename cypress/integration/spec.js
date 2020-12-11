@@ -1,6 +1,10 @@
 describe("flowi ", function() {
+  before(() => {
+    cy.request("POST", "/api/testing/setup");
+  });
+
   beforeEach(function() {
-    cy.request("POST", "/api/reset");
+    cy.request("POST", "/api/testing/reset");
     cy.visit("/");
   });
 
@@ -53,5 +57,9 @@ describe("flowi ", function() {
         })
       });
     });
+  });
+
+  after(() => {
+    cy.request("POST", "/api/testing/cleanup");
   });
 });

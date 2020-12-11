@@ -15,6 +15,7 @@ services:
       - NODE_ENV=development
       - PORT=3001
       - MONGODB_URI=mongodb://db:27017/flowi
+      - MONGODB_TESTING_URI=mongodb://db:27017/flowi-testing
       - SECRET="0riwOMsuoSj9F6iIk9ycN0cl3pg5WnoUW1EwxzpBuzEfNUkTRMNPQ6j4FUjE2wq"
       - WAIT_HOSTS=db:27017
     ports:

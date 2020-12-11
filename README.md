@@ -100,7 +100,7 @@ docker-compose -f client-unit.yml -p test up
 For end to end tests:
 
 ```
-docker-compose -f e2e.yml -p test up --abort-on-container-exit
+npm run cypress:open
 ```
 
 ### Coding style tests
