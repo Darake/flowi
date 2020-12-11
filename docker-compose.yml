@@ -43,6 +43,9 @@ services:
     image: mongo:4.0.10-xenial
     container_name: flowi-db_1
     volumes:
-      - ./data:/data/db
+      - flowi_data:/data/db
     logging:
       driver: "none"
+
+volumes:
+  flowi_data:
