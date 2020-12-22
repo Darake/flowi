@@ -150,7 +150,7 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
   };
 
   const handleAccountChange = (e, values, setFieldValue) => {
-    const selectedAccount = findById(accounts, values.account);
+    const selectedAccount = findById(accounts, e.target.value);
     setFieldValue('account', e.target.value);
     if (
       valueSelected(values.amount) &&
@@ -207,6 +207,7 @@ const NewOutflowTransaction = ({ handleClose, hidden }) => {
                 }
                 items={categories}
                 fullWidth
+                data-cy="transaction-category"
               />
               <FormikDatePicker
                 name="outflowDate"

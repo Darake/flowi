@@ -111,6 +111,7 @@ const NewTransferTransaction = ({ handleClose, hidden }) => {
                 handleChange={handleChange}
                 items={accountsExcludingOne(values.sourceAccount)}
                 fullWidth
+                data-cy="transaction-target-account"
               />
               <FormikDatePicker
                 name="transferDate"

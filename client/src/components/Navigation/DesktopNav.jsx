@@ -60,6 +60,7 @@ const DesktopNav = () => {
           exact
           to="/"
           activeClassName={classes.active}
+          data-cy="nav-link-budget"
         >
           <ListItemIcon>
             <GridOn />

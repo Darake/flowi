@@ -36,12 +36,14 @@ const AccountAndAmountField = ({
         fieldClassName={classes.account}
         handleChange={handleAccountChange}
         items={accounts}
+        data-cy="transaction-account"
       />
       <FormikAmountField
         name={amountName}
         label="Amount"
         className={classes.amount}
         onChange={handleAmountChange}
+        data-cy="transaction-amount"
       />
     </div>
   );

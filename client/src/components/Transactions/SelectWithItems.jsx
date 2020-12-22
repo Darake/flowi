@@ -20,7 +20,7 @@ const SelectWithItems = ({
       {...props}
     >
       {items.map(item => (
-        <MenuItem key={item.id} value={item.id}>
+        <MenuItem key={item.id} value={item.id} data-cy="menu-item">
           {item.name}
         </MenuItem>
       ))}

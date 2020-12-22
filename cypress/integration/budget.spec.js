@@ -42,7 +42,7 @@ describe('Budget', () => {
 
     cy.contains('Food').click()
     cy.getEl('add-funds-source').eq(0).click()
-    cy.getEl('source-option-account').should('contain', '8881EUR')
+    cy.getEl('source-option-account').should('contain', '10218EUR')
   })
 
   it('can move fund between categories', () => {

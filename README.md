@@ -81,23 +81,10 @@ The first time running it might take some time, since it has to download everyth
 
 ### 🔧 Running the tests <a name = "tests"></a>
 
-<b> ATTENTION! At this time all of the tests are most likely broken. The project was started with a test driven development but during the project I realized that TDD is not very optimal until a core version of the project is ready. This lead to me focusing more on getting the core functionality ready instead of writing and rewriting the tests everytime something changed.
+<b> The project was started with a test driven development but during the project I realized that TDD is not very optimal until a core version of the project is ready. This lead me to abandon unit tests for time being. The project has working cypress end to end tests.
+</b>
 
-The plan is to fix and write api and e2e tests when the projects core functionality is done.</b>
-
-To start the server's unit tests, run the following command:
-
-```
-docker-compose -f server-unit.yml -p test up --abort-on-container-exit
-```
-
-Or for client:
-
-```
-docker-compose -f client-unit.yml -p test up
-```
-
-For end to end tests:
+To run cypress tests locally:
 
 ```
 npm run cypress:open

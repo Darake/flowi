@@ -42,6 +42,7 @@ const TransactionAddingDialog = () => {
         color="primary"
         size="small"
         onClick={handleOpen}
+        data-cy="add-transaction-button"
       >
         ADD TRANSACTION
       </Button>
@@ -50,6 +51,7 @@ const TransactionAddingDialog = () => {
         open={open}
         onClose={handleClose}
         fullWidth
+        data-cy="transaction-dialog"
       >
         <Paper square>
           <Tabs
