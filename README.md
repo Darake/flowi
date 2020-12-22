@@ -26,7 +26,6 @@
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [Timesheet](documentation/timesheet.md)
 
 ## 🧐 About <a name = "about"></a>
 
