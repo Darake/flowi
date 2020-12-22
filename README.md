@@ -90,41 +90,8 @@ To run cypress tests locally:
 npm run cypress:open
 ```
 
-### Coding style tests
-
-Coding style errors are checked with airbnb's eslint configuration. You can check for lint errors by running this command:
-
-```
-docker-compose -f lint.yml -p test up
-```
-
-Alternatively linux users can use the make file provided. Type `make help` for available commands.
 
 ## 🎈 Usage <a name="usage"></a>
-
-### Developement
-
-#### Dependencies
-
-To install new dependencies for the client enter
-
-```
-docker exec -it flowi-client_1 sh
-```
-
-Or for the server
-
-```
-docker exec -it flowi-server_1 sh
-```
-
-Then just install what you need normally in the docker's bash.
-
-```
-npm install <dependency> --save
-```
-
-### Product
 
 The live version can be tested [here](http://flowi.herokuapp.com/). To use the app's features, an account must be made. After logging in the first time, a prompt appears to add a new account.
 
