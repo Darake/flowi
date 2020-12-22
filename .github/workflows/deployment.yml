@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     name: Run tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout code
@@ -21,3 +21,17 @@ jobs:
 
       - name: Run Cypress tests
         run: npm run cypress:run
+
+  build:
+    name: 'Publish to dockerhub'
+    needs: test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Publish to DockerHub
+        uses: docker/build-push-action@v1.1.0
+        with:
+          repository: daraku/flowi
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
