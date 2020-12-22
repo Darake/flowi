@@ -19,6 +19,7 @@ const DialogActionButtons = ({
         type={primaryButtonType}
         onClick={handlePrimaryClick}
         color={primaryButtonColor}
+        data-cy="confirm-dialog-action"
       >
         {primaryButtonLabel}
       </Button>

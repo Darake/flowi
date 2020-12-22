@@ -37,6 +37,7 @@ const CategoryCreationDialog = () => {
         color="primary"
         size="small"
         onClick={handleClickOpen}
+        data-cy="add-category-button"
       >
         ADD CATEGORY
       </Button>
@@ -59,6 +60,7 @@ const CategoryCreationDialog = () => {
             fullWidth
             value={name}
             onChange={e => setName(e.target.value)}
+            data-cy="category-name-field"
           />
         </DialogContent>
         <DialogActionButtons

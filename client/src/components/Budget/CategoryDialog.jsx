@@ -44,7 +44,7 @@ const CategoryDialog = ({ open, setOpen }) => {
           aria-label="disabled tabs example"
         >
           <Tab label="Fund adding" />
-          <Tab label="Edit category" />
+          <Tab label="Edit category" data-cy="edit-category-tab" />
         </Tabs>
       </Paper>
       {tab === 0 ? (

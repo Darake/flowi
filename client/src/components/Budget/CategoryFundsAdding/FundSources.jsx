@@ -87,11 +87,13 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
             label="Source"
             name={`fundSources.${index}.object`}
             formControlClassName={classes.fundSourceObject}
+            data-cy="add-funds-source"
           >
             <MenuItem
               value={accounts.name}
               className={classes.fundSourceOption}
               disabled={sourceAlreadySelected('Accounts')}
+              data-cy="source-option-account"
             >
               Accounts
               {sourceNotSelected(index) ? (
@@ -110,6 +112,7 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
                   value={b.id}
                   className={classes.fundSourceOption}
                   disabled={sourceAlreadySelected(b.id)}
+                  data-cy="source-option"
                 >
                   {b.name}
                   {sourceNotSelected(index) ? (
@@ -125,6 +128,7 @@ const FundSources = ({ values, setFieldValue, arrayHelpers }) => {
             className={classes.fundSourceAddition}
             disabled={sourceNotSelected(index)}
             onChange={e => handleAmountChange(e, index)}
+            data-cy="source-amount"
           />
           {moreThanOneSources(index) ? (
             <IconButton

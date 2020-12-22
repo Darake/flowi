@@ -16,7 +16,12 @@ const AccountContent = ({ account, handleEdit }) => (
       <Balance balance={account.balance} />
     </CardContent>
     <CardActions>
-      <Button size="small" type="button" onClick={() => handleEdit()}>
+      <Button
+        size="small"
+        type="button"
+        onClick={() => handleEdit()}
+        data-cy="edit-account-button"
+      >
         Edit name
       </Button>
       <AccountDeletionDialog account={account} />

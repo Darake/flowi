@@ -29,6 +29,7 @@ const FundFieldArray = ({ values, setFieldValue }) => {
             size="small"
             color="primary"
             onClick={() => arrayHelpers.push({ object: '', addition: '' })}
+            data-cy="add-additional-source-button"
           >
             Add additional source
           </Button>

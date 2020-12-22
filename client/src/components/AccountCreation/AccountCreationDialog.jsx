@@ -58,10 +58,15 @@ const AccountCreationDialog = () => {
         className={classes.button}
         size="small"
         onClick={handleOpen}
+        data-cy="add-account-button"
       >
         Add Account
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        data-cy="account-creation-dialog"
+      >
         <Formik
           initialValues={{
             accountName: '',
@@ -79,12 +84,14 @@ const AccountCreationDialog = () => {
                 fullWidth
                 autoFocus
                 className={classes.account}
+                data-cy="account-name-field"
               />
 
               <FormikAmountField
                 name="startingBalance"
                 label="Starting balance"
                 fullWidth
+                data-cy="account-balance-field"
               />
             </DialogContent>
             <DialogActionButtons handleClose={handleClose} />

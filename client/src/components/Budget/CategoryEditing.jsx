@@ -42,7 +42,13 @@ const CategoryEditing = ({ handleClose }) => {
       <DialogTitle id="category-editing">{`Edit ${category.name}`}</DialogTitle>
       <DialogContent className={classes.editingDialogContent}>
         <DialogContentText>Enter a new name for the category</DialogContentText>
-        <TextField type="text" fullWidth value={newName} onChange={onChange} />
+        <TextField
+          type="text"
+          fullWidth
+          value={newName}
+          onChange={onChange}
+          data-cy="edit-category-field"
+        />
         <CategoryDeletionDialog closeMainDialog={handleClose} />
       </DialogContent>
       <DialogActionButtons

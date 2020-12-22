@@ -41,11 +41,18 @@ const AccountEditing = ({ account, setEditing }) => {
           onChange={onChange}
           autoFocus
           className={classes.nameEdit}
+          data-cy="account-name-edit-field"
         />
         <Balance balance={account.balance} />
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" type="button" onClick={handleSave}>
+        <Button
+          size="small"
+          color="primary"
+          type="button"
+          onClick={handleSave}
+          data-cy="save-account-edit-button"
+        >
           SAVE
         </Button>
       </CardActions>

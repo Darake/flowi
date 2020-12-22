@@ -50,6 +50,7 @@ const DesktopNav = () => {
         paper: classes.drawerPaper
       }}
       anchor="left"
+      data-cy="side-bar"
     >
       <Divider />
       <List className={classes.links}>

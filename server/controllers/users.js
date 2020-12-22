@@ -1,6 +1,5 @@
-const bcrypt = require('bcryptjs');
 const usersRouter = require('express').Router();
-const User = require('../models/user');
+const { createUser } = require('../services/userService')
 
 usersRouter.post('/', async (req, res, next) => {
   try {
@@ -13,18 +12,9 @@ usersRouter.post('/', async (req, res, next) => {
         error: 'Invalid password'
       });
     } else {
-      const saltRounds = 10;
-      const passwordHash = await bcrypt.hash(password, saltRounds);
+      const newUser = await createUser({ email, password, currency });
 
-      const user = new User({
-        email,
-        passwordHash,
-        currency
-      });
-
-      const savedUser = await user.save();
-
-      res.json(savedUser);
+      res.json(newUser);
     }
   } catch (exception) {
     next(exception);

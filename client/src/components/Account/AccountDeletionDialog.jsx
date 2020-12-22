@@ -31,7 +31,12 @@ const AccountDeletionDialog = ({ account }) => {
 
   return (
     <div>
-      <Button size="small" color="secondary" onClick={handleClickOpen}>
+      <Button
+        size="small"
+        color="secondary"
+        onClick={handleClickOpen}
+        data-cy="delete-account-button"
+      >
         DELETE
       </Button>
       <Dialog

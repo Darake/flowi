@@ -44,6 +44,7 @@ const CategoryDeletionDialog = ({ closeMainDialog }) => {
         color="primary"
         onClick={handleClickOpen}
         className={classes.deleteCategoryButton}
+        data-cy="delete-category-button"
       >
         DELETE CATEGORY
       </Button>

@@ -1,9 +1,10 @@
 const testingRouter = require('express').Router();
-const User = require('../models/user');
 const { connectToDB, connectToTestingDB } = require('../database');
+const { clearTestDB, initTestData } = require('../services/testService');
 
 testingRouter.post('/reset', async (req, res) => {
-  await User.deleteMany({});
+  await clearTestDB();
+  await initTestData();
   res.status(204).end();
 });
 
