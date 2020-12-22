@@ -5,7 +5,7 @@ describe('Account', () => {
   })
 
   it('can see already created accounts', () => {
-    cy.getEl('side-bar').should('contain', 'Nordeaaa')
+    cy.getEl('side-bar').should('contain', 'Nordea')
   })
 
   it('cant create new account without a name', () => {
