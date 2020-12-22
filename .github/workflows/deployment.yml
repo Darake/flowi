@@ -1,0 +1,23 @@
+name: Deployment
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install root dependencies
+        uses: npm ci
+
+      - name: Bring up environment
+        run: npm run dev
+
+      - name: Run Cypress tests
+        run: npm run cypress:run
