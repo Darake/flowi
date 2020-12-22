@@ -106,7 +106,7 @@ Because of the design philosophy of not being able to budget money not owned, ou
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-Deployment is handled automatically when a new feature is pulled into the master branch in github. When a change happens, Heroku recognises it and builds a new docker container for production and deploys it. A production Dockerfile and heroku.yml are used for configuring the deployment.
+Deployment is handled automatically when a new commit is pushed into master and the Cypress tests run by Github Actions pass. A production Dockerfile and heroku.yml are used for configuring the deployment.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
